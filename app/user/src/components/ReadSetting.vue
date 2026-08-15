@@ -59,7 +59,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { fontOptions, themes } from '@/constant';
+import { fontOptions, themes } from '@/constants';
 import { useReadSettingStore } from '@/store';
 import type { ReadSettings } from '@/types';
 import {

@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-card header-container container">
+  <header class="bg-card container header-container">
     <QIcon
       v-show="isMobile"
       icon="Menu"
@@ -7,7 +7,7 @@
       @click="showMenu = !showMenu"
     />
     <div class="container-center">
-      <QAvatar url="/admin/figure.webp" size="30px" />
+      <QAvatar :url="avatarUrl" size="30px" />
       <span>{{ userStore.getUser?.userName || 'Author' }}</span>
       <QThemeToggle :size="24" />
     </div>
@@ -24,10 +24,13 @@ import {
   QIcon,
   useScreenSize,
 } from 'qyani-components';
-import SiderBar from '@/components/common/SiderBar.vue';
-const isMobile = useScreenSize.getWidth(768);
-import { useAuthStore } from '@/store';
+import SiderBar from './SiderBar.vue';
+import { useAuthStore } from '@guga-reading/shares';
 import { ref } from 'vue';
+withDefaults(defineProps<{ avatarUrl?: string }>(), {
+  avatarUrl: '/author/figure.webp',
+});
+const isMobile = useScreenSize.getWidth(768);
 const showMenu = ref(false);
 const userStore = useAuthStore();
 </script>

@@ -69,9 +69,12 @@ export const useBookStore = defineStore('book', {
         const previewBooks =
           this.booksSplitCategoryMap.get(currentCategory) || [];
         for (let i = 0; i < data!.length; i++) {
-          this.books.set(data![i].id, data![i]);
-          cache.set(`book_${data![i].id}`, data![i]);
-          previewBooks.push(data![i].id);
+          const item = data![i];
+          if (item) {
+            this.books.set(item.id, item);
+            cache.set(`book_${item.id}`, item);
+            previewBooks.push(item.id);
+          }
         }
         this.booksSplitCategoryMap.set(currentCategory, previewBooks);
         if (data!.length === 0) {

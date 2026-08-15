@@ -85,9 +85,25 @@ cd android-user
 
 ## 前端架构要点
 
-- 三个 Vue 应用共享 `@guga-reading/shares`（`useApiXxx` API 封装、`request` 拦截器、`txtParser`）与 `@guga-reading/types`；**前后端字段命名必须保持一致**（如 `userName` vs `username`），改动需两端同步。
-- 认证状态用 Pinia store（`user` 端 `useAuthStore`），登录后设置 Axios 全局 `Authorization` 头。
+- **共享包分层**（改动共享包后必须重跑 `pnpm types`，顺序 types → shares → ui）：
+  - `@guga-reading/types`：前后端共享 TS 类型。
+  - `@guga-reading/shares`：`useApiXxx` API 封装、`request` 拦截器、`txtParser`、共享 store（`useAuthStore`/`useMenuStore`）、应用装配工厂 `setupGugaApp`（统一 axios baseURL/401 拦截器/登录守卫/登出监听/页面标题/菜单注入）。
+  - `@guga-reading/ui`：author/admin 共享业务组件（`EditableTitle`/`ContentEditor`/`HeaderNavigation`/`SiderBar`/`LoginView`，**仅具名导出**）与全局样式 `@guga-reading/ui/style.css`（两端 private.css 的公共部分，需先于 private.css 引入）。
+  - `@guga-reading/config`：统一 Vite 预设 `createGugaViteConfig`（alias、拆包、插件）。
+- **前后端字段命名必须保持一致**（如 `userName` vs `username`），改动需两端同步；`packages/types` 为共享类型唯一来源。
+- 认证 store 已统一为 `@guga-reading/shares` 的 `useAuthStore`，登录后设置 Axios 全局 `Authorization` 头；应用装配统一走 `main.ts` 里的 `setupGugaApp`，`App.vue` 只放布局。
 - UI 组件库 `qyani-components` 为本地库，各应用 `.env.local` 的 `QYANI_COMPONENTS_PATH` 可指向本地源码调试。
+
+### 前端目录规范（app/\*/src 三端统一，按需创建）
+
+- `views/` 页面（路由组件）
+- `components/` 业务组件（后台公共组件从 `@guga-reading/ui` 具名导入，勿在端内复制）
+- `composables/` 组合式函数（复数命名）
+- `store/` 端内 Pinia store（共享 store 在 `@guga-reading/shares`，经 `store/index.ts` 转发）
+- `config/` 端内配置（如登录守卫路径）
+- `constants/` 端内常量与主题（复数命名）
+- `types/` 端内类型（共享类型放 `@guga-reading/types`）
+- 各端 `main.ts` 只保留 createApp + use + `setupGugaApp` + mount；`private.css` 只保留端内主色与独有规则。
 
 ## 代码规范
 

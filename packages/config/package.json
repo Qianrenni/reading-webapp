@@ -1,0 +1,19 @@
+{
+  "name": "@guga-reading/config",
+  "version": "1.0.0",
+  "description": "GUGA 各前端应用共享的构建配置（Vite 预设）",
+  "type": "module",
+  "main": "./src/vite-preset.js",
+  "types": "./src/vite-preset.d.ts",
+  "exports": {
+    ".": "./src/vite-preset.js"
+  },
+  "scripts": {},
+  "license": "ISC",
+  "dependencies": {
+    "@vitejs/plugin-vue": "^6.0.1"
+  },
+  "devDependencies": {
+    "vite": "^7.1.2"
+  }
+}

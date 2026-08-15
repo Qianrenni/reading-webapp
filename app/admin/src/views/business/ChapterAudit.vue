@@ -14,6 +14,7 @@
           v-model="srcContent"
           :disabled="true"
           content-height="calc(100vh - 15.5rem)"
+          compact
         />
       </div>
       <div class="inner-container-column container-flex-1 container-h100">
@@ -23,6 +24,7 @@
           v-model="content"
           :disabled="true"
           content-height="calc(100vh - 15.5rem)"
+          compact
         />
       </div>
     </div>
@@ -69,8 +71,7 @@ import router from '@/route';
 import { useApiAudit } from '@guga-reading/shares';
 import type { BookChapter } from '@guga-reading/types';
 import { onBeforeMount, ref, watch } from 'vue';
-import ContentEditor from '@/components/common/ContentEditor.vue';
-import EditableTitle from '@/components/common/EditableTitle.vue';
+import { ContentEditor, EditableTitle } from '@guga-reading/ui';
 import {
   QFormButton,
   useScreenSize,

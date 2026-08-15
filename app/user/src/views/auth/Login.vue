@@ -102,7 +102,7 @@ const run = async () => {
   );
   if (success) {
     useMessage.success('登录成功');
-    authStore.setRemeber(form.value.remember.length > 0);
+    authStore.setRemember(form.value.remember.length > 0);
     authStore.setToken(
       data!.accessToken!,
       data!.refreshToken!,
@@ -124,9 +124,9 @@ watch(
     if (!newValue) {
       return;
     }
-    if (authStore.redictUrl !== null) {
-      const url = authStore.redictUrl;
-      authStore.setRedictUrl(null);
+    if (authStore.redirectUrl !== null) {
+      const url = authStore.redirectUrl;
+      authStore.setRedirectUrl(null);
       router.replace(url);
     } else {
       router.replace({

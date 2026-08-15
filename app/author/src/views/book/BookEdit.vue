@@ -34,7 +34,7 @@ import {
   onUnmounted,
 } from 'vue';
 import { router } from '@/route';
-import ContentEditor from '@/components/common/ContentEditor.vue';
+import { ContentEditor } from '@guga-reading/ui';
 import BackButton from '@/components/common/BackButton.vue';
 import {
   QIcon,
@@ -45,7 +45,7 @@ import {
 import { UseTimeUtils } from '@qianrenni/core';
 import { useApiAuthor } from '@guga-reading/shares';
 import { TranslationStatus, type BookChapter } from '@guga-reading/types';
-import EditableTitle from '@/components/common/EditableTitle.vue';
+import { EditableTitle } from '@guga-reading/ui';
 const bookId = parseInt(router.currentRoute.value.query.bookId as string);
 const chapterIds = Array.isArray(router.currentRoute.value.query.chapterId)
   ? router.currentRoute.value.query.chapterId.map((id) =>

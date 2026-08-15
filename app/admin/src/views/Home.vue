@@ -8,7 +8,7 @@
 </template>
 <script lang="ts" setup>
 import { useScreenSize } from 'qyani-components';
-import SiderBar from '@/components/common/SiderBar.vue';
+import { SiderBar } from '@guga-reading/ui';
 defineOptions({ name: 'HomeView' });
 const isMobile = useScreenSize.getWidth(768);
 </script>

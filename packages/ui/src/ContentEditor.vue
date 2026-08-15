@@ -1,6 +1,6 @@
 <!-- AuthorWritingEditor.vue -->
 <template>
-  <div class="writing-editor">
+  <div class="writing-editor" :class="{ compact }">
     <div
       ref="editorRef"
       class="writing-area"
@@ -27,11 +27,14 @@ const props = withDefaults(
     modelValue?: string;
     contentHeight?: string;
     disabled?: boolean;
+    /** 紧凑模式：缩小编辑区留白（admin 审核页使用） */
+    compact?: boolean;
   }>(),
   {
     modelValue: '',
     contentHeight: 'auto',
     disabled: false,
+    compact: false,
   },
 );
 
@@ -196,10 +199,15 @@ defineExpose({
   box-shadow:
     0 4px 20px rgba(0, 0, 0, 0.15),
     inset 0 0 0 1px rgba(139, 69, 19, 0.1);
-  padding: 1rem;
+  padding: 2rem;
   padding-bottom: 1rem;
   font-family:
     'Songti SC', 'SimSun', 'STSong', serif, Georgia, 'Times New Roman';
+}
+
+.writing-editor.compact {
+  padding: 1rem;
+  padding-bottom: 1rem;
 }
 
 .writing-area {
@@ -245,7 +253,7 @@ defineExpose({
     font-size: 1.1rem;
     line-height: 2.1rem;
   }
-  .writing-editor {
+  .writing-editor.compact {
     padding: 0.5rem;
   }
 }

@@ -1,24 +1,17 @@
+/* admin 端私有全局样式：主色与后台端独有规则（公共部分见 @guga-reading/ui/style.css） */
 /* eslint-disable css/no-invalid-properties */
 body {
   height: 100vh;
   width: 100vw;
 }
 #app {
-  height: 100%;
-  width: 100%;
   display: flex;
 }
 :root {
-  --banner-width: 1200px;
   --primary-color: #1d4ed8;
   --primary-hover: #15399a;
   --primary-light: #4e7dff;
   --link-hover: #0240ed;
-  --shadow-element: rgba(0, 0, 0, 0.1);
-  --content-height-without-header: calc(100vh - 3.2rem);
-  --content-editor-background-color: #f8f3e9;
-  --content-editor-color: #2c1810;
-  --content-editor-pointer-color: #5a3e2b;
   --tag-primary-color: #1d4ed8;
 }
 
@@ -27,111 +20,17 @@ body.dark-mode {
   --primary-hover: #15399a;
   --primary-light: #4e7dff;
   --link-hover: #0240ed;
-  --content-editor-background-color: var(--card-bg);
-  --content-editor-color: var(--text-color);
-  --content-editor-pointer-color: var(--text-color);
-}
-
-.content-height {
-  height: var(--content-height-without-header);
-}
-
-.content-container {
-  width: 100%;
-  height: var(--content-height-without-header);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-body.dark-mode {
   --shadow-element: rgba(255, 255, 255, 0.3);
 }
 
-body {
-  font-family:
-    Arial,
-    PingFangSC-Regular,
-    Microsoft Yahei,
-    'Source Han Serif SC',
-    SimSun,
-    sans-serif;
-}
-
-.container-banner {
-  width: var(--banner-width);
-  margin: 0 auto;
-}
-
-@media screen and (max-width: 768px) {
-  .container-banner {
-    width: 100%;
-  }
-}
-
-.header-container {
-  display: flex;
-  justify-content: flex-end;
-  border-bottom: 1px solid var(--primary-color);
-}
-
-@media screen and (max-width: 768px) {
-  .header-container {
-    justify-content: space-between;
-  }
-}
-
-.siderbar-item {
-  cursor: pointer;
-  min-width: 10rem;
-  padding: 0.5rem 0.8rem;
-  margin: 0.2rem 0.4rem;
-}
-.hover-color-primary:hover {
-  color: var(--primary-color);
-}
-
-.button-delete {
-  background-color: red;
-  cursor: pointer;
-  color: white;
-  outline: none;
-  border: none;
-}
-
-.button-delete:hover {
-  background-color: darkred;
-}
 .bg-hover-secondary:hover {
   border-radius: 0.5rem;
 }
+
 .active-common {
   background-color: var(--primary-color);
   color: white;
   border-radius: 0.5rem;
-}
-
-.content-editor-like {
-  font-family:
-    'Songti SC', 'SimSun', 'STSong', serif, Georgia, 'Times New Roman',
-    sans-serif;
-  font-size: 1.25rem;
-  line-height: 2.4rem;
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.15),
-    inset 0 0 0 1px rgba(139, 69, 19, 0.1);
-
-  background: var(--content-editor-background-color);
-
-  color: var(--content-editor-color); /* 深墨色 */
-  outline: none;
-  border: none;
-
-  caret-color: var(--content-editor-pointer-color); /* 棕褐色光标 */
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  line-break: anywhere;
 }
 
 .progress-bar {

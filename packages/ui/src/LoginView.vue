@@ -1,7 +1,7 @@
 <template>
   <div class="content-container">
     <div class="container-column bg-card">
-      <h3 class="text-center">作者登录</h3>
+      <h3 class="text-center">{{ title }}</h3>
       <QFormText
         prefixIcon="User"
         v-model="form.username"
@@ -47,8 +47,7 @@
 </template>
 <script setup lang="ts">
 import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { useApiCaptcha } from '@guga-reading/shares';
-import { useApiAuth } from '@guga-reading/shares';
+import { useApiCaptcha, useApiAuth, useAuthStore } from '@guga-reading/shares';
 import {
   useMessage,
   QFormText,
@@ -57,12 +56,15 @@ import {
   QLazyImage,
   QLoading,
 } from 'qyani-components';
-import { useAuthStore } from '@/store';
-import { router } from '@/route';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
+withDefaults(defineProps<{ title?: string }>(), {
+  title: '作者登录',
+});
 defineOptions({
   name: 'LoginView',
 });
+const router = useRouter();
 const authStore = useAuthStore();
 if (authStore.isLogin) {
   router.push('/');
@@ -94,7 +96,7 @@ const run = async () => {
   );
   if (success) {
     useMessage.success('登录成功');
-    authStore.setRemeber(form.value.remember.length > 0);
+    authStore.setRemember(form.value.remember.length > 0);
     authStore.setToken(
       data!.accessToken!,
       data!.refreshToken!,
@@ -116,9 +118,9 @@ watch(
     if (!newValue) {
       return;
     }
-    if (authStore.redictUrl !== null) {
-      const url = authStore.redictUrl;
-      authStore.setRedictUrl(null);
+    if (authStore.redirectUrl !== null) {
+      const url = authStore.redirectUrl;
+      authStore.setRedirectUrl(null);
       router.replace(url);
     } else {
       router.replace({

@@ -9,7 +9,7 @@
           'active-common': menuStore.selectedItem === item.name,
         },
       ]"
-      @click="handelClick(item)"
+      @click="handleClick(item)"
     >
       <QIcon :icon="item.icon ?? 'Copy'" :size="24" />
       <span>{{ item.name }}</span>
@@ -18,12 +18,13 @@
 </template>
 <script lang="ts" setup>
 import { QIcon } from 'qyani-components';
-import { useMenuStore } from '@/store';
+import { useMenuStore } from '@guga-reading/shares';
 import type { MenuItem } from '@guga-reading/types';
-import { router } from '@/route';
+import { useRouter } from 'vue-router';
 defineOptions({ name: 'SiderBar' });
 const menuStore = useMenuStore();
-const handelClick = (item: MenuItem) => {
+const router = useRouter();
+const handleClick = (item: MenuItem) => {
   if (item.name === menuStore.selectedItem) {
     return;
   }

@@ -8,6 +8,8 @@
     "build": "vue-tsc -b && vite build"
   },
   "dependencies": {
+    "@guga-reading/config": "workspace:*",
+    "@guga-reading/ui": "workspace:*",
     "pinia": "^3.0.4",
     "qyani-components": "^1.6.3",
     "@qianrenni/core": "^1.0.0",

@@ -1,7 +1,7 @@
 //
 import { defineStore } from 'pinia';
 import type { User } from '@guga-reading/types';
-import { useApiAuth } from '@guga-reading/shares';
+import { useApiAuth } from '../api';
 import { UseLocalStorage } from 'qyani-components';
 import axios from 'axios';
 
@@ -16,16 +16,16 @@ export const useAuthStore = defineStore('auth', {
       refreshToken: string;
       tokenType: string;
     }> | null;
-    redictUrl: string | null;
-    isRemeber: boolean;
+    redirectUrl: string | null;
+    isRemember: boolean;
   } => ({
     accessToken: null,
     refreshToken: null,
     tokenType: null,
     user: null as User | null,
     tokenLocalStorage: null,
-    redictUrl: null,
-    isRemeber: true,
+    redirectUrl: null,
+    isRemember: true,
   }),
   getters: {
     isLogin: (state) => state.user !== null,
@@ -43,7 +43,7 @@ export const useAuthStore = defineStore('auth', {
       }
       return state.tokenLocalStorage;
     },
-    getRedictUrl: (state) => state.redictUrl,
+    getRedirectUrl: (state) => state.redirectUrl,
   },
   actions: {
     async initial() {
@@ -79,14 +79,14 @@ export const useAuthStore = defineStore('auth', {
       }
       return false;
     },
-    setRemeber(isRemeber: boolean) {
-      this.isRemeber = isRemeber;
+    setRemember(isRemember: boolean) {
+      this.isRemember = isRemember;
     },
     setToken(accessToken: string, refreshToken: string, tokenType: string) {
       this.accessToken = accessToken;
       this.refreshToken = refreshToken;
       this.tokenType = tokenType;
-      if (!this.isRemeber) {
+      if (!this.isRemember) {
         this.getTokenLocalStorage.removeItem('token');
         return;
       }
@@ -119,11 +119,11 @@ export const useAuthStore = defineStore('auth', {
         console.error(message);
       }
     },
-    setRedictUrl(url: string | null) {
-      this.redictUrl = url;
+    setRedirectUrl(url: string | null) {
+      this.redirectUrl = url;
     },
-    clearRedictUrl() {
-      this.redictUrl = null;
+    clearRedirectUrl() {
+      this.redirectUrl = null;
     },
   },
 });

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-const routs = [
+const routes = [
   {
     path: '/',
     name: 'Home',
@@ -70,11 +70,11 @@ const routs = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('./views/auth/LoginView.vue'),
+    component: () => import('@guga-reading/ui').then((m) => m.LoginView),
     meta: { title: '登录' },
   },
 ];
 export const router = createRouter({
   history: createWebHistory('/author/'),
-  routes: routs,
+  routes,
 });

@@ -1,4 +1,4 @@
-import type { bgColors, fontOptions, textColors, themes } from '@/constant';
+import type { bgColors, fontOptions, textColors, themes } from '@/constants';
 
 /**
  * 阅读设置

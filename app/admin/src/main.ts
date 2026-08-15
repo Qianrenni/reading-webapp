@@ -2,9 +2,31 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import router from './route';
 import 'qyani-components/dist/style.css';
+import '@guga-reading/ui/style.css';
 import './private.css';
 import App from './App.vue';
+import { setupGugaApp } from '@guga-reading/shares';
+import { excludePaths } from '@/config';
+import type { MenuItem } from '@guga-reading/types';
+const menuItems: MenuItem[] = [
+  { name: '仪表盘', path: '/dashboard', icon: 'Work' },
+  { name: '书籍管理', path: '/book-manage', icon: 'Book' },
+  { name: '稿件审核', path: '/draft-manage', icon: 'Draft' },
+  { name: '作者审核', path: '/author-audit', icon: 'Star' },
+  { name: '用户管理', path: '/user-manage', icon: 'AccountSetting' },
+  { name: '权限管理', path: '/permission-manage', icon: 'Lock' },
+  { name: '系统设置', path: '/system-setting', icon: 'SystemSetting' },
+];
 const app = createApp(App);
 app.use(createPinia());
 app.use(router);
+setupGugaApp({
+  router,
+  baseURL: import.meta.env.VITE_BASE_URL,
+  iconBase: '/admin',
+  authMode: 'exclude',
+  paths: excludePaths,
+  setTitle: false,
+  menuItems,
+});
 app.mount('#app');

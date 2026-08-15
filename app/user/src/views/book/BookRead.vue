@@ -53,7 +53,7 @@
           class="inner-container-column container-align-center bg-hover-secondary"
           @click="
             currentContentIndex > 0
-              ? run(computeCatalog[currentContentIndex - 1].id)
+              ? run(computeCatalog[currentContentIndex - 1]?.id ?? 0)
               : void 0
           "
         >
@@ -64,7 +64,7 @@
           class="inner-container-column container-align-center bg-hover-secondary"
           @click="
             currentContentIndex < computeCatalog.length - 1
-              ? run(computeCatalog[currentContentIndex + 1].id)
+              ? run(computeCatalog[currentContentIndex + 1]?.id ?? 0)
               : void 0
           "
         >
@@ -169,7 +169,7 @@
             class="inner-container-column container-align-center"
             @click="
               currentContentIndex > 0
-                ? run(computeCatalog[currentContentIndex - 1].id)
+                ? run(computeCatalog[currentContentIndex - 1]?.id ?? 0)
                 : void 0
             "
           >
@@ -180,7 +180,7 @@
             class="inner-container-column container-align-center"
             @click="
               currentContentIndex < computeCatalog.length - 1
-                ? run(computeCatalog[currentContentIndex + 1].id)
+                ? run(computeCatalog[currentContentIndex + 1]?.id ?? 0)
                 : void 0
             "
           >
@@ -300,7 +300,10 @@ const currentContentIndex = computed(() => {
 watch(
   () => currentContentIndex.value,
   (index) => {
-    useTitle(catalog.value[index].title);
+    const currentCatalog = catalog.value[index];
+    if (currentCatalog) {
+      useTitle(currentCatalog.title);
+    }
     showComment.value = false;
   },
 );
@@ -441,8 +444,9 @@ onBeforeMount(async () => {
       ]);
       catalog.value = rawCatalog;
       book.value = rawBook;
-      if (catalog.value.length > 0) {
-        run(catalog.value[0].id);
+      const firstCatalog = catalog.value[0];
+      if (firstCatalog) {
+        run(firstCatalog.id);
       }
     }
   } catch (e) {

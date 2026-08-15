@@ -32,7 +32,10 @@ watch(
 onBeforeMount(async () => {
   bookStore.getBookCategory().then(() => {
     if (selectedCategory.value == '' && bookStore.categories.length > 0) {
-      selectedCategory.value = bookStore.categories[0];
+      const firstCategory = bookStore.categories[0];
+      if (firstCategory !== undefined) {
+        selectedCategory.value = firstCategory;
+      }
     }
   });
 });

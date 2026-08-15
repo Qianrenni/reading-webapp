@@ -1,2 +1,1 @@
-export * from './useAuthStore';
-export * from './MenuStore';
+export { useAuthStore, useMenuStore } from '@guga-reading/shares';

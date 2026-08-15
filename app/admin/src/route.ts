@@ -56,7 +56,8 @@ const routes = [
   },
   {
     path: '/login',
-    component: () => import('@/views/auth/LoginView.vue'),
+    component: () => import('@guga-reading/ui').then((m) => m.LoginView),
+    props: { title: '管理员登录' },
   },
 ];
 const router = createRouter({

@@ -38,9 +38,11 @@ export const useReadingHistoryStore = defineStore('readingHistory', {
       const index = this.readingHistory.findIndex((item) => item.id === bookId);
       if (index !== -1) {
         const [item] = this.readingHistory.splice(index, 1);
-        item.lastChapterId = chapterId;
-        item.lastPosition = lastPosition;
-        this.readingHistory.unshift(item);
+        if (item) {
+          item.lastChapterId = chapterId;
+          item.lastPosition = lastPosition;
+          this.readingHistory.unshift(item);
+        }
       } else {
         const [responseProgress, responseBook] = await Promise.all([
           useApiBookReadingProgress.update(bookId, chapterId, lastPosition),
