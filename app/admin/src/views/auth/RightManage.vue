@@ -10,7 +10,7 @@
 
     <!-- 角色列表 + 详情面板 -->
     <div
-      class="flex gap-2 items-center flex-row-768-column"
+      class="flex gap-2 items-center container-row-768-column"
       style="align-items: flex-start"
     >
       <!-- 角色列表 -->

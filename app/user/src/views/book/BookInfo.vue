@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-row-768-column all mx-auto">
+  <div class="flex container-row-768-column all mx-auto">
     <div class="flex flex-col gap-2 flex-1 left">
       <div class="flex gap-2 p-2 bg-card shadow-common w-full">
         <QLazyImage :src="book.cover" :width="width" :height="height" />
         <div class="text-secondary flex flex-col gap-2">
           <h3>{{ book.name }}</h3>
-          <div class="flex flex-row-768-column gap-4">
+          <div class="flex container-row-768-column gap-4">
             <div class="flex items-center">
               <QIcon icon="User" size="16px" />
               <h5>{{ book.author }}</h5>

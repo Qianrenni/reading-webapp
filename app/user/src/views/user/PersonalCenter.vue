@@ -1,6 +1,6 @@
 <template>
   <div
-    class="personal-center-container flex flex-row-768-column mx-auto justify-between"
+    class="personal-center-container flex container-row-768-column mx-auto justify-between"
   >
     <div class="flex flex-col gap-2">
       <div
@@ -124,7 +124,7 @@
         <div class="w-full">
           <h3>Reading Goals</h3>
         </div>
-        <div class="w-full gap-6 flex flex-row-768-column text-white">
+        <div class="w-full gap-6 flex container-row-768-column text-white">
           <div class="p-6 radius-xl flex flex-col gap-6 line-gradient-purple">
             <p>This Month</p>
             <h2>8/12 books</h2>
