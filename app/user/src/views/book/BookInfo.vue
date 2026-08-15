@@ -96,7 +96,7 @@
               class="flex gap-2 p-2 bg-hover-secondary radius-sm"
             >
               <QAvatar
-                :url="comment.userAvatar || '/figure.webp'"
+                :url="comment.userAvatar || DEFAULT_AVATAR"
                 size="36px"
               />
               <div class="flex-1 flex flex-col gap-1 min-w-0">
@@ -210,6 +210,7 @@
 
 <script setup lang="ts">
 import { useAuthStore, useBookStore } from '@/store';
+import { DEFAULT_AVATAR } from '@/constants';
 import type { Book, BookComment, Catalog } from '@guga-reading/types';
 import { computed, onBeforeMount, ref, watch } from 'vue';
 import {

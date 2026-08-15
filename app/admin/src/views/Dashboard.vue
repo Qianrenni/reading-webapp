@@ -1,5 +1,10 @@
 <template>
-  <div class="flex flex-col gap-2">
+  <div
+    class="flex flex-col gap-2 scroll-container"
+    :style="{
+      height: `${isMobile ? 'calc(100vh - 14rem)' : 'calc(100vh - 10rem)'}`,
+    }"
+  >
     <p class="text-08rem text-right">每30秒更新一次</p>
 
     <!-- 统计卡片行：作者/图书/用户/CPU -->
@@ -111,8 +116,10 @@ import {
   useApiUser,
 } from '@guga-reading/shares';
 import type { SystemInfo } from '@guga-reading/types';
+import { useScreenSize } from 'qyani-components';
 import { computed, onBeforeMount, onBeforeUnmount, ref } from 'vue';
 
+const isMobile = useScreenSize.getWidth(768);
 const systemInfo = ref<SystemInfo>({} as SystemInfo);
 const authorCount = ref(0);
 const bookCount = ref(0);

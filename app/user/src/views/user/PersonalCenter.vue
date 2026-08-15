@@ -10,7 +10,7 @@
           size="100px"
           :url="
             userStore.getUser?.avatar == ''
-              ? '/figure.webp'
+              ? DEFAULT_AVATAR
               : userStore.getUser?.avatar!
           "
         />
@@ -140,6 +140,7 @@
 </template>
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from 'vue';
+import { DEFAULT_AVATAR } from '@/constants';
 import { useAuthStore } from '@/store';
 import { useReadingHistoryStore } from '@/store';
 import { useApiAuthorApplication } from '@guga-reading/shares';

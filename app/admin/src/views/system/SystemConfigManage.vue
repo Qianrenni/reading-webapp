@@ -1,5 +1,10 @@
 <template>
-  <div class="flex flex-col gap-2 p-2 bg-card">
+  <div
+    class="flex flex-col gap-2 p-2 bg-card scroll-container"
+    :style="{
+      height: `${isMobile ? 'calc(100vh - 14rem)' : 'calc(100vh - 10rem)'}`,
+    }"
+  >
     <div class="flex items-center justify-between flex-wrap gap-2">
       <h4>系统配置（动态热更新）</h4>
       <div class="flex gap-2">
@@ -61,6 +66,7 @@ import {
   QFormButton,
   QSkeleton,
   useMessage,
+  useScreenSize,
 } from 'qyani-components';
 import { useApiSystem } from '@guga-reading/shares';
 import type { ConfigView } from '@guga-reading/types';
@@ -69,6 +75,7 @@ defineOptions({
   name: 'SystemConfigManage',
 });
 
+const isMobile = useScreenSize.getWidth(768);
 const configs = ref<ConfigView[]>([]);
 const loading = ref(false);
 const errorMsg = ref('');

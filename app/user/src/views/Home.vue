@@ -87,8 +87,9 @@ onActivated(() => {
 </template>
 <style lang="css" scoped>
 .home-container {
-  grid-template-columns: repeat(auto-fill, 350px);
+  grid-template-columns: repeat(auto-fit, 350px);
   grid-auto-rows: 120px;
+  justify-content: center;
   border-top: 1px solid var(--primary-color);
 }
 </style>

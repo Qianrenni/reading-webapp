@@ -216,7 +216,7 @@
         :overlay="false"
         @close="showComment = false"
       >
-        <div class="flex flex-col gap-2 p-2">
+        <div class="book-read-comment-drawer flex flex-col gap-2 p-2">
           <h4>本行评论</h4>
           <p v-if="currentLineText" class="text-muted text-08rem text-one-line">
             {{ currentLineText }}
@@ -233,7 +233,7 @@
               class="flex gap-2 p-2 bg-hover-secondary radius-sm"
             >
               <QAvatar
-                :url="comment.userAvatar || '/figure.webp'"
+                :url="comment.userAvatar || DEFAULT_AVATAR"
                 size="32px"
               />
               <div class="flex-1 flex flex-col gap-1 min-w-0">
@@ -311,6 +311,7 @@ import type {
   ChapterCommentsMap,
 } from '@guga-reading/types';
 import { useAuthStore, useBookStore, useReadSettingStore } from '@/store';
+import { DEFAULT_AVATAR } from '@/constants';
 import router from '@/route';
 import {
   indexToCN,
@@ -656,6 +657,11 @@ onBeforeUnmount(() => {
   max-height: calc(100vh - 4.5rem);
 }
 
+/* 行评论抽屉（插槽内容）尺寸：PC 宽度不超过 35vw；手机高度不超过 70vh */
+.book-read-comment-drawer {
+  max-width: 35vw;
+}
+
 @media screen and (max-width: 768px) {
   .book-read-container {
     max-width: unset;
@@ -670,6 +676,11 @@ onBeforeUnmount(() => {
   .book-read-catalog-container {
     min-width: unset;
     width: 70vw;
+  }
+
+  .book-read-comment-drawer {
+    max-width: unset;
+    max-height: 70vh;
   }
 }
 </style>
