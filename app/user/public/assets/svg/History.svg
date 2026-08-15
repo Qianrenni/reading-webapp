@@ -1,0 +1,20 @@
+<svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        width="100"
+        height="100"
+        fill="transparent"
+        stroke="currentColor"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+>
+    <circle r="45" cx="50" cy="50"/>
+    <path d="
+          M50 15
+          V50
+          L75 75
+          "
+    />
+
+</svg>

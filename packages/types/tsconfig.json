@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    /* 基本选项 */
+    "target": "esnext",
+    // 编译目标 ES 版本(ESNext 兼容现代浏览器和打包工具)
+    "module": "esnext",
+    // 模块系统(ESModules,与 Vite 和现代打包工具兼容)
+    "moduleResolution": "node",
+    // 模块解析策略(Node.js 风格)
+    "declaration": true,
+    // 生成 .d.ts 类型声明文件(关键！)
+    "declarationDir": "dist/types",
+    // 类型声明文件输出目录(与 Vite 的 dist 一致)
+    "outDir": "dist",
+    // 编译输出目录(与 Vite 一致)
+    "strict": true,
+    // 启用所有严格类型检查选项
+    "esModuleInterop": true,
+    // 允许 CommonJS/ESModules 互操作(兼容性更好)
+    "skipLibCheck": true,
+    // 跳过库文件的类型检查(提升构建速度)
+    "forceConsistentCasingInFileNames": true,
+    // 强制文件名大小写一致(避免跨平台问题)
+    "allowJs": true,
+    "emitDeclarationOnly": true,
+    // 👈 只输出类型声明文件,不编译代码
+    /* 路径解析(可选,如果使用路径别名) */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    /* 依赖处理 */
+    "lib": [
+      "esnext",
+      "dom"
+    ]
+    // 包含的库声明文件(ESNext + DOM API)
+  },
+  "include": [
+    "src",
+  ],
+  // 只编译 src 目录下的文件
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+  // 排除 node_modules 和 dist 目录
+}

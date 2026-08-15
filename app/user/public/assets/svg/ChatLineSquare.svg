@@ -1,0 +1,25 @@
+<svg
+        width="100"
+        height="100"
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="hover-red"
+        stroke-width="5"
+        stroke="currentColor"
+        stroke-linecap="round"
+>
+    <!-- 垃圾桶盖子 -->
+    <path
+            d="
+        M20 75
+        V5
+        H80
+        V80 H35
+        Q10 100 20 75
+        M35 20 L65 20
+        M35 40 L65 40
+        M35 60 L65 60
+        "
+    />
+</svg>

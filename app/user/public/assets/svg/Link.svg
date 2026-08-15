@@ -1,0 +1,19 @@
+<svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        width="100"
+        height="100"
+        fill="transparent"
+        stroke="currentColor"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+>
+    <path
+            d="
+        M40 45 C2 70 2 92 58 65
+        M55 35 C98 2 98 40 68 60
+        M35 65 L75 38
+        "
+    />
+</svg>

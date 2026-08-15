@@ -1,0 +1,22 @@
+<svg viewBox="0 0 100 100" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景圆角矩形(可选,增加现代感) -->
+    <rect x="5" y="5" width="90" height="90" rx="12" ry="12" fill="#f5f5f5" stroke="#333" stroke-width="1"/>
+
+    <!-- 书本轮廓 -->
+    <path d="M25,30 L25,70 L45,75 L45,35 Z" fill="#fff" stroke="#333" stroke-width="2"/>
+    <path d="M45,35 L45,75 L65,70 L65,30 Z" fill="#fff" stroke="#333" stroke-width="2"/>
+
+    <!-- 书脊装饰线 -->
+    <line x1="45" y1="35" x2="45" y2="75" stroke="#333" stroke-width="1" stroke-dasharray="2,2"/>
+
+    <!-- 播放三角形(代表“开始阅读”) -->
+    <polygon points="38,50 38,60 48,55" fill="#e74c3c"/>
+
+    <!-- 小圆点装饰(代表翻页或进度) -->
+    <circle cx="70" cy="40" r="2" fill="#333"/>
+    <circle cx="73" cy="45" r="2" fill="#333"/>
+    <circle cx="70" cy="50" r="2" fill="#333"/>
+
+    <!-- 可选:文字缩写(如“READ”) -->
+    <!-- <text x="50" y="90" font-family="Arial, sans-serif" font-size="8" fill="#333" text-anchor="middle">READ</text> -->
+</svg>

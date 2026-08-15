@@ -1,0 +1,210 @@
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+:root {
+  --banner-width: 1200px;
+  --primary-color: #ea580c;
+  --primary-hover: #dc5005;
+  --primary-light: #f97316;
+  --link-hover: #dc5005;
+  --shadow-element: rgba(0, 0, 0, 0.1);
+  --content-height-without-header: calc(100vh - 3.2rem);
+  --content-editor-background-color: #f8f3e9;
+  --content-editor-color: #2c1810;
+  --content-editor-pointer-color: #5a3e2b;
+  --tag-primary-color: #ed8a60;
+}
+
+body.dark-mode {
+  --content-editor-background-color: var(--card-bg);
+  --content-editor-color: var(--text-color);
+  --content-editor-pointer-color: var(--text-color);
+}
+
+.content-height {
+  height: var(--content-height-without-header);
+}
+
+.content-container {
+  width: 100%;
+  height: var(--content-height-without-header);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+body.dark-mode {
+  --primary-color: #ea580c;
+  --primary-hover: #dc5005;
+  --primary-light: #f97316;
+  --shadow-element: rgba(255, 255, 255, 0.3);
+}
+
+body {
+  font-family:
+    Arial,
+    PingFangSC-Regular,
+    Microsoft Yahei,
+    'Source Han Serif SC',
+    SimSun,
+    sans-serif;
+}
+
+.text-success {
+  background-color: unset;
+}
+
+.hover-bottom-primary {
+  position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.hover-bottom-primary::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 0.15rem;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease-in-out;
+}
+
+.hover-bottom-primary:hover {
+  color: var(--primary-color);
+}
+
+.hover-bottom-primary:hover::after {
+  width: 100%;
+}
+
+.active-common {
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  transition:
+    color 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+}
+
+.container-banner {
+  width: var(--banner-width);
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .container-banner {
+    width: 100%;
+  }
+}
+
+.header-container {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px solid var(--primary-color);
+}
+
+@media screen and (max-width: 768px) {
+  .header-container {
+    justify-content: space-between;
+  }
+}
+
+.siderbar-item {
+  cursor: pointer;
+  min-width: 10rem;
+  padding: 0.5rem 0.8rem;
+  margin: 0.2rem 0.4rem;
+}
+
+.book-item-description {
+  font-size: 0.875rem;
+  text-indent: 1rem;
+}
+
+.my-book-view-container {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  align-content: start;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.litte-tag {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.5rem;
+  color: #166534;
+  background-color: #dcfce7;
+  font-weight: 300;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.5rem;
+  font-weight: 300;
+  background-color: var(--tag-primary-color);
+  color: white;
+}
+
+.show-768 {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .show-768 {
+    display: flex;
+  }
+}
+
+.hover-color-primary:hover {
+  color: var(--primary-color);
+}
+
+.content-editor-like {
+  font-family:
+    'Songti SC', 'SimSun', 'STSong', serif, Georgia, 'Times New Roman',
+    sans-serif;
+  font-size: 1.25rem;
+  line-height: 2.4rem;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.15),
+    inset 0 0 0 1px rgba(139, 69, 19, 0.1);
+  background: var(--content-editor-background-color);
+  color: var(--content-editor-color); /* 深墨色 */
+  outline: none;
+  border: none;
+  caret-color: var(--content-editor-pointer-color); /* 棕褐色光标 */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  line-break: anywhere;
+}
+
+.button-delete {
+  background-color: red;
+  cursor: pointer;
+  color: white;
+  outline: none;
+  border: none;
+}
+
+.button-delete:hover {
+  background-color: darkred;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}

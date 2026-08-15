@@ -1,0 +1,30 @@
+{
+  "name": "@guga-reading/user",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build"
+  },
+  "dependencies": {
+    "@guga-reading/shares": "workspace:*",
+    "@guga-reading/types": "workspace:*",
+    "@vueuse/core": "^14.3.0",
+    "pinia": "^3.0.3",
+    "qyani-components": "^1.6.3",
+    "@qianrenni/core": "^1.0.0",
+    "vue": "^3.5.18",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/eslint-config-typescript": "^14.6.0",
+    "@vue/tsconfig": "^0.7.0",
+    "globals": "^16.5.0",
+    "typescript": "~5.8.3",
+    "vite": "^7.1.2",
+    "vue-tsc": "^3.0.5"
+  }
+}

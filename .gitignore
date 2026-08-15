@@ -1,0 +1,202 @@
+# ===========================
+# 操作系统文件
+# ===========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
+
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# PyCharm
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Node
+*.log
+.npm
+.eslintcache
+
+# ===========================
+# 环境和依赖
+# ===========================
+# Python
+venv/
+env/
+ENV/
+.venv
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+.pnpm-store/
+
+# ===========================
+# 构建输出
+# ===========================
+# Frontend
+frontend/*/dist/
+frontend/*/build/
+frontend/*/.vite/
+*.local
+
+# Backend
+backend/dist/
+backend/build/
+*.spec.xml
+
+# ===========================
+# 配置文件(包含敏感信息)
+# ===========================
+# 环境变量
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# 数据库
+*.db
+*.sqlite
+*.sqlite3
+
+# 密钥和证书
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# ===========================
+# 日志文件
+# ===========================
+logs/
+*.log
+log/
+
+# ===========================
+# 临时文件
+# ===========================
+tmp/
+temp/
+.tmp/
+.temp/
+*.tmp
+*.temp
+
+# ===========================
+# 测试和覆盖率
+# ===========================
+coverage/
+.nyc_output/
+*.lcov
+jest-results/
+test-results/
+
+# ===========================
+# Docker
+# ===========================
+.docker/
+*.dockerfile.local
+docker-compose.yml
+# ===========================
+# Git 相关
+# ===========================
+.gitignore.local
+.gitattributes.local
+
+# ===========================
+# 文档生成
+# ===========================
+docs/_build/
+site/
+*.pdf
+*.docx
+
+# ===========================
+# 特定项目文件
+# ===========================
+# Alembic (迁移自动生成的文件)
+alembic/__pycache__/
+alempic/*.pyc
+
+# Test files (可选,根据团队规范决定)
+test/__pycache__/
+backend/test/__pycache__/
+
+# ===========================
+# 大型文件和二进制文件
+# ===========================
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.exe
+*.dll
+*.so
+*.dylib
+
+# ===========================
+# 机器学习和数据科学(如适用)
+# ===========================
+*.h5
+*.pkl
+*.parquet
+*.feather
+checkpoints/
+data/
+!data/.gitkeep
+
+# ===========================
+# 其他常见忽略项
+# ===========================
+.cache/
+.history/
+*.bak
+*.backup
+*.orig
+merge_conflict_*
+
+# ===========================
+# 前端特定
+# ===========================
+frontend/packages/*/dist/
+frontend/packages/*/build/
+
+# ===========================
+# 后端特定
+# ===========================
+backend/app/__pycache__/
+backend/app/*/__pycache__/
+backend/app/*/*/__pycache__/
+backend/alembic/versions
+*.txt
+.*/

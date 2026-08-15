@@ -1,0 +1,17 @@
+<svg
+        viewBox="0 0 100 100"
+        width="100"
+        height="100"
+        fill="transparent"
+        xmlns="http://www.w3.org/2000/svg"
+        stroke-width="5"
+        stroke="currentColor"
+>
+    <circle r="20" cx="50" cy="25"/>
+    <path
+            d="M5 95 A45 45 180 0 1 95 95"
+            stroke="currentColor"
+    />
+    <line x1="5" y1="95" x2="95" y2="95"/>
+</svg>
+

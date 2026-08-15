@@ -1,0 +1,33 @@
+{
+  "name": "@qyani/eslint-config",
+  "version": "1.0.0",
+  "description": "Shared ESLint configuration for QYani projects",
+  "main": "eslint.config.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "eslint",
+    "config",
+    "vue",
+    "typescript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.33.0",
+  "peerDependencies": {
+    "eslint": "^10.2.1"
+  },
+  "devDependencies": {
+    "@eslint/css": "^1.1.0",
+    "@eslint/js": "^10.0.1",
+    "@eslint/json": "^1.2.0",
+    "eslint": "^10.2.1",
+    "eslint-plugin-vue": "^10.9.0",
+    "globals": "^17.5.0",
+    "typescript-eslint": "^8.59.0",
+    "vite-plugin-eslint": "^1.8.1",
+    "vue-eslint-parser": "^10.2.0"
+  }
+}

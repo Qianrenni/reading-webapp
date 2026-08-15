@@ -1,0 +1,24 @@
+<svg
+        width="100"
+        height="100"
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="hover-red"
+        stroke-width="5"
+        stroke="currentColor"
+        stroke-linecap="round"
+>
+    <!-- 垃圾桶盖子 -->
+    <path
+            d="M35 20 V5 H65 V20"
+    />
+
+    <!-- 垃圾桶盖子把手 -->
+    <path
+            d="M10 28 V20 H90 V28
+      M20 30 V90 H80 V30 M35 30 V90 M50 30 V90 M65 30 V90"
+    />
+
+
+</svg>

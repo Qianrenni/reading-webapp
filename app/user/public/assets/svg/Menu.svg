@@ -1,0 +1,21 @@
+<svg
+        width="100"
+        height="100"
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        stroke-width="5"
+        stroke="currentColor"
+        stroke-linecap="round"
+>
+    <!-- 垃圾桶盖子 -->
+    <path
+            d="
+              M5 5
+              V45 H45 V5 Z
+              M5 95 H45 V55 H5 Z
+              M95 5 V45 H55 V5 Z
+              M95 95 H55 V55 H95 Z
+              "
+    />
+</svg>

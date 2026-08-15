@@ -1,0 +1,24 @@
+<svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        width="100"
+        height="100"
+        fill="transparent"
+        stroke="currentColor"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+>
+    <path
+            d="M20 70
+         T8 68 8 52 20 50 Z
+         M80 70
+         T92 68 92 52 80 50 Z
+         M70 90
+         Q95 95 100 55
+         M20 50
+         A30 35 0 0 1 80 50
+        "
+    />
+    <circle r="10" cx="60" cy="90"/>
+</svg>
