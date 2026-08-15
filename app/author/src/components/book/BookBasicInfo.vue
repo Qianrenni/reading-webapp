@@ -1,95 +1,85 @@
 <template>
-  <div class="container-column bg-card shadow-common">
-    <div class="inner-container">
+  <div class="flex flex-col gap-2 p-2 bg-card shadow-common">
+    <div class="flex gap-2 items-center">
       <div>
         <QLazyImage :src="book.cover" :height="height" :width="width" />
       </div>
-      <div class="inner-container-column">
+      <div class="flex flex-col gap-2">
         <h4>{{ book.name }}</h4>
-        <div class="inner-container">
+        <div class="flex gap-2 items-center">
           <QIcon icon="User" size="16px" />
           <span class="text-08rem">{{ book.author }}</span>
         </div>
-        <div class="hidden-768 inner-container-column text-08rem">
+        <div class="hidden-768 flex flex-col gap-2 text-08rem">
           <p>
             <span>分区</span>
-            <span class="margin-rem">{{ book.category }}</span>
+            <span class="mx-6">{{ book.category }}</span>
           </p>
           <p>
             <span>章节</span>
-            <span class="margin-rem">{{ book.totalChapter }} 章</span>
+            <span class="mx-6">{{ book.totalChapter }} 章</span>
           </p>
           <p>
             <span>字数</span>
-            <span class="margin-rem">{{ book.wordsCount }} 字</span>
+            <span class="mx-6">{{ book.wordsCount }} 字</span>
           </p>
           <p>
             <span>状态</span>
-            <span class="margin-rem">{{ book.isEnded ? '完结' : '连载' }}</span>
+            <span class="mx-6">{{ book.isEnded ? '完结' : '连载' }}</span>
           </p>
           <p>
             <span>上架时间</span>
-            <span class="margin-rem">{{
-              book.createdAt?.split('T').join(' ')
-            }}</span>
+            <span class="mx-6">{{ book.createdAt?.split('T').join(' ') }}</span>
           </p>
           <p>
             <span>更新时间</span>
-            <span class="margin-rem">{{
-              book.updatedAt?.split('T').join(' ')
-            }}</span>
+            <span class="mx-6">{{ book.updatedAt?.split('T').join(' ') }}</span>
           </p>
         </div>
       </div>
     </div>
-    <div
-      class="show-768 container-wrap container-space-between gap-half text-08rem"
-    >
+    <div class="show-768 flex flex-wrap justify-between gap-4 text-08rem">
       <p>
         <span>分区</span>
-        <span class="margin-rem">{{ book.category }}</span>
+        <span class="mx-6">{{ book.category }}</span>
       </p>
       <p>
         <span>章节</span>
-        <span class="margin-rem">{{ book.totalChapter }} 章</span>
+        <span class="mx-6">{{ book.totalChapter }} 章</span>
       </p>
       <p>
         <span>字数</span>
-        <span class="margin-rem">{{ book.wordsCount }} 字</span>
+        <span class="mx-6">{{ book.wordsCount }} 字</span>
       </p>
       <p>
         <span>状态</span>
-        <span class="margin-rem">{{ book.isEnded ? '完结' : '连载' }}</span>
+        <span class="mx-6">{{ book.isEnded ? '完结' : '连载' }}</span>
       </p>
       <p>
         <span>上架时间</span>
-        <span class="margin-rem">{{
-          book.createdAt?.split('T').join(' ')
-        }}</span>
+        <span class="mx-6">{{ book.createdAt?.split('T').join(' ') }}</span>
       </p>
       <p>
         <span>更新时间</span>
-        <span class="margin-rem">{{
-          book.updatedAt?.split('T').join(' ')
-        }}</span>
+        <span class="mx-6">{{ book.updatedAt?.split('T').join(' ') }}</span>
       </p>
     </div>
-    <div class="margin-vetical">
+    <div class="my-6">
       <h4>书籍简介</h4>
       <p
-        class="text-description text-inverse text-08rem margin-fourth-vetical bg-gray-100 padding-46rem"
+        class="text-description text-inverse text-08rem my-2 bg-gray-100 px-4 py-3"
       >
         {{ book.description }}
       </p>
     </div>
     <div>
       <h4>书籍标签</h4>
-      <p class="margin-half-vetical">
+      <p class="my-4">
         <Tag
           v-for="tag in book.tags?.split(',')"
           :key="tag"
           :text="tag"
-          class="margin-fourth-horizontal"
+          class="mx-2"
         />
       </p>
     </div>

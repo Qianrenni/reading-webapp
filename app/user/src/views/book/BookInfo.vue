@@ -1,47 +1,47 @@
 <template>
-  <div class="container-row-768-column all container margin-auto">
-    <div class="inner-container-column container-flex-1 left">
-      <div class="container bg-card shadow-common padding-rem container-w100">
+  <div class="flex flex-row-768-column all mx-auto">
+    <div class="flex flex-col gap-2 flex-1 left">
+      <div class="flex gap-2 p-2 bg-card shadow-common w-full">
         <QLazyImage :src="book.cover" :width="width" :height="height" />
-        <div class="text-secondary container-column">
+        <div class="text-secondary flex flex-col gap-2">
           <h3>{{ book.name }}</h3>
-          <div class="container-row-768-column gap-half">
-            <div class="container-align-center">
+          <div class="flex flex-row-768-column gap-4">
+            <div class="flex items-center">
               <QIcon icon="User" size="16px" />
               <h5>{{ book.author }}</h5>
             </div>
-            <div class="container-align-center">
+            <div class="flex items-center">
               <QIcon icon="Calender" size="16px" />
               <h5>{{ book.createdAt?.split('T')[0] }}</h5>
             </div>
           </div>
           <p
             v-if="book.tags"
-            class="container container-wrap text-muted text-085rem"
+            class="flex flex-wrap gap-2 p-2 text-muted text-085rem"
           >
             <QTag v-for="tag in book.tags.split(',')" :key="tag" :text="tag">
             </QTag>
           </p>
-          <div class="container-wrap text-08rem">
-            <div class="container">
+          <div class="flex flex-wrap text-08rem">
+            <div class="flex gap-2 p-2">
               <QIcon icon="Book" size="16px" />
               <span>{{ book.totalChapter }} 章节</span>
             </div>
-            <div class="container">
+            <div class="flex gap-2 p-2">
               <QIcon icon="EyeOpen" size="16px" />
               <span>{{ readCount || 0 }}阅读</span>
             </div>
-            <div class="container">
+            <div class="flex gap-2 p-2">
               <QIcon icon="Star" size="16px" />
               <span>{{ favoriteCount || 0 }}收藏</span>
             </div>
           </div>
         </div>
       </div>
-      <div class="container-w100 shadow-black bg-card">
+      <div class="w-full shadow-black bg-card">
         <QTab
           :list="['书籍简介', '目录']"
-          class="container-w100 radius-rem"
+          class="w-full radius-xl"
           @select="(index) => (tabIndex = index)"
         >
         </QTab>
@@ -52,7 +52,7 @@
         >
           <p
             v-for="line in book.description.split(/\s+/)"
-            class="margin-half-horizontal text-indent-1rem"
+            class="mx-4 text-indent-1rem"
           >
             {{ line }}
           </p>
@@ -67,7 +67,7 @@
               v-for="item in list"
               :key="item.data.id"
               style="height: 24px"
-              class="bg-hover-secondary text-085rem padding-24rem mouse-cursor radius-third-rem"
+              class="bg-hover-secondary text-085rem px-2 py-1 mouse-cursor radius-sm"
               @click="
                 () => router.push(`/book-read/${book.id}/${item.data.id}`)
               "
@@ -78,20 +78,18 @@
         </div>
       </div>
     </div>
-    <div class="right inner-container-column">
-      <div class="bg-card inner-container-column right shadow-common">
-        <h4 class="text-left container-w100 padding-fourth-horizontal">
-          相关推荐
-        </h4>
-        <div class="recommend right padding-fourth-horizontal scroll-container">
+    <div class="right flex flex-col gap-2">
+      <div class="bg-card flex flex-col gap-2 right shadow-common">
+        <h4 class="text-left w-full px-2">相关推荐</h4>
+        <div class="grid recommend right px-2 scroll-container">
           <div
             v-for="item in relatedBooks"
             :key="item.id"
-            class="inner-container"
+            class="flex gap-2 items-center"
             @click="initial(item.id)"
           >
             <QLazyImage :src="item.cover" :height="96" :width="72" />
-            <div class="container-flex-1 container-column container-h100">
+            <div class="flex-1 flex flex-col h-full">
               <p class="text-secondary">
                 {{ item.name }}
               </p>
@@ -204,10 +202,8 @@ onBeforeMount(() => {
   max-height: 300px;
 }
 .recommend {
-  display: grid;
   grid-template-columns: 100%;
   grid-template-rows: repeat(auto-fill, 96px);
-  gap: 1rem;
   max-height: 600px;
 }
 @media screen and (max-width: 768px) {

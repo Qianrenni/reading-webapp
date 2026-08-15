@@ -1,9 +1,9 @@
 <template>
   <main>
     <div class="content-container">
-      <div class="bg-card container-column">
+      <div class="bg-card flex flex-col gap-2 p-2">
         <h4 class="text-center">忘记密码</h4>
-        <div class="inner-container">
+        <div class="flex gap-2 items-center">
           <QFormText
             v-model="formParam.email"
             type="text"

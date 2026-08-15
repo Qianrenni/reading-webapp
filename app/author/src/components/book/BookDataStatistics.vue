@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container scroll-container bg-card shadow-common">
-    <div class="inner-container-column">
+    <div class="flex flex-col gap-2">
       <QFormSelect
         placeholder="选择年份"
         :options="selectOptions"
@@ -8,20 +8,17 @@
       />
       <HeatMapChart
         :option="heatMapOptions"
-        class="container-w100"
+        class="w-full"
         style="height: 250px"
       />
       <HeatMapChart
         :option="pvHeatMapOptions"
-        class="container-w100"
+        class="w-full"
         style="height: 250px"
       />
     </div>
-    <div class="inner-container-column" style="height: 580px">
-      <HeatMapChart
-        :option="hourOptions"
-        class="container-w100 container-h100"
-      />
+    <div class="flex flex-col gap-2" style="height: 580px">
+      <HeatMapChart :option="hourOptions" class="w-full h-full" />
     </div>
   </div>
 </template>

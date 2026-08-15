@@ -1,5 +1,5 @@
 <template>
-  <div class="container-column container-wrap">
+  <div class="flex flex-col gap-2 p-2 flex-wrap">
     <QFormTable :columns="columns" :data="bookchapters" size="small">
       <template #name="{ row }">
         {{ bookMap[row.bookId as number]?.name || '--' }}
@@ -28,7 +28,7 @@
         </span>
       </template>
       <template #operation="{ row }">
-        <div class="inner-container">
+        <div class="flex gap-2 items-center">
           <QIcon
             icon="EyeOpen"
             size="16px"

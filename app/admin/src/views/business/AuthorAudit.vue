@@ -1,8 +1,8 @@
 <template>
-  <div class="container-column">
-    <div class="inner-container container-space-between container-align-center">
+  <div class="flex flex-col gap-2">
+    <div class="flex gap-2 items-center justify-between">
       <h3>作者申请审核</h3>
-      <div class="inner-container">
+      <div class="flex gap-2 items-center">
         <QFormButton
           :class="{ 'button-primary': filterStatus === null }"
           @click="
@@ -38,25 +38,25 @@
       </div>
     </div>
 
-    <div v-if="loading" class="container-center padding-rem container-flex-1">
+    <div v-if="loading" class="flex items-center justify-center p-6 flex-1">
       <QSkeleton />
     </div>
 
     <div
       v-else-if="applications.length === 0"
-      class="container-center padding-rem text-muted"
+      class="flex items-center justify-center p-6 text-muted"
     >
       暂无申请记录
     </div>
 
-    <div v-else class="inner-container-column gap-half">
+    <div v-else class="flex flex-col gap-4">
       <div
         v-for="app in applications"
         :key="app.id"
-        class="bg-card padding-rem radius-half-rem inner-container-column"
+        class="bg-card p-6 radius-md flex flex-col gap-2"
       >
-        <div class="inner-container container-space-between">
-          <div class="inner-container gap-half container-align-center">
+        <div class="flex gap-2 items-center justify-between">
+          <div class="flex gap-4 items-center">
             <QIcon icon="User" size="20" />
             <span class="text-1rem"
               ><strong>用户ID: {{ app.userId }}</strong></span
@@ -69,13 +69,13 @@
             app.createdAt?.split('T')[0]
           }}</span>
         </div>
-        <div class="bg-body padding-46rem radius-fourth-rem">
+        <div class="bg-body px-3 py-2 radius-sm">
           <p class="text-085rem"><strong>申请理由：</strong></p>
           <p>{{ app.reason }}</p>
         </div>
         <div
           v-if="app.rejectReason"
-          class="bg-body padding-46rem radius-fourth-rem text-danger"
+          class="bg-body px-3 py-2 radius-sm text-danger"
         >
           <p class="text-085rem"><strong>驳回原因：</strong></p>
           <p>{{ app.rejectReason }}</p>
@@ -86,10 +86,7 @@
             | {{ app.handledAt?.split('T')[0] }}</span
           >
         </div>
-        <div
-          v-if="app.status === 'pending'"
-          class="inner-container gap-half container-flex-end"
-        >
+        <div v-if="app.status === 'pending'" class="flex gap-4 justify-end">
           <QFormButton class="button-primary" @click="handleApprove(app.id)">
             <QIcon icon="CirclePlus" size="16px" />
             通过
@@ -176,6 +173,6 @@ onBeforeMount(() => {
 
 <style scoped lang="css">
 .text-danger {
-  color: var(--color-danger, #e74c3c);
+  color: var(--q-color-red-400);
 }
 </style>

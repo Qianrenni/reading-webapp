@@ -1,22 +1,19 @@
 <template>
-  <div class="container-column shadow-common">
-    <div class="container-space-between">
-      <QFormButton
-        type="button"
-        class="button-delete padding-24rem radius-half-rem"
-      >
+  <div class="flex flex-col gap-2 p-2 shadow-common">
+    <div class="flex justify-between">
+      <QFormButton type="button" class="button-delete p-2 radius-md">
         <span>批量删除</span>
       </QFormButton>
       <QFormButton
         type="button"
-        class="button-outline padding-24rem radius-half-rem"
+        class="button-outline p-2 radius-md"
         @click="handleCreateChapter()"
       >
         <span>新增章节</span>
       </QFormButton>
     </div>
     <div v-show="loading" style="height: calc(100vh - 12.5rem)">
-      <QLoading type="skeleton" class="container-flex-1" />
+      <QLoading type="skeleton" class="flex-1" />
     </div>
     <QFormTable
       v-show="!loading"
@@ -52,7 +49,7 @@
         }}</span>
       </template>
       <template #action="{ row }">
-        <div class="inner-container">
+        <div class="flex gap-2 items-center">
           <QIcon
             icon="Edit"
             size="16px"

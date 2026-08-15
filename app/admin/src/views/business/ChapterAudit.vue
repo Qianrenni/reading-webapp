@@ -1,11 +1,11 @@
 <template>
-  <div class="container-column container-w100 container-h100">
+  <div class="flex flex-col gap-2 w-full h-full">
     <div class="show-768" v-if="isUpdate">
       <QFormSelect v-model="select" :options="options" />
     </div>
-    <div class="inner-container container-flex-1">
+    <div class="flex gap-2 items-center flex-1">
       <div
-        class="inner-container-column container-flex-1 container-h100"
+        class="flex flex-col gap-2 flex-1 h-full"
         v-if="isUpdate && !isMobile"
       >
         <p v-if="isUpdate && !isMobile">修改前</p>
@@ -17,7 +17,7 @@
           compact
         />
       </div>
-      <div class="inner-container-column container-flex-1 container-h100">
+      <div class="flex flex-col gap-2 flex-1 h-full">
         <p v-if="isUpdate && !isMobile">修改后</p>
         <EditableTitle v-model="chapter.title" :disabled="true" />
         <ContentEditor
@@ -28,7 +28,7 @@
         />
       </div>
     </div>
-    <div class="inner-container container-flex-end">
+    <div class="flex gap-2 items-center justify-end">
       <QFormButton
         @click="
           () => {

@@ -1,9 +1,9 @@
 <template>
-  <div class="container container-h100">
+  <div class="flex gap-2 p-2 h-full">
     <aside v-show="!isMobile">
       <SiderBar />
     </aside>
-    <RouterView class="container-flex-1" />
+    <RouterView class="flex-1" />
   </div>
 </template>
 <script lang="ts" setup>

@@ -1,7 +1,11 @@
 <template>
-  <div class="personal-center-container container container-row-768-column">
-    <div class="inner-container-column">
-      <div class="left-top bg-card shadow-common">
+  <div
+    class="personal-center-container flex flex-row-768-column mx-auto justify-between"
+  >
+    <div class="flex flex-col gap-2">
+      <div
+        class="left-top bg-card shadow-common flex flex-col items-center gap-6 p-6"
+      >
         <QAvatar
           size="100px"
           :url="
@@ -14,14 +18,8 @@
         <p :style="{ color: userStore.getUser?.isActive ? 'green' : 'red' }">
           {{ userStore.getUser?.isActive ? 'Active' : 'Inactive' }}
         </p>
-        <div
-          class="container bg-body padding-46rem container-align-center container-w100"
-        >
-          <QIcon
-            class="padding-24rem text-primary"
-            icon="Setting"
-            size="16px"
-          />
+        <div class="flex bg-body px-2 py-1 items-center w-full">
+          <QIcon class="p-2 text-primary" icon="Setting" size="16px" />
           <div>
             <p>Email</p>
             <p class="text-08rem">
@@ -29,13 +27,13 @@
             </p>
           </div>
         </div>
-        <div class="inner-container container-w100">
+        <div class="flex gap-2 items-center w-full">
           <QFormButton
             type="button"
             class="button-primary"
             @click="() => router.push('/update-password')"
           >
-            <div class="container-center">
+            <div class="flex items-center">
               <QIcon icon="Edit" size="16px" />
               <span>修改密码</span>
             </div>
@@ -44,40 +42,42 @@
             <span>退出登录</span>
           </QFormButton>
         </div>
-        <div class="inner-container container-w100">
+        <div class="flex gap-2 items-center w-full">
           <QFormButton
             type="button"
             class="button-primary"
             :disabled="authorStatus === 'approved'"
             @click="openApplyDialog"
           >
-            <div class="container-center">
+            <div class="flex items-center">
               <QIcon icon="Draft" size="16px" />
               <span>{{ authorBtnText }}</span>
             </div>
           </QFormButton>
         </div>
       </div>
-      <div class="left-top bg-card shadow-black">
-        <div class="container container-w100 gap-half">
+      <div
+        class="left-top bg-card shadow-black flex flex-col items-center gap-6 p-6"
+      >
+        <div class="flex gap-4 w-full items-center">
           <QIcon icon="Book" size="24px" class="text-primary" />
           <h3>Reading Statistics</h3>
         </div>
-        <div class="container-w100 container-space-between">
+        <div class="w-full flex justify-between">
           <span>Books Read</span>
           <h4>111</h4>
         </div>
-        <div class="container-w100 container-space-between">
+        <div class="w-full flex justify-between">
           <span>Pages Read</span>
           <h4>111</h4>
         </div>
-        <div class="container-w100 container-space-between">
+        <div class="w-full flex justify-between">
           <span>Current Streak</span>
           <h4 class="text-primary">18days</h4>
         </div>
         <hr />
-        <p class="container-w100">Favorite Genres</p>
-        <p class="container-w100 container-wrap container gap">
+        <p class="w-full">Favorite Genres</p>
+        <p class="w-full flex flex-wrap gap-6">
           <QTag
             v-for="item in [
               'Fantasy',
@@ -91,13 +91,15 @@
         </p>
       </div>
     </div>
-    <div class="right">
-      <div class="right-top bg-card shadow-black">
-        <div class="container container-w100 gap-half container-align-center">
+    <div class="right flex flex-col gap-6">
+      <div
+        class="right-top bg-card shadow-black flex flex-col items-center gap-6 p-6 radius-xl"
+      >
+        <div class="flex gap-4 w-full items-center">
           <QIcon icon="Heart" size="24px" class="text-primary" />
           <h3>Currently Reading</h3>
         </div>
-        <div class="container-w100 inner-container container-wrap">
+        <div class="w-full flex gap-2 items-center flex-wrap">
           <div
             v-for="histortItem in currentRead"
             :key="histortItem.id"
@@ -116,20 +118,18 @@
           </div>
         </div>
       </div>
-      <div class="right-top bg-card shadow-common">
-        <div class="container-w100">
+      <div
+        class="right-top bg-card shadow-common flex flex-col items-center gap-6 p-6 radius-xl"
+      >
+        <div class="w-full">
           <h3>Reading Goals</h3>
         </div>
-        <div class="container-w100 gap container-row-768-column text-white">
-          <div
-            class="padding-rem radius-rem container-column gap line-gradient-purple"
-          >
+        <div class="w-full gap-6 flex flex-row-768-column text-white">
+          <div class="p-6 radius-xl flex flex-col gap-6 line-gradient-purple">
             <p>This Month</p>
             <h2>8/12 books</h2>
           </div>
-          <div
-            class="padding-rem radius-rem container-column gap line-gradient-green"
-          >
+          <div class="p-6 radius-xl flex flex-col gap-6 line-gradient-green">
             <p>This Year</p>
             <h2>24/50 books</h2>
           </div>
@@ -212,34 +212,20 @@ onBeforeMount(() => {
 <style scoped lang="css">
 .personal-center-container {
   max-width: 1200px;
-  margin: 0 auto;
-  justify-content: space-between;
 }
 
 .left-top {
   width: 300px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
 }
 
 .right {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex: 1;
 }
 
 .right-top {
   width: 850px;
-  padding: 1rem;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
 }
+
 @media screen and (max-width: 768px) {
   .left-top {
     width: 100%;

@@ -1,8 +1,8 @@
 <template>
-  <div class="container-column container-w100">
-    <div class="container-column bg-card shadow-common">
+  <div class="flex flex-col gap-2 w-full">
+    <div class="flex flex-col gap-2 p-2 bg-card shadow-common">
       <h4>账号信息</h4>
-      <div class="grid-2 text-muted text-085rem">
+      <div class="grid grid-cols-2 text-muted text-085rem">
         <div>
           <p>昵称</p>
           <p>{{ authStore.getUser?.userName || '--' }}</p>
@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div class="container-flex-end">
+    <div class="flex justify-end">
       <QFormButton
         type="button"
         class="text-danger"

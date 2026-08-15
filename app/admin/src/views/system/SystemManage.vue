@@ -1,11 +1,11 @@
 <template>
-  <div class="container-column bg-card">
+  <div class="flex flex-col gap-2 p-2 bg-card">
     <h4>日志监控</h4>
 
     <!-- ===== 日志监控面板 ===== -->
-    <div class="inner-container-column">
+    <div class="flex flex-col gap-2">
       <!-- 工具栏：文件选择 + 级别筛选 -->
-      <div class="inner-container container-wrap">
+      <div class="flex gap-2 items-center flex-wrap">
         <!-- 文件选择 -->
         <QFormSelect
           label="日志文件"
@@ -38,7 +38,7 @@
       </div>
       <!-- 日志内容展示 -->
       <div
-        class="bg-card inner-container-column border-horizontal-gray scroll-container"
+        class="bg-card flex flex-col gap-2 border-horizontal-gray scroll-container"
         :style="{
           height: `${isMobile ? 'calc(100vh - 14rem)' : 'calc(100vh - 10rem)'}`,
         }"
@@ -49,18 +49,18 @@
         <span v-else-if="logEntries.length === 0" class="text-muted"
           >暂无匹配的日志数据</span
         >
-        <div v-else class="log-list">
+        <div v-else class="flex flex-col">
           <div
             v-for="entry in logEntries"
             :key="entry.lineNumber"
             class="log-entry"
             :class="[`log-level-${entry.level.toLowerCase()}`]"
           >
-            <div class="log-meta">
+            <div class="flex items-center gap-2 flex-wrap text-08rem">
               <span class="log-line">{{ entry.lineNumber }}</span>
               <span class="log-time">{{ entry.timestamp }}</span>
               <span
-                class="log-badge"
+                class="badge px-2 py-1"
                 :class="`badge-${entry.level.toLowerCase()}`"
               >
                 {{ entry.level }}
@@ -78,16 +78,14 @@
       </div>
 
       <!-- 分页 + 统计 -->
-      <div
-        class="inner-container container-align-center container-space-between"
-      >
+      <div class="flex items-center justify-between">
         <span class="text-description text-085rem">
           共 {{ total }} 条
           <template v-if="selectedFileObj">
             , 文件大小 {{ formatBytes(selectedFileObj?.size ?? 0) }}
           </template>
         </span>
-        <div class="inner-container container-align-center">
+        <div class="flex gap-2 items-center">
           <button
             class="button"
             :disabled="page <= 1"
@@ -243,97 +241,65 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-/* ===== 日志列表 ===== */
-.log-list {
-  display: flex;
-  flex-direction: column;
-}
-
+/* ===== 日志条目：保留日志级别语义色，其余布局用 qyani 工具类 ===== */
 .log-entry {
   border-left: 3px solid transparent;
-  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  border-bottom: 1px solid var(--q-color-border-light, #e5e7eb);
   padding: 0.45rem 0;
   font-family: 'Cascadia Code', 'Fira Code', 'Consolas', 'Monaco', monospace;
   font-size: 0.82rem;
   line-height: 1.55;
   transition: background-color 0.15s ease;
 }
-/* 左侧边框颜色 */
+/* 左侧边框颜色（级别语义色） */
 .log-level-debug {
-  border-left-color: #9ca3af;
+  border-left-color: var(--q-color-gray-500);
 }
 .log-level-info {
-  border-left-color: #3b82f6;
+  border-left-color: var(--q-color-blue-400);
 }
 .log-level-warn {
-  border-left-color: #f59e0b;
+  border-left-color: var(--q-color-orange-300);
 }
 .log-level-error {
-  border-left-color: #ef4444;
+  border-left-color: var(--q-color-red-400);
 }
 .log-level-fatal {
-  border-left-color: #dc2626;
-}
-
-/* 元信息行 */
-.log-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--text-secondary, #6b7280);
-  flex-wrap: wrap;
+  border-left-color: var(--q-color-red-600);
 }
 
 .log-line {
-  color: var(--text-muted, #9ca3af);
+  color: var(--q-color-text-muted);
   font-size: 0.75rem;
 }
 
-.log-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.1rem 0.45rem;
-  border-radius: 3px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-}
-
+/* 级别徽章（语义色） */
 .badge-debug {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: var(--q-color-gray-200);
+  color: var(--q-color-gray-600);
 }
 .badge-info {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: var(--q-color-blue-100);
+  color: var(--q-color-blue-600);
 }
 .badge-warn {
-  background: #fef3c7;
-  color: #b45309;
+  background: var(--q-color-orange-100);
+  color: var(--q-color-orange-500);
 }
 .badge-error {
-  background: #fee2e2;
-  color: #dc2626;
+  background: var(--q-color-red-100);
+  color: var(--q-color-red-500);
 }
 .badge-fatal {
-  background: #fecaca;
-  color: #991b1b;
+  background: var(--q-color-red-200);
+  color: var(--q-color-red-700);
 }
 
 /* 消息内容 */
 .log-message {
   margin: 0.2rem 0 0 1rem;
-  color: var(--text-color, #1f2937);
+  color: var(--q-color-text);
   line-break: anywhere;
   white-space: pre-wrap;
-}
-
-/* 正则输入框 */
-.regex-input {
-  min-width: 260px;
-  max-width: 380px;
-  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', 'Monaco', monospace;
-  font-size: 0.82rem;
 }
 </style>

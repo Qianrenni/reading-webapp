@@ -1,18 +1,18 @@
 <template>
-  <div class="container-column">
-    <div class="inner-container container-center">
+  <div class="flex flex-col gap-2 p-2">
+    <div class="flex gap-2 items-center justify-center">
       <h3 class="text-center">阅读设置</h3>
       <QIcon icon="Refresh" size="16" title="恢复默认设置" @click="reset" />
     </div>
 
     <!-- 预设主题 -->
-    <div class="inner-container-column">
+    <div class="flex flex-col gap-2">
       <p class="text-label">预设主题</p>
-      <div class="inner-container container-w100 container-space-evenly">
+      <div class="flex gap-2 items-center w-full justify-evenly">
         <div
           v-for="theme in themes"
           :key="theme.color"
-          class="inner-container-column container-center"
+          class="flex flex-col gap-2 items-center justify-center"
           @click="updateTheme(theme)"
         >
           <span>{{ theme.label }}</span>

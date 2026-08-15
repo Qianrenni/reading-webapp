@@ -1,5 +1,5 @@
 <template>
-  <div class="container-column bg-card shadow-common">
+  <div class="flex flex-col gap-2 p-2 bg-card shadow-common">
     <div v-show="loading" style="height: calc(100vh - 8rem)">
       <QLoading type="skeleton" />
     </div>
@@ -29,7 +29,7 @@
         </p>
       </template>
       <template #tags="{ row }">
-        <div class="inner-container container-wrap gap-half">
+        <div class="flex flex-wrap gap-4 items-center">
           <span
             v-for="tag in (row.tags as string).split(' ')"
             :key="tag"
@@ -51,7 +51,7 @@
         }}</span>
       </template>
       <template #response="{ row }">
-        <div class="inner-container">
+        <div class="flex gap-2 items-center">
           <QIcon
             v-if="['PENDING', 'REJECTED'].includes(row.status as string)"
             icon="Edit"

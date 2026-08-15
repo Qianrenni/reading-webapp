@@ -1,16 +1,16 @@
 <template>
-  <div class="container-column">
-    <div class="inner-container hidden-768">
+  <div class="flex flex-col gap-2">
+    <div class="flex items-center hidden-768">
       <q-form-button @click="showClose = !showClose"> 批量管理 </q-form-button>
     </div>
-    <div class="shelf-container">
+    <div class="grid gap-4 p-2 w-full shelf-container">
       <QSwiperAction
         v-for="histortItem in shelfStore.getBookShelf"
         :key="histortItem.id"
         :disabled="!isLessThan768"
         :threshold="30"
       >
-        <div class="bg-card container">
+        <div class="bg-card flex gap-2 p-2">
           <div
             class="inner-close"
             v-show="showClose && !isLessThan768"
@@ -23,13 +23,13 @@
             :height="height"
             :width="width"
           />
-          <div class="container-flex-1 inner-container-column">
+          <div class="flex-1 flex flex-col gap-2">
             <h5 class="text-one-line">{{ histortItem.name }}</h5>
-            <div class="inner-container">
+            <div class="flex gap-2 items-center">
               <QIcon icon="User" size="14px"></QIcon>
               <span class="text-08rem">{{ histortItem.author }}</span>
             </div>
-            <div class="inner-container" v-if="histortItem.lastReadAt">
+            <div class="flex gap-2 items-center" v-if="histortItem.lastReadAt">
               <QIcon icon="History" size="14px"></QIcon>
               <p>
                 <span class="text-08rem">上次阅读:</span>
@@ -55,7 +55,7 @@
         </div>
         <template #action>
           <div
-            class="padding-46rem container-center container-h100 delete-768"
+            class="px-3 py-2 flex items-center justify-center h-full delete-768"
             @click="shelfStore.delete(histortItem.id)"
           >
             删除
@@ -90,11 +90,7 @@ onBeforeMount(async () => {
 </script>
 <style scoped lang="css">
 .shelf-container {
-  width: 100%;
-  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-auto-rows: auto;
-  gap: 0.5rem;
-  padding: 0.25rem;
 }
 </style>

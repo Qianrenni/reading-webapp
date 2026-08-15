@@ -3,7 +3,7 @@
   <p
     ref="titleRef"
     :contenteditable="!props.disabled"
-    class="content-editor-like padding-46rem margin-fourth-vetical text-center"
+    class="content-editor-like px-4 py-2 my-2 text-center"
     :title="props.placeholder"
     @input="handleInput"
     @blur="handleBlur"

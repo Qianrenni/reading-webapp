@@ -1,12 +1,12 @@
 <template>
-  <header class="bg-card container header-container">
+  <header class="bg-card flex gap-2 p-2 header-container">
     <QIcon
       v-show="isMobile"
       icon="Menu"
       size="24"
       @click="showMenu = !showMenu"
     />
-    <div class="container-center">
+    <div class="flex items-center justify-center gap-2">
       <QAvatar :url="avatarUrl" size="30px" />
       <span>{{ userStore.getUser?.userName || 'Author' }}</span>
       <QThemeToggle :size="24" />

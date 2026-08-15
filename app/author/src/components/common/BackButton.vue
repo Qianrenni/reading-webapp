@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container-align-center gap-fourth mouse-cursor hover-color-primary"
+    class="flex items-center gap-2 mouse-cursor hover-color-primary"
     @click="router.back()"
   >
     <QIcon icon="Left" size="18px" />

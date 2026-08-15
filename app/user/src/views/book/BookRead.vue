@@ -1,11 +1,11 @@
 <template>
   <div
     ref="bookReadContainer"
-    class="container-w100 scroll-container"
+    class="w-full scroll-container"
     style="height: 100vh"
   >
     <div
-      class="book-read-container"
+      class="book-read-container mx-auto flex justify-center px-6 pb-6"
       :style="{
         backgroundColor: useReadingSetting.readSettings.backgroundColor,
       }"
@@ -48,9 +48,9 @@
           </span>
         </p>
       </div>
-      <div class="book-read-sidebar bg-card hidden-768 container-column">
+      <div class="book-read-sidebar bg-card hidden-768 flex flex-col gap-2">
         <div
-          class="inner-container-column container-align-center bg-hover-secondary"
+          class="flex flex-col items-center bg-hover-secondary"
           @click="
             currentContentIndex > 0
               ? run(computeCatalog[currentContentIndex - 1]?.id ?? 0)
@@ -61,7 +61,7 @@
           <span class="text-08rem">上一章</span>
         </div>
         <div
-          class="inner-container-column container-align-center bg-hover-secondary"
+          class="flex flex-col items-center bg-hover-secondary"
           @click="
             currentContentIndex < computeCatalog.length - 1
               ? run(computeCatalog[currentContentIndex + 1]?.id ?? 0)
@@ -72,30 +72,27 @@
           <span class="text-08rem">下一章</span>
         </div>
         <div
-          class="inner-container-column container-align-center bg-hover-secondary"
+          class="flex flex-col items-center bg-hover-secondary"
           @click="showCatalog = true"
         >
           <QIcon icon="Catalog" size="24px" />
           <span class="text-08rem">目录</span>
         </div>
         <div
-          class="inner-container-column container-align-center bg-hover-secondary"
+          class="flex flex-col items-center bg-hover-secondary"
           @click="showReadSettings = true"
         >
           <QIcon icon="Setting" size="24px" />
           <span class="text-08rem">阅读设置</span>
         </div>
         <div
-          class="inner-container-column container-align-center bg-hover-secondary"
+          class="flex flex-col items-center bg-hover-secondary"
           @click="router.push(`/book-detail/${book.id}`)"
         >
           <QIcon icon="Book" size="24px" />
           <span class="text-08rem">书籍详情</span>
         </div>
-        <div
-          class="inner-container-column container-align-center"
-          @click="fullScreen"
-        >
+        <div class="flex flex-col items-center" @click="fullScreen">
           <QIcon icon="FullScreen" size="24px" />
           <span class="text-08rem">全屏</span>
         </div>
@@ -110,10 +107,10 @@
           <h3 class="text-one-line">
             {{ book.name }}
           </h3>
-          <p class="container-space-between">
+          <p class="flex justify-between">
             <span>目录</span>
             <span
-              class="mouse-cursor container gap-half"
+              class="mouse-cursor flex gap-4"
               @click="catalogAscOrder = !catalogAscOrder"
             >
               {{ catalogAscOrder ? '升序' : '降序' }}
@@ -134,7 +131,7 @@
               <p
                 v-for="item in list"
                 :key="item.data.id"
-                class="bg-hover-secondary padding-24rem mouse-cursor radius-third-rem"
+                class="bg-hover-secondary px-2 py-1 mouse-cursor radius-sm"
                 :class="[
                   {
                     'active-common': item.data.id === currentContentId,
@@ -162,11 +159,11 @@
         :overlay="false"
       >
         <div
-          class="container-space-between container-wrap padding-fourth-rem"
+          class="flex justify-between flex-wrap p-2"
           @click="shwoBottomSettings = false"
         >
           <div
-            class="inner-container-column container-align-center"
+            class="flex flex-col items-center"
             @click="
               currentContentIndex > 0
                 ? run(computeCatalog[currentContentIndex - 1]?.id ?? 0)
@@ -177,7 +174,7 @@
             <span class="text-08rem">上一章</span>
           </div>
           <div
-            class="inner-container-column container-align-center"
+            class="flex flex-col items-center"
             @click="
               currentContentIndex < computeCatalog.length - 1
                 ? run(computeCatalog[currentContentIndex + 1]?.id ?? 0)
@@ -187,31 +184,25 @@
             <QIcon icon="Down" size="24px" />
             <span class="text-08rem">下一章</span>
           </div>
-          <div
-            class="inner-container-column container-align-center"
-            @click="showCatalog = true"
-          >
+          <div class="flex flex-col items-center" @click="showCatalog = true">
             <QIcon icon="Catalog" size="24px" />
             <span class="text-08rem">目录</span>
           </div>
           <div
-            class="inner-container-column container-align-center"
+            class="flex flex-col items-center"
             @click="showReadSettings = true"
           >
             <QIcon icon="Setting" size="24px" />
             <span class="text-08rem">阅读设置</span>
           </div>
           <div
-            class="inner-container-column container-align-center"
+            class="flex flex-col items-center"
             @click="router.push(`/book-detail/${book.id}`)"
           >
             <QIcon icon="Book" size="24px" />
             <span class="text-08rem">书籍详情</span>
           </div>
-          <div
-            class="inner-container-column container-align-center"
-            @click="fullScreen"
-          >
+          <div class="flex flex-col items-center" @click="fullScreen">
             <QIcon icon="FullScreen" size="24px" />
             <span class="text-08rem">全屏</span>
           </div>
@@ -233,7 +224,7 @@
         :overlay="false"
         @close="showComment = false"
       >
-        <div class="inner-container-column">
+        <div class="flex flex-col gap-2">
           <p>评论</p>
         </div>
       </QDrawer>
@@ -469,9 +460,6 @@ onBeforeUnmount(() => {
 <style scoped lang="css">
 .book-read-container {
   margin: 0 auto;
-  padding: 0 1rem 1rem 1rem;
-  display: flex;
-  justify-content: center;
 }
 
 .book-read-content {

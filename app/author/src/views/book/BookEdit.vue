@@ -1,10 +1,10 @@
 <template>
-  <div class="container-column container-w100">
-    <div class="container-space-between">
+  <div class="flex flex-col gap-2 w-full">
+    <div class="flex justify-between">
       <BackButton>
         <span class="hidden-768">退出编辑</span>
       </BackButton>
-      <div class="inner-container">
+      <div class="flex gap-2 items-center">
         <div>
           <QFormSelect
             placeholder="选择章节"
@@ -19,7 +19,7 @@
     <EditableTitle v-model="title" />
     <ContentEditor
       v-model="content"
-      class="container-flex-1"
+      class="flex-1"
       :content-height="'calc( 100vh - 15rem )'"
     />
   </div>

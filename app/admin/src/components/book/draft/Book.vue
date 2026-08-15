@@ -1,5 +1,5 @@
 <template>
-  <div class="container-column container-wrap">
+  <div class="flex flex-col gap-2 p-2 flex-wrap">
     <QFormTable :columns="columns" :data="books" size="small">
       <template #status="{ row }">
         {{ TranslationStatus[row.status as StatusEnum] }}
@@ -22,7 +22,7 @@
         </span>
       </template>
       <template #operation="{ row }">
-        <div class="inner-container">
+        <div class="flex gap-2 items-center">
           <QIcon
             icon="EyeOpen"
             size="16px"

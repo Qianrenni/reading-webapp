@@ -13,8 +13,8 @@ const run = toggleFullScreen();
 </script>
 
 <template>
-  <header class="bg-card container header-container">
-    <div class="inner-container">
+  <header class="bg-card flex gap-2 p-2 header-container">
+    <div class="flex gap-2 items-center">
       <router-link to="/" class="link-primary hidden-768">
         <h3>咕嘎阅读</h3>
       </router-link>
@@ -24,13 +24,13 @@ const run = toggleFullScreen();
         target="_blank"
         class="link-primary"
       >
-        <div class="inner-container">
-          <QIcon icon="Mobile" size="24" class="mr-4" />
+        <div class="flex gap-2 items-center">
+          <QIcon icon="Mobile" size="24" class="mx-2" />
           <span class="hidden-768">移动端app</span>
         </div>
       </a>
     </div>
-    <div class="inner-container container-768-w100">
+    <div class="flex gap-2 items-center container-768-w100">
       <div>
         <QSearch
           @click="router.push('/book-search')"
@@ -38,20 +38,26 @@ const run = toggleFullScreen();
           @search="() => debounceSearchBook()"
         />
       </div>
-      <div class="inner-container container-flex-1 container-flex-end">
-        <router-link to="/" class="link-primary inner-container">
+      <div class="flex gap-2 items-center flex-1 justify-end">
+        <router-link to="/" class="link-primary flex gap-2 items-center">
           <QIcon icon="House" size="16" />
           <h4 class="hidden-768">书城</h4>
         </router-link>
-        <router-link to="/book-shelf" class="link-primary inner-container">
+        <router-link
+          to="/book-shelf"
+          class="link-primary flex gap-2 items-center"
+        >
           <QIcon icon="Copy" size="16" />
           <h4 class="hidden-768">书架</h4>
         </router-link>
-        <router-link to="/history" class="link-primary inner-container">
+        <router-link to="/history" class="link-primary flex gap-2 items-center">
           <QIcon icon="History" size="16" />
           <h4 class="hidden-768">历史记录</h4>
         </router-link>
-        <router-link to="/personal-center" class="link-primary inner-container">
+        <router-link
+          to="/personal-center"
+          class="link-primary flex gap-2 items-center"
+        >
           <QIcon icon="User" size="16" />
           <h4 class="hidden-768">个人中心</h4>
         </router-link>

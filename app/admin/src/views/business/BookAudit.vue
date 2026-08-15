@@ -1,9 +1,9 @@
 <template>
-  <div class="container-column">
-    <div class="inner-container container-row-768-column">
+  <div class="flex flex-col gap-2">
+    <div class="flex gap-2 items-center flex-row-768-column">
       <div
         v-for="book in books"
-        class="inner-container-column container-flex-1 padding-half-rem bg-card text-085rem"
+        class="flex flex-col gap-2 p-4 flex-1 bg-card text-085rem"
       >
         <p v-if="isUpdate" class="text-center">
           <span class="text-12rem">{{
@@ -12,15 +12,15 @@
         </p>
         <p>
           <span class="text-12rem">书名</span
-          ><span class="margin-half-horizontal">{{ book.name }}</span>
+          ><span class="mx-4">{{ book.name }}</span>
         </p>
         <p>
           <span class="text-12rem">作者</span
-          ><span class="margin-half-horizontal">{{ book.author }}</span>
+          ><span class="mx-4">{{ book.author }}</span>
         </p>
         <p class="bg-secondary">
           <span class="text-12rem">简介</span
-          ><span class="margin-half-horizontal">{{ book.description }}</span>
+          ><span class="mx-4">{{ book.description }}</span>
         </p>
         <div>
           <p class="text-12rem">封面</p>
@@ -28,19 +28,17 @@
         </div>
         <p>
           <span class="text-12rem">分类</span
-          ><span class="margin-half-horizontal">{{ book.category }}</span>
+          ><span class="mx-4">{{ book.category }}</span>
         </p>
         <p>
           <span class="text-12rem">标签</span>
-          <span
-            class="tag margin-fourth-horizontal"
-            v-for="value in book.tags?.split(/[, ]/)"
+          <span class="tag mx-2" v-for="value in book.tags?.split(/[, ]/)"
             >{{ value }}
           </span>
         </p>
       </div>
     </div>
-    <div class="inner-container container-flex-end">
+    <div class="flex gap-2 items-center justify-end">
       <QFormButton
         @click="
           () => {

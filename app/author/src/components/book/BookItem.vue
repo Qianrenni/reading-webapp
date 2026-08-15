@@ -1,8 +1,8 @@
 <template>
-  <div class="container-column bg-card shadow-common">
-    <div class="inner-container">
+  <div class="flex flex-col gap-2 p-2 bg-card shadow-common">
+    <div class="flex gap-2 items-center">
       <QLazyImage :src="book.cover" :height="80" :width="64" />
-      <div class="inner-container-column container-flex-1">
+      <div class="flex flex-col gap-2 flex-1">
         <h4 :title="book.name">
           {{
             book.name.length > 12
@@ -10,7 +10,7 @@
               : book.name
           }}
         </h4>
-        <p class="container-space-between">
+        <p class="flex justify-between">
           <span class="litte-tag">{{
             book.isEnded ? '已完结' : '连载中'
           }}</span>
@@ -21,9 +21,9 @@
     <p class="book-item-description text-description text-two-line">
       {{ book.description }}
     </p>
-    <div class="container-space-between">
+    <div class="flex justify-between">
       <div
-        class="container-align-center gap-fourth mouse-cursor text-primary"
+        class="flex items-center gap-2 mouse-cursor text-primary"
         @click="
           router.push({
             name: 'BookInfoEdit',
@@ -37,7 +37,7 @@
         <span class="text-08rem">编辑</span>
       </div>
       <div
-        class="container-align-center gap-fourth mouse-cursor"
+        class="flex items-center gap-2 mouse-cursor"
         @click="
           router.push({
             name: 'BookDetail',

@@ -1,34 +1,26 @@
 <template>
-  <div class="container-column">
+  <div class="flex flex-col gap-2">
     <p class="text-08rem text-right">每30秒更新一次</p>
 
     <!-- 统计卡片行：作者/图书/用户/CPU -->
-    <div class="inner-container container-w100 container-space-evenly">
-      <div
-        class="inner-container-column bg-card padding-rem radius-half-rem container-flex-1"
-      >
+    <div class="flex gap-2 items-center w-full justify-evenly">
+      <div class="flex flex-col gap-2 bg-card p-6 radius-md flex-1">
         <h4 class="text-center text-muted">作者数量</h4>
         <p class="text-center text-12rem">{{ authorCount }}位</p>
       </div>
-      <div
-        class="inner-container-column bg-card padding-rem radius-half-rem container-flex-1"
-      >
+      <div class="flex flex-col gap-2 bg-card p-6 radius-md flex-1">
         <h4 class="text-center text-muted">图书数量</h4>
         <p class="text-center text-12rem">{{ bookCount }}本</p>
       </div>
-      <div
-        class="inner-container-column bg-card padding-rem radius-half-rem container-flex-1"
-      >
+      <div class="flex flex-col gap-2 bg-card p-6 radius-md flex-1">
         <h4 class="text-center text-muted">用户数量</h4>
         <p class="text-center text-12rem">{{ userCount }}位</p>
       </div>
     </div>
 
     <!-- 内存与交换空间 -->
-    <div class="inner-container container-w100 gap">
-      <div
-        class="inner-container-column bg-card padding-rem radius-half-rem container-flex-1"
-      >
+    <div class="flex gap-6 items-center w-full">
+      <div class="flex flex-col gap-2 bg-card p-6 radius-md flex-1">
         <h4 class="text-muted">内存使用</h4>
         <div class="progress-bar">
           <div
@@ -36,7 +28,7 @@
             :style="{ width: memoryPercent + '%' }"
           ></div>
         </div>
-        <div class="inner-container container-space-between text-085rem">
+        <div class="flex gap-2 items-center justify-between text-085rem">
           <span class="text-description">
             已用 <strong>{{ formatBytes(systemInfo.memoryUsed) }}</strong>
           </span>
@@ -45,9 +37,7 @@
           </span>
         </div>
       </div>
-      <div
-        class="inner-container-column bg-card padding-rem radius-half-rem container-flex-1"
-      >
+      <div class="flex flex-col gap-2 bg-card p-6 radius-md flex-1">
         <h4 class="text-muted">交换空间（虚存）</h4>
         <div class="progress-bar">
           <div
@@ -55,7 +45,7 @@
             :style="{ width: swapPercent + '%' }"
           ></div>
         </div>
-        <div class="inner-container container-space-between text-085rem">
+        <div class="flex gap-2 items-center justify-between text-085rem">
           <span class="text-description">
             已用 <strong>{{ formatBytes(systemInfo.swapUsed) }}</strong>
           </span>
@@ -68,21 +58,21 @@
 
     <!-- 磁盘分区信息 -->
     <div
-      class="inner-container-column bg-card padding-rem radius-half-rem gap-half"
+      class="flex flex-col gap-2 bg-card p-6 radius-md gap-4"
       v-if="systemInfo.disks?.length"
     >
       <h4 class="text-muted">磁盘分区</h4>
       <div
         v-for="(disk, index) in systemInfo.disks"
         :key="index"
-        class="disk-item"
+        class="flex flex-col gap-2"
       >
         <div
-          class="inner-container container-space-between container-wrap"
-          :class="{ 'padding-vetical': index > 0 }"
+          class="flex gap-2 items-center justify-between flex-wrap"
+          :class="{ 'py-6': index > 0 }"
         >
-          <div class="inner-container gap-half text-085rem">
-            <span class="disk-label">{{ disk.mountPoint }}</span>
+          <div class="flex gap-4 items-center text-085rem">
+            <span class="font-medium">{{ disk.mountPoint }}</span>
             <span class="text-muted">|</span>
             <span class="text-description">{{ disk.device }}</span>
             <span class="text-muted">|</span>
@@ -99,7 +89,7 @@
         </div>
       </div>
     </div>
-    <div class="inner-container-column bg-card padding-rem radius-half-rem">
+    <div class="flex flex-col gap-2 bg-card p-6 radius-md">
       <h4 class="text-muted">CPU使用率</h4>
       <p class="text-12rem">{{ systemInfo.cpuPercent ?? '0' }}%</p>
       <div class="progress-bar">

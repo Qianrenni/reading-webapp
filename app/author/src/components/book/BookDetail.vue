@@ -1,5 +1,5 @@
 <template>
-  <div class="container-column container-w100">
+  <div class="flex flex-col gap-2 w-full">
     <BackButton>
       <template #default>
         <span>返回书籍列表</span>

@@ -1,7 +1,7 @@
 <template>
-  <div class="container-column container-w100">
+  <div class="flex flex-col gap-2 w-full">
     <BackButton>返回</BackButton>
-    <div class="inner-container-column shadow-common bg-card">
+    <div class="flex flex-col gap-2 p-2 shadow-common bg-card">
       <h3 class="text-center">创建新书</h3>
       <BookMeta ref="bookMeta" />
       <QFormButton type="submit" class="button-primary" @click="submit">

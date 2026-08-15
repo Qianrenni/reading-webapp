@@ -1,9 +1,9 @@
 <template>
-  <div class="container-w100">
+  <div class="w-full">
     <QScrollContainer
       v-show="!bookSearchStore.loading"
       scroll-Y
-      class="scroll-container search-container"
+      class="scroll-container grid gap-6 p-6 search-container"
     >
       <BookItem
         v-for="book in bookSearchStore.getSearchResult"
@@ -15,7 +15,7 @@
     </QScrollContainer>
     <QLoading
       v-show="bookSearchStore.loading"
-      class="container-w100 loading"
+      class="w-full loading"
       type="skeleton"
     />
   </div>
@@ -33,10 +33,7 @@ const height = 120;
 </script>
 <style scoped lang="css">
 .search-container {
-  display: grid;
   grid-template-columns: repeat(auto-fill, 350px);
   grid-auto-rows: 120px;
-  gap: 1rem;
-  padding: 1rem;
 }
 </style>

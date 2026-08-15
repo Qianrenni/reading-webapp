@@ -54,14 +54,14 @@ onActivated(() => {
 </script>
 
 <template>
-  <div class="container-column bg-card container-w100">
-    <div class="container-banner scroll-container container margin-auto">
+  <div class="flex flex-col gap-2 p-2 bg-card w-full">
+    <div class="container-banner scroll-container flex gap-2 p-2 mx-auto">
       <span
         v-for="value in bookStore.categories"
         :key="value"
         :class="[{ 'active-common': selectedCategory === value }]"
         @click="selectedCategory = value"
-        class="text-nowrap padding-fourth-rem radius-third-rem bg-hover-secondary mouse-cursor"
+        class="text-nowrap p-2 radius-sm bg-hover-secondary mouse-cursor"
       >
         {{ value }}
       </span>
@@ -69,7 +69,7 @@ onActivated(() => {
     <QScrollContainer
       ref="home-container"
       scroll-y
-      class="scroll-container home-container"
+      class="scroll-container grid gap-6 p-6 home-container"
       style="height: calc(100vh - 6rem)"
       @ended="bookStore.addBookByCategory()"
       @scroll="({ y }: { y: number }) => bookStore.setScrollTo(y)"
@@ -87,11 +87,8 @@ onActivated(() => {
 </template>
 <style lang="css" scoped>
 .home-container {
-  display: grid;
   grid-template-columns: repeat(auto-fill, 350px);
   grid-auto-rows: 120px;
-  gap: 1rem;
-  padding: 1rem;
   border-top: 1px solid var(--primary-color);
 }
 </style>

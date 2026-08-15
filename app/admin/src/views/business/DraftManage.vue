@@ -1,5 +1,5 @@
 <template>
-  <div class="container-column container-w100">
+  <div class="flex flex-col gap-2 w-full">
     <QTab
       :list="tabs.map((item) => item.name)"
       @select="(index) => (selectedIndex = index)"

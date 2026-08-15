@@ -1,6 +1,6 @@
 <template>
   <div class="content-container">
-    <div class="container-column bg-card">
+    <div class="flex flex-col gap-2 p-2 bg-card">
       <h3 class="text-center">用户登录</h3>
       <QFormText
         prefixIcon="User"
@@ -16,7 +16,7 @@
         placeholder="请输入密码"
         name="password"
       />
-      <div class="container" style="padding: 0">
+      <div class="flex gap-2 p-2" style="padding: 0">
         <QFormText
           v-model="form.captcha"
           type="text"
@@ -31,7 +31,7 @@
           @click="refreshCaptcha"
         />
       </div>
-      <div class="container-align-center container-space-between text-08rem">
+      <div class="flex items-center justify-between text-08rem">
         <QFormCheckboxGroup
           v-model="form.remember"
           :options="[{ label: '记住我', value: 'remember' }]"
@@ -45,7 +45,7 @@
         <QLoading v-if="loading" type="breathing" />
         <span v-else>登录</span>
       </QFormButton>
-      <div class="container-center">
+      <div class="flex items-center justify-center">
         <RouterLink to="/register" class="link-primary text-08rem">
           没有账号?立即注册
         </RouterLink>

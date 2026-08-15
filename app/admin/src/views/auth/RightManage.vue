@@ -1,7 +1,7 @@
 <template>
-  <div class="container-column">
+  <div class="flex flex-col gap-2">
     <!-- 工具条 -->
-    <div class="inner-container container-space-between container-align-center">
+    <div class="flex gap-2 items-center justify-between">
       <h4>角色管理</h4>
       <QFormButton class="button-primary" @click="openCreateRoleDialog"
         >新增角色
@@ -10,7 +10,7 @@
 
     <!-- 角色列表 + 详情面板 -->
     <div
-      class="inner-container container-row-768-column"
+      class="flex gap-2 items-center flex-row-768-column"
       style="align-items: flex-start"
     >
       <!-- 角色列表 -->
@@ -22,8 +22,8 @@
           :class="{ 'role-item-active': selectedRole?.id === role.id }"
           @click="selectRole(role)"
         >
-          <div class="container-column" style="flex: 1">
-            <div class="inner-container container-align-center gap-half">
+          <div class="flex flex-col gap-2 p-2" style="flex: 1">
+            <div class="flex gap-4 items-center">
               <strong>{{ role.name }}</strong>
               <span class="text-muted text-085rem">({{ role.code }})</span>
             </div>
@@ -37,10 +37,7 @@
       </div>
 
       <!-- 详情面板 -->
-      <div
-        v-if="selectedRole"
-        class="bg-card container-column container-flex-1"
-      >
+      <div v-if="selectedRole" class="bg-card flex flex-col gap-2 p-2 flex-1">
         <div>
           <h4>
             {{ selectedRole.name }}
@@ -55,9 +52,7 @@
         <QDivider />
         <!-- 权限分配 -->
         <div>
-          <div
-            class="inner-container container-space-between container-align-center"
-          >
+          <div class="flex gap-2 items-center justify-between">
             <h4>权限分配</h4>
             <QFormButton class="button-primary" @click="savePermissions"
               >保存权限</QFormButton
@@ -67,7 +62,7 @@
             <div class="text-085rem text-muted">
               {{ resourceLabels[resource] || resource }}
             </div>
-            <div class="inner-container container-wrap gap-half">
+            <div class="flex flex-wrap gap-4">
               <label
                 v-for="perm in perms"
                 :key="perm.id"
@@ -91,8 +86,8 @@
         <QDivider />
         <!-- 角色继承 -->
         <div>
-          <h4 class="margin-half-vetical">角色继承</h4>
-          <div class="inner-container container-wrap">
+          <h4 class="my-4">角色继承</h4>
+          <div class="flex flex-wrap gap-2 items-center">
             <span v-for="parent in roleParents" :key="parent.id" class="tag">
               {{ parent.name }}
               <span class="mouse-cursor" @click="handleRemoveParent(parent.id)"
@@ -105,7 +100,7 @@
               >无继承</span
             >
           </div>
-          <div class="inner-container margin-vetical">
+          <div class="flex gap-2 items-center my-6">
             <select v-model="newParentId" class="text-input">
               <option :value="0" disabled>选择父角色...</option>
               <option v-for="r in availableParents" :key="r.id" :value="r.id">
@@ -118,7 +113,7 @@
       </div>
       <div
         v-else
-        class="bg-card radius-half-rem container-flex-1 container-center text-muted"
+        class="bg-card radius-md flex-1 flex items-center justify-center text-muted"
       >
         请选择一个角色查看详情
       </div>
@@ -130,9 +125,9 @@
       @close="closeRoleDialog"
       @confirm="saveRole"
     >
-      <div class="dialog-content bg-card radius-half-rem">
+      <div class="dialog-content bg-card radius-md">
         <h4>{{ isEditing ? '编辑角色' : '新增角色' }}</h4>
-        <div class="container-column gap">
+        <div class="flex flex-col gap-6 p-6">
           <QFormText
             v-model="roleForm.name"
             label="角色名称"
@@ -404,26 +399,26 @@ onBeforeMount(() => {
 .role-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
+  gap: var(--q-space-2);
+  padding: var(--q-space-3) var(--q-space-4);
   cursor: pointer;
-  border-bottom: 1px solid var(--border-color, #eee);
+  border-bottom: 1px solid var(--q-color-border-light, #eee);
   transition: background 0.15s;
 }
 .permission-checkbox {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
-  border: 1px solid var(--border-color, #ddd);
-  border-radius: 4px;
+  gap: var(--q-space-1);
+  padding: var(--q-space-1) var(--q-space-2);
+  border: 1px solid var(--q-color-border-light, #ddd);
+  border-radius: var(--q-radius-sm);
   cursor: pointer;
   font-size: 0.85rem;
   user-select: none;
 }
 .permission-checkbox.active {
-  border-color: var(--primary-color, #4090ff);
-  background: rgba(64, 128, 255, 0.08);
+  border-color: var(--q-color-primary);
+  background: var(--q-color-primary-lighter);
 }
 .permission-checkbox input {
   display: none;

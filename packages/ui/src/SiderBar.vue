@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-card content-height padding-vetical">
+  <div class="bg-card content-height py-6">
     <div
       v-for="item in menuStore.menuItems"
       :key="item.name"
-      class="bg-hover-secondary siderbar-item container-align-center"
+      class="bg-hover-secondary siderbar-item flex items-center gap-2"
       :class="[
         {
           'active-common': menuStore.selectedItem === item.name,

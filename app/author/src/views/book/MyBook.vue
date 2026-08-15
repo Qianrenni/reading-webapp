@@ -3,10 +3,10 @@
     class="my-book-view-container scroll-container"
     style="height: calc(100vh - 3rem)"
   >
-    <div class="shadow-common bg-card container-column">
+    <div class="shadow-common bg-card flex flex-col gap-2 p-2">
       <QFormButton
         type="button"
-        class="container-center button-primary container-h100"
+        class="flex items-center justify-center button-primary h-full"
         @click="
           router.push({
             name: 'CreateBook',

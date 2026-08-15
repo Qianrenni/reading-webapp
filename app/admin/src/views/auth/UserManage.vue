@@ -1,9 +1,9 @@
 <template>
-  <div class="container-column gap">
+  <div class="flex flex-col gap-6">
     <h4>用户管理</h4>
 
     <!-- 搜索条 -->
-    <div class="inner-container gap">
+    <div class="flex gap-6 items-center">
       <QSearch
         v-model="keyword"
         placeholder="搜索用户名或邮箱"
@@ -11,7 +11,7 @@
       />
       <QFormButton class="button-primary" @click="search">搜索</QFormButton>
     </div>
-    <div class="inner-container container-flex-1">
+    <div class="flex gap-2 items-center flex-1">
       <QFormTable
         size="small"
         :pagination="false"
@@ -31,7 +31,7 @@
           <span
             v-for="role in toAdminUser(row).roles"
             :key="role.roleId"
-            class="tag margin-fourth-horizontal"
+            class="tag mx-2"
             >{{ getRoleName(role.roleId) }}</span
           >
           <span
@@ -50,7 +50,7 @@
           </span>
         </template>
         <template #actions="{ row }">
-          <div class="inner-container gap-half">
+          <div class="flex gap-4 items-center">
             <QFormButton
               @click="openRoleDialog(row as unknown as AdminUserResponse)"
               >编辑角色
@@ -70,9 +70,9 @@
       </QFormTable>
     </div>
     <!-- 分页 -->
-    <div class="inner-container container-align-center container-space-between">
+    <div class="flex items-center justify-between">
       <span class="text-description text-085rem">共 {{ total }} 条</span>
-      <div class="inner-container gap-half container-align-center">
+      <div class="flex gap-4 items-center">
         <QFormButton
           class="button-small"
           :disabled="page <= 1"
@@ -95,9 +95,9 @@
       @close="closeRoleDialog"
       v-model:visible="showRoleDialog"
     >
-      <div class="margin-vetical">
+      <div class="my-6">
         <label class="text-label">当前角色</label>
-        <div class="inner-container container-wrap">
+        <div class="flex flex-wrap gap-2 items-center">
           <span
             v-for="ur in editingUserRoles"
             :key="ur.roleId"
@@ -112,9 +112,9 @@
           >
         </div>
       </div>
-      <div class="margin-vetical">
+      <div class="my-6">
         <label class="text-label">添加角色</label>
-        <div class="inner-container">
+        <div class="flex gap-2 items-center">
           <select v-model="addRoleId" class="text-input">
             <option :value="0" disabled>选择角色...</option>
             <option v-for="r in availableUserRoles" :key="r.id" :value="r.id">
