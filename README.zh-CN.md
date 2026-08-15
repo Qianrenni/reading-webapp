@@ -450,14 +450,23 @@ cd ktorBackend
 
 ### 前端测试
 
-```bash
-# 代码检查和格式化(根目录)
-pnpm prettier
+前端使用 **Vitest** 做全量测试，覆盖所有 `packages/*` 与 `app/*`（纯逻辑 + Vue 组件渲染）。
 
-# 单个应用检查
-cd author
-pnpm run lint
+```bash
+# 运行全部包测试（node 逻辑测试 + browser 组件渲染测试）
+pnpm test
+
+# 单包测试
+pnpm --filter @guga-reading/shares run test
+pnpm --filter @guga-reading/user run test
+
+# 覆盖率
+pnpm test:coverage
 ```
+
+- **双环境 projects**：`node`（纯逻辑/composable/store 测试，DOM 依赖用 `// @vitest-environment jsdom` 注解）+ `browser`（`*.render.test.ts` 组件渲染测试，Playwright + chromium + `vitest-browser-vue`）。
+- 测试文件与被测文件同目录；组件内纯逻辑解耦为 `composable.ts`（目录 + `index.ts` 导出）以便测试。
+- 浏览器测试需先安装：`npx playwright install chromium`。
 
 ### Android 测试
 

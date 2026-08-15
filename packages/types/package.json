@@ -6,7 +6,10 @@
   "types": "./dist/types/index.d.ts",
 
   "scripts": {
-    "build": "vue-tsc --build --declaration --emitDeclarationOnly"
+    "build": "vue-tsc --build --declaration --emitDeclarationOnly",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "keywords": [],
   "author": "",

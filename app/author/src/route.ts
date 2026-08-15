@@ -37,7 +37,7 @@ const routes = [
       {
         path: '/book-detail/:id',
         name: 'BookDetail',
-        component: () => import('./components/book/BookDetail.vue'),
+        component: () => import('./components/book/BookDetail'),
         meta: { title: '书籍详情' },
       },
       {

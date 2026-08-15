@@ -44,7 +44,8 @@
   // 只编译 src 目录下的文件
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "src/**/*.test.ts"
   ]
   // 排除 node_modules 和 dist 目录
 }

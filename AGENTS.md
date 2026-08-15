@@ -117,6 +117,16 @@ cd android-user
 - 后端测试在 `ktorBackend/src/test/kotlin/`，使用 `kotlin.test` + `kotlinx-coroutines-test`（`runTest`）；`ServerTest.kt` 用 Ktor `testApplication` 起应用级测试。
 - **注意**：`TestContentStoreService` 等涉及 `ContentStoreService` 的测试，`@BeforeTest` 必须调用 `ContentStoreManager.resetForTest()` 清空全局缓存单元，避免用例间交叉影响。
 
+### 前端 Vitest（app/_ 与 packages/_）
+
+- 命令：`pnpm test`（根目录，递归各包）；单包 `pnpm --filter @guga-reading/xxx run test`；监听 `test:watch`；覆盖率 `test:coverage`（v8 provider，`coverage/` 已 gitignore）。Vitest 及相关依赖（`vitest`、`@vitest/browser`、`@vitest/browser-playwright`、`vitest-browser-vue`、`@vue/test-utils`、`jsdom`）统一装在根 devDependencies；跑浏览器测试前需 `npx playwright install chromium`。
+- **双环境 projects**（各包 `vitest.config.ts`，`test.projects` + `extends: true`）：
+  - `node`：纯逻辑/composable/store/api 测试（默认 node 环境；依赖 DOM 的文件用文件头 `// @vitest-environment jsdom` 注解切换）。`test/setup.ts` 提供 `matchMedia`/`innerText` polyfill（qyani-components 模块加载需要）。
+  - `browser`：组件渲染测试（`*.render.test.ts`，默认 include `src/components/**/*.render.test.ts`），真实浏览器 Playwright + chromium + `vitest-browser-vue`（`await render(Component, { props, global: { plugins: [pinia, router], stubs } })`，`expect.element(locator).toBeVisible()`）。
+- **测试文件与被测文件同目录**（逻辑 `*.test.ts`、渲染 `*.render.test.ts`）；所有 `*.test.ts` 已从构建 tsconfig 排除（`exclude: ["src/**/*.test.ts"]`），不参与 `vue-tsc -b`/声明产物。
+- **组件内不可测的纯逻辑必须解耦为 `composable.ts`**（与 `.vue` 同目录，目录内用 `index.ts` 具名导出）；文件较多时做成目录 + `index.ts`。已解耦示例：`ui/ContentEditor`（textToParagraphs/paragraphsToText）、`ui/LoginView`（useLoginForm）、`user/ReadSetting`（useReadSetting）、`author/BookDataStatistics`（getHeatMapOptions/buildHeatMapData）、`author/BookDetail`（parseBookId）。
+- **常见实践**：store/api 测试用 `vi.mock('@guga-reading/shares', () => ({ useApiXxx: {...} }))` 局部 mock（必要时 `vi.resetAllMocks()` 清实现）；Pinia 测试 `setActivePinia(createPinia())`；组件渲染测试挂真实 pinia/router 插件 + stub qyani 组件（`global: { stubs: { QIcon: true, ... } }`）；reactive store 状态用 `toEqual` 深比较（勿用 `toBe` 引用比较）。
+
 ## 部署与 CI/CD
 
 - `docker-compose.yml`：mysql（8.0）、redis（7）、guga_backend（镜像 `guga_backend_ktor:latest`）、guga_frontend（Nginx 托管三个前端）；`nginx.conf` 反向代理 `/api` 与静态资源。

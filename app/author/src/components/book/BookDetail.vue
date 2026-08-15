@@ -58,7 +58,7 @@ const tabs = [
   {
     name: '数据统计',
     component: defineAsyncComponent(
-      () => import('@/components/book/BookDataStatistics.vue'),
+      () => import('@/components/book/BookDataStatistics'),
     ),
   },
 ];

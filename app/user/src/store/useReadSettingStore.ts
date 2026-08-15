@@ -14,7 +14,11 @@ export const useReadSettingStore = defineStore('readSetting', {
   state: (): { readSettings: ReadSettings } => {
     const saved = localStorage.getItem(READ_SETTING_STORAGE_KEY);
     if (saved) {
-      return { readSettings: JSON.parse(saved) };
+      try {
+        return { readSettings: JSON.parse(saved) };
+      } catch {
+        // 存储数据损坏时回退默认设置
+      }
     }
     return {
       readSettings: { ...defaultReadSettings },

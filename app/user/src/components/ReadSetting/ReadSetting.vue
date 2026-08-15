@@ -60,40 +60,15 @@
 </template>
 <script lang="ts" setup>
 import { fontOptions, themes } from '@/constants';
-import { useReadSettingStore } from '@/store';
-import type { ReadSettings } from '@/types';
 import {
   QFormRangeSlider,
   QFormSelect,
   QIcon,
   type Options,
 } from 'qyani-components';
-import { ref, watch } from 'vue';
-const useReadingSetting = useReadSettingStore();
-const readSettings = ref<ReadSettings>({ ...useReadingSetting.readSettings });
-const updateTheme = (theme: (typeof themes)[keyof typeof themes]) => {
-  readSettings.value.color = theme.color;
-  readSettings.value.backgroundColor = theme.backgroundColor;
-};
-const reset = () => {
-  useReadingSetting.reset();
-  readSettings.value = { ...useReadingSetting.readSettings };
-};
+import { useReadSetting } from './composable';
 
-watch(
-  () => readSettings.value,
-  (newSettings) => {
-    useReadingSetting.updateReadSettings(newSettings);
-  },
-  { deep: true },
-);
-watch(
-  () => readSettings.value.fontSize,
-  (newFontSize, oldFontSize) => {
-    readSettings.value.lineHeight += newFontSize - oldFontSize;
-  },
-  { deep: true },
-);
+const { readSettings, updateTheme, reset } = useReadSetting();
 </script>
 <style lang="css" scoped>
 .theme-preset {

@@ -21,6 +21,7 @@
 <script setup lang="ts">
 import { useThrottle } from '@qianrenni/core';
 import { ref, onMounted, nextTick, watch } from 'vue';
+import { textToParagraphs, paragraphsToText } from './composable';
 
 const props = withDefaults(
   defineProps<{
@@ -46,27 +47,6 @@ const emitUpdate = useThrottle((text: string) => {
 });
 const editorRef = ref<HTMLDivElement | null>(null);
 const charCount = ref(0);
-
-// 将纯文本转为 <p> 段落结构
-function textToParagraphs(text: string): string {
-  if (!text?.trim()) return '<p><br></p>';
-  const paragraphs = text
-    .split(/\r?\n/)
-    .map((p) => p.trim())
-    .filter((p) => p !== '')
-    .map((p) => `<p>${p}</p>`)
-    .join('');
-  return paragraphs || '<p><br></p>';
-}
-
-// 将 <p> 结构转为纯文本(\n 分隔)
-function paragraphsToText(html: string): string {
-  const temp = document.createElement('div');
-  temp.innerHTML = html;
-  return Array.from(temp.querySelectorAll('p'))
-    .map((p) => p.innerText)
-    .join('\n');
-}
 
 // 初始化内容
 onMounted(() => {

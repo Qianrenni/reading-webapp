@@ -8,7 +8,11 @@
   "exports": {
     ".": "./src/vite-preset.js"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
   "license": "ISC",
   "dependencies": {
     "@vitejs/plugin-vue": "^6.0.1"

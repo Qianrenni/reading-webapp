@@ -333,7 +333,7 @@ import {
   useMessage,
 } from 'qyani-components';
 import { useApiReport } from '@guga-reading/shares';
-import ReadSetting from '@/components/ReadSetting.vue';
+import { ReadSetting } from '@/components/ReadSetting';
 import { useVirtualList } from '@vueuse/core';
 const fullScreen = toggleFullScreen();
 const isMobile = useScreenSize.getWidth(768);

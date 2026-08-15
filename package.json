@@ -15,6 +15,9 @@
     "build:user": "pnpm --filter @guga-reading/user run build",
     "build:admin": "pnpm --filter @guga-reading/admin run build",
     "build:all": "pnpm --filter @guga-reading/author run build && pnpm --filter @guga-reading/user run build && pnpm --filter @guga-reading/admin run build",
+    "test": "pnpm -r run test",
+    "test:watch": "pnpm -r run test:watch",
+    "test:coverage": "pnpm -r run test:coverage",
     "prettier": "npx prettier --write \"*/**/*.{js,ts,vue,css,md}\"",
     "prepare": "husky install"
   },
@@ -23,10 +26,19 @@
   },
   "devDependencies": {
     "@qyani/eslint-config": "workspace:*",
+    "@vitejs/plugin-vue": "^6.0.6",
+    "@vitest/browser": "^4.1.10",
+    "@vitest/browser-playwright": "^4.1.10",
+    "@vitest/coverage-v8": "^4.1.10",
+    "@vue/test-utils": "^2.4.11",
     "eslint": "^10.2.1",
     "husky": "^8.0.0",
+    "jsdom": "^30.0.1",
     "lint-staged": "^16.4.0",
-    "prettier": "^3.8.3"
+    "playwright": "^1.62.1",
+    "prettier": "^3.8.3",
+    "vitest": "^4.1.10",
+    "vitest-browser-vue": "^2.1.0"
   },
   "lint-staged": {
     "*.{js,ts,vue,css,md}": [
