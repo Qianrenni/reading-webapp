@@ -2,10 +2,14 @@
   --content-height: calc(100vh - 50px);
   --banner-width: 1200px;
   --shadow-inverse: rgba(0, 0, 0, 0.9);
+  /* 标签底色：qyani 默认浅黄 #fff5cc 配白字不可读，改用深黄保证对比度 */
+  --tag-primary-color: #dca000;
 }
 
 body.dark-mode {
   --shadow-inverse: rgba(255, 255, 255, 0.9);
+  /* 暗色模式下同样覆盖 qyani dark.css 的浅黄默认值，保证标签白字可读 */
+  --tag-primary-color: #dca000;
 }
 
 .container-banner {

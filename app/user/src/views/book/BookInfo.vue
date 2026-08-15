@@ -19,7 +19,7 @@
             v-if="book.tags"
             class="flex flex-wrap gap-2 p-2 text-muted text-085rem"
           >
-            <QTag v-for="tag in book.tags.split(',')" :key="tag" :text="tag">
+            <QTag v-for="tag in book.tags.split(/[, ]/)" :key="tag" :text="tag">
             </QTag>
           </p>
           <div class="flex flex-wrap text-08rem">

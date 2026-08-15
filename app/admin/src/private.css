@@ -21,6 +21,8 @@ body.dark-mode {
   --primary-light: #4e7dff;
   --link-hover: #0240ed;
   --shadow-element: rgba(255, 255, 255, 0.3);
+  /* 暗色模式下覆盖 qyani dark.css 的浅黄默认值，保证标签白字可读 */
+  --tag-primary-color: #1d4ed8;
 }
 
 .bg-hover-secondary:hover {
