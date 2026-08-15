@@ -29,22 +29,14 @@
       >
         <p v-for="(line, index) in content" class="text-read-indent">
           {{ line }}
-          <span
-            style="
-              display: inline-flex;
-              vertical-align: -webkit-baseline-middle;
-            "
-            @click.stop="
-              {
-                showComment = true;
-                currentCommentIndex = index;
-              }
-            "
-          >
+          <span class="comment-icon-wrap" @click.stop="openLineComment(index)">
             <QIcon
               icon="ChatDotRound"
               :size="useReadingSetting.readSettings.fontSize"
             />
+            <span v-if="lineCommentCount(index) > 0" class="comment-icon-badge">
+              {{ lineCommentCount(index) }}
+            </span>
           </span>
         </p>
       </div>
@@ -224,8 +216,78 @@
         :overlay="false"
         @close="showComment = false"
       >
-        <div class="flex flex-col gap-2">
-          <p>评论</p>
+        <div class="flex flex-col gap-2 p-2">
+          <h4>本行评论</h4>
+          <p v-if="currentLineText" class="text-muted text-08rem text-one-line">
+            {{ currentLineText }}
+          </p>
+          <!-- 评论列表 -->
+          <div
+            v-if="lineComments.length > 0"
+            class="flex flex-col gap-2 scroll-container"
+            style="max-height: 50vh"
+          >
+            <div
+              v-for="comment in lineComments"
+              :key="comment.id"
+              class="flex gap-2 p-2 bg-hover-secondary radius-sm"
+            >
+              <QAvatar
+                :url="comment.userAvatar || '/figure.webp'"
+                size="32px"
+              />
+              <div class="flex-1 flex flex-col gap-1 min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="text-08rem">{{ comment.userName }}</span>
+                  <span class="text-muted text-08rem">
+                    {{ comment.createdAt?.split('T')[0] }}
+                  </span>
+                </div>
+                <p class="text-08rem comment-text">{{ comment.content }}</p>
+              </div>
+              <QFormButton
+                v-if="
+                  authStore.isLogin && comment.userId === authStore.getUser?.id
+                "
+                type="button"
+                class="button-delete"
+                @click="deleteLineComment(comment)"
+              >
+                删除
+              </QFormButton>
+            </div>
+          </div>
+          <span v-else class="text-muted text-08rem"
+            >暂无评论，快来发表第一条吧～</span
+          >
+          <!-- 发表评论 -->
+          <div
+            v-if="authStore.isLogin"
+            class="flex flex-col gap-2 border-t p-2"
+          >
+            <QFormTextarea
+              v-model="commentContent"
+              :rows="2"
+              maxlength="2000"
+              placeholder="写下你的看法（2000字以内）"
+            />
+            <div class="flex justify-end">
+              <QFormButton
+                type="button"
+                class="button-primary"
+                @click="addLineComment"
+              >
+                发表评论
+              </QFormButton>
+            </div>
+          </div>
+          <span
+            v-else
+            class="text-muted text-08rem mouse-cursor"
+            @click="router.push('/login')"
+          >
+            登录后可发表评论
+          </span>
         </div>
       </QDrawer>
     </div>
@@ -242,19 +304,33 @@ import {
   useTemplateRef,
   watch,
 } from 'vue';
-import type { Book, Catalog } from '@guga-reading/types';
-import { useBookStore, useReadSettingStore } from '@/store';
+import type {
+  Book,
+  BookChapterComment,
+  Catalog,
+  ChapterCommentsMap,
+} from '@guga-reading/types';
+import { useAuthStore, useBookStore, useReadSettingStore } from '@/store';
 import router from '@/route';
 import {
   indexToCN,
   toggleFullScreen,
   useApiBooks,
+  useApiComments,
   useTitle,
 } from '@guga-reading/shares';
 import { useScreenSize } from 'qyani-components';
 import { useThrottle } from '@qianrenni/core';
 import { useReadingHistoryStore } from '@/store';
-import { QLoading, QIcon, QDrawer } from 'qyani-components';
+import {
+  QLoading,
+  QIcon,
+  QDrawer,
+  QAvatar,
+  QFormTextarea,
+  QFormButton,
+  useMessage,
+} from 'qyani-components';
 import { useApiReport } from '@guga-reading/shares';
 import ReadSetting from '@/components/ReadSetting.vue';
 import { useVirtualList } from '@vueuse/core';
@@ -266,6 +342,76 @@ const bookReadContainer = useTemplateRef<HTMLDivElement>('bookReadContainer');
 const showComment = ref<boolean>(false);
 //
 const currentCommentIndex = ref<number>(-1);
+const authStore = useAuthStore();
+// 当前章节行评论：行号 -> 评论列表
+const chapterComments = ref<ChapterCommentsMap>({});
+const commentContent = ref('');
+// 当前行原文（评论抽屉顶部展示）
+const currentLineText = computed(() => {
+  const idx = currentCommentIndex.value;
+  if (idx < 0 || idx >= content.value.length) return '';
+  return content.value[idx];
+});
+// 当前行评论列表
+const lineComments = computed<BookChapterComment[]>(
+  () => chapterComments.value[currentCommentIndex.value] ?? [],
+);
+// 某行的评论数（用于行尾徽标）
+const lineCommentCount = (line: number) =>
+  chapterComments.value[line]?.length ?? 0;
+// 打开某行评论抽屉
+const openLineComment = (index: number) => {
+  currentCommentIndex.value = index;
+  commentContent.value = '';
+  showComment.value = true;
+};
+// 加载某章的行评论
+const loadChapterComments = async (bookId: number, chapterId: number) => {
+  const result = await useApiComments.getChapterComments(bookId, chapterId);
+  // 防止慢响应覆盖新章节的评论
+  if (result.success && chapterId === currentContentId.value) {
+    chapterComments.value = result.data ?? {};
+  }
+};
+// 发表行评论
+const addLineComment = async () => {
+  const contentText = commentContent.value.trim();
+  if (!contentText) {
+    useMessage.error('评论内容不能为空');
+    return;
+  }
+  if (contentText.length > 2000) {
+    useMessage.error('评论内容不能超过2000字');
+    return;
+  }
+  const result = await useApiComments.createLineComment(
+    book.value.id,
+    currentContentId.value,
+    currentCommentIndex.value,
+    contentText,
+  );
+  if (result.success) {
+    useMessage.success('评论发表成功');
+    commentContent.value = '';
+    await loadChapterComments(book.value.id, currentContentId.value);
+  } else {
+    useMessage.error(result.message);
+  }
+};
+// 删除自己的行评论
+const deleteLineComment = async (comment: BookChapterComment) => {
+  const result = await useApiComments.deleteLineComment(
+    book.value.id,
+    comment.chapterId,
+    comment.id,
+  );
+  if (result.success) {
+    useMessage.success('评论已删除');
+    await loadChapterComments(book.value.id, currentContentId.value);
+  } else {
+    useMessage.error(result.message);
+  }
+};
 // 书籍信息
 const book = ref<Book>({} as Book);
 // 目录
@@ -391,6 +537,8 @@ const run = async (chapterId: number) => {
   content.value = processedContent;
   // 更新当前内容ID
   currentContentId.value = chapterId;
+  // 加载该章行评论（异步，切章时自动更新）
+  loadChapterComments(book.value.id, chapterId);
   // 更新阅读历史
   updateReadingHistory(book.value.id, chapterId, currentContentIndex.value + 1);
   // 上报阅读数据,进入新章节
@@ -471,6 +619,33 @@ onBeforeUnmount(() => {
   top: 50%;
   left: calc(50vw + 450px);
   transform: translateY(-50%);
+}
+
+.comment-icon-wrap {
+  display: inline-flex;
+  vertical-align: -webkit-baseline-middle;
+  position: relative;
+  cursor: pointer;
+}
+
+.comment-icon-badge {
+  position: absolute;
+  top: -0.4rem;
+  right: -0.6rem;
+  min-width: 1rem;
+  height: 1rem;
+  padding: 0 0.25rem;
+  border-radius: 0.5rem;
+  background: var(--primary-color, #dca000);
+  color: #fff;
+  font-size: 0.7rem;
+  line-height: 1rem;
+  text-align: center;
+}
+
+.comment-text {
+  word-break: break-all;
+  white-space: pre-wrap;
 }
 
 .book-read-catalog-container {

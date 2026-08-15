@@ -21,6 +21,10 @@ const routes = [
         component: () => import('@/views/system/SystemManage.vue'),
       },
       {
+        path: 'system-config',
+        component: () => import('@/views/system/SystemConfigManage.vue'),
+      },
+      {
         path: 'permission-manage',
         component: () => import('@/views/auth/RightManage.vue'),
       },

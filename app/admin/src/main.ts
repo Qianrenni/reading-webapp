@@ -16,6 +16,7 @@ const menuItems: MenuItem[] = [
   { name: '用户管理', path: '/user-manage', icon: 'AccountSetting' },
   { name: '权限管理', path: '/permission-manage', icon: 'Lock' },
   { name: '系统设置', path: '/system-setting', icon: 'SystemSetting' },
+  { name: '系统配置', path: '/system-config', icon: 'Setting' },
 ];
 const app = createApp(App);
 app.use(createPinia());

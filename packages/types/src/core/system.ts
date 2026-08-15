@@ -55,3 +55,13 @@ export interface LogEntry {
   logger: string;
   message: string;
 }
+
+/**
+ * 动态配置领域视图（管理端展示）
+ * @param domain 配置领域（如 RATE_LIMIT/CACHE/COMPACT）
+ * @param values 该领域键值对（字符串形式）
+ */
+export interface ConfigView {
+  domain: string;
+  values: Record<string, string>;
+}

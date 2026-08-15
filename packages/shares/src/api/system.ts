@@ -3,12 +3,30 @@ import {
   LogFileInfo,
   PageResult,
   LogEntry,
+  ConfigView,
 } from '@guga-reading/types';
-import { get } from '../utils';
+import { get, put } from '../utils';
 export const useApiSystem = {
   prefix: '/system',
   getSystemInfo: async function () {
     return await get<SystemInfo>(`${this.prefix}/info`);
+  },
+
+  /** 获取全部动态配置领域及其当前生效值 */
+  getConfigs: async function () {
+    return await get<ConfigView[]>(`${this.prefix}/config`);
+  },
+
+  /**
+   * 更新某领域动态配置（部分字段合并，写 Redis + 失效本地缓存，热更新无需重启）
+   * @param domain 配置领域（如 RATE_LIMIT）
+   * @param values 要更新的键值对
+   */
+  updateConfig: async function (
+    domain: string,
+    values: Record<string, string>,
+  ) {
+    return await put<ConfigView>(`${this.prefix}/config/${domain}`, values);
   },
 
   /**
