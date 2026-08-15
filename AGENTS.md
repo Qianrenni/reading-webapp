@@ -125,6 +125,7 @@ cd android-user
 
 ## Agent 注意事项
 
+- **写组件前优先查 `qyani-knowledge` MCP**：本地 MCP 服务器 `qyani-knowledge`（`.vscode/mcp.json` 配置，`npx -y @qianrenni/mcp`）收录 `qyani-components` 与 `@qianrenni/core` 的组件、通用样式、算法与业务/事件工具。**编写任何新组件或通用样式前，先用该 MCP 检索是否已有现成实现可复用**（`qyani-components` 为本地库，各应用 `.env.local` 的 `QYANI_COMPONENTS_PATH` 可指向本地源码调试），避免重复造轮子；无现成实现时再自行编写。
 - 修改代码前优先用 codegraph 探索目标符号的调用关系（爆炸半径），避免遗漏跨端/跨语言影响（如改后端字段时同步改 `packages/types`）。
 - 不要修改 `dist/`、`node_modules/`、`build/`、`.gradle/`、`.ruff_cache/`、`.pytest_cache/` 等生成物目录；不要修改 `backend/` 遗留代码。
 - `.env`、`docker-compose.yml` 含真实密钥/凭据：代码中不硬编码敏感信息，也不写入文档或提交。
