@@ -20,9 +20,11 @@
       </QFormButton>
     </div>
     <BookItem v-for="book in bookItems" :key="book.id" :book="book" />
-    <div v-if="loading" v-for="_ in 15" style="height: 150px">
-      <QLoading type="skeleton" />
-    </div>
+    <template v-if="loading">
+      <div v-for="_ in 15" :key="_" style="height: 150px">
+        <QLoading type="skeleton" />
+      </div>
+    </template>
   </div>
 </template>
 <script lang="ts" setup>

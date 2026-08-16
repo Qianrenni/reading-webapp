@@ -69,7 +69,7 @@
       <h4 class="text-muted">磁盘分区</h4>
       <div
         v-for="(disk, index) in systemInfo.disks"
-        :key="index"
+        :key="disk.mountPoint"
         class="flex flex-col gap-2"
       >
         <div

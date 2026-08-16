@@ -3,6 +3,7 @@
     <div class="flex gap-2 items-center container-row-768-column">
       <div
         v-for="book in books"
+        :key="book.id"
         class="flex flex-col gap-2 p-4 flex-1 bg-card text-085rem"
       >
         <p v-if="isUpdate" class="text-center">
@@ -32,7 +33,10 @@
         </p>
         <p>
           <span class="text-12rem">标签</span>
-          <span class="tag mx-2" v-for="value in book.tags?.split(/[, ]/)"
+          <span
+            class="tag mx-2"
+            v-for="value in book.tags?.split(/[, ]/)"
+            :key="value"
             >{{ value }}
           </span>
         </p>
