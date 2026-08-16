@@ -54,18 +54,23 @@ onActivated(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 p-2 bg-card w-full">
-    <div class="container-banner scroll-container flex gap-2 p-2 mx-auto">
-      <span
-        v-for="value in bookStore.categories"
-        :key="value"
-        :class="[{ 'active-common': selectedCategory === value }]"
-        @click="selectedCategory = value"
-        class="text-nowrap p-2 radius-sm bg-hover-secondary mouse-cursor"
-      >
-        {{ value }}
-      </span>
-    </div>
+  <section class="flex flex-col gap-2 p-2 bg-card w-full">
+    <nav
+      class="container-banner scroll-container flex gap-2 p-2 mx-auto"
+      aria-label="书籍分类"
+    >
+      <ul class="flex gap-2">
+        <li
+          v-for="value in bookStore.categories"
+          :key="value"
+          :class="[{ 'active-common': selectedCategory === value }]"
+          @click="selectedCategory = value"
+          class="text-nowrap p-2 radius-sm bg-hover-secondary mouse-cursor"
+        >
+          {{ value }}
+        </li>
+      </ul>
+    </nav>
     <QScrollContainer
       ref="home-container"
       scroll-y
@@ -89,7 +94,7 @@ onActivated(() => {
         :height="height"
       />
     </QScrollContainer>
-  </div>
+  </section>
 </template>
 <style lang="css" scoped>
 .home-container {

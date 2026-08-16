@@ -85,3 +85,11 @@ body.dark-mode {
 .text-indent-1rem {
   text-indent: 1rem;
 }
+
+/* 语义化结构改造：div → ul/ol 列表结构时，去除 UA 默认样式保证视觉零变化 */
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

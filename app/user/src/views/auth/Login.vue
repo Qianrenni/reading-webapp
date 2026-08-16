@@ -1,6 +1,6 @@
 <template>
-  <div class="content-container">
-    <div class="flex flex-col gap-2 p-2 bg-card">
+  <main class="content-container">
+    <section class="flex flex-col gap-2 p-2 bg-card">
       <h3 class="text-center">用户登录</h3>
       <QFormText
         prefixIcon="User"
@@ -50,8 +50,8 @@
           没有账号?立即注册
         </RouterLink>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 <script setup lang="ts">
 import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue';

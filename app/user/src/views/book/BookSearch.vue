@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <section class="w-full">
     <QScrollContainer
       v-show="!bookSearchStore.loading"
       scroll-Y
@@ -18,7 +18,7 @@
       class="w-full loading"
       type="skeleton"
     />
-  </div>
+  </section>
 </template>
 <script setup lang="ts">
 import { useBookSearchStore } from '@/store/useBookSearchStore';

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 p-2 bg-card">
+  <section class="flex flex-col gap-2 p-2 bg-card">
     <h4>日志监控</h4>
 
     <!-- ===== 日志监控面板 ===== -->
@@ -117,7 +117,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts" setup>

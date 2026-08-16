@@ -1,9 +1,10 @@
 <template>
-  <header class="bg-card flex gap-2 p-2 header-container">
+  <header class="bg-card flex gap-2 p-2 header-container" aria-label="顶栏">
     <QIcon
       v-show="isMobile"
       icon="Menu"
       size="24"
+      aria-label="打开导航菜单"
       @click="showMenu = !showMenu"
     />
     <div class="flex items-center justify-center gap-2">

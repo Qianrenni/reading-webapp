@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 p-2 flex-wrap">
+  <section class="flex flex-col gap-2 p-2 flex-wrap">
     <QFormTable :columns="columns" :data="bookchapters" size="small">
       <template #name="{ row }">
         {{ bookMap[row.bookId as number]?.name || '--' }}
@@ -50,7 +50,7 @@
         </div>
       </template>
     </QFormTable>
-  </div>
+  </section>
 </template>
 <script lang="ts" setup>
 import router from '@/route';

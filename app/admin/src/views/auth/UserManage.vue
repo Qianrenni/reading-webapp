@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-6">
+  <section class="flex flex-col gap-6">
     <h4>用户管理</h4>
 
     <!-- 搜索条 -->
@@ -127,7 +127,7 @@
         </div>
       </div>
     </QDialog>
-  </div>
+  </section>
 </template>
 
 <script lang="ts" setup>

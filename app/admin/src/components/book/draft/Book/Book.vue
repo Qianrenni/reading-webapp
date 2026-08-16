@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 p-2 flex-wrap">
+  <section class="flex flex-col gap-2 p-2 flex-wrap">
     <QFormTable :columns="columns" :data="books" size="small">
       <template #status="{ row }">
         {{ TranslationStatus[row.status as StatusEnum] }}
@@ -42,7 +42,7 @@
         </div>
       </template>
     </QFormTable>
-  </div>
+  </section>
 </template>
 <script lang="ts" setup>
 import router from '@/route';

@@ -1,5 +1,5 @@
 <template>
-  <div
+  <section
     class="my-book-view-container scroll-container"
     style="height: calc(100vh - 3rem)"
   >
@@ -25,7 +25,7 @@
         <QLoading type="skeleton" />
       </div>
     </template>
-  </div>
+  </section>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';

@@ -1,79 +1,79 @@
 <template>
-  <div>
+  <section>
     <div class="flex gap-2 hidden-768">
       <q-form-button @click="showClose = !showClose"> 批量管理 </q-form-button>
     </div>
-    <div class="grid gap-4 p-2 w-full reading-history-container">
-      <QSwiperAction
+    <ul class="grid gap-4 p-2 w-full reading-history-container">
+      <li
         v-for="historyItem in historyStore.getReadingHistory"
         :key="historyItem.id"
-        :disabled="!isLessThan768"
-        :threshold="30"
       >
-        <template #default>
-          <div class="bg-card flex gap-2 p-2">
-            <div
-              v-show="showClose && !isLessThan768"
-              class="inner-close"
-              @click="historyStore.delete(historyItem.id)"
-            >
-              <q-icon icon="Close" size="16px" />
-            </div>
-            <QLazyImage
-              :src="historyItem.cover"
-              :height="height"
-              :width="width"
-            />
-            <div class="flex-1 flex flex-col gap-2">
-              <h5>
-                {{ historyItem.name }}
-              </h5>
-              <div class="flex gap-2 items-center">
-                <QIcon icon="User" size="14px" />
-                <span class="text-08rem">{{ historyItem.author }}</span>
+        <QSwiperAction :disabled="!isLessThan768" :threshold="30">
+          <template #default>
+            <article class="bg-card flex gap-2 p-2">
+              <div
+                v-show="showClose && !isLessThan768"
+                class="inner-close"
+                @click="historyStore.delete(historyItem.id)"
+              >
+                <q-icon icon="Close" size="16px" />
               </div>
-              <div class="flex gap-2 items-center">
-                <QIcon icon="History" size="14px" />
+              <QLazyImage
+                :src="historyItem.cover"
+                :height="height"
+                :width="width"
+              />
+              <div class="flex-1 flex flex-col gap-2">
+                <h5>
+                  {{ historyItem.name }}
+                </h5>
                 <div class="flex gap-2 items-center">
-                  <span class="text-08rem">上次阅读:</span>
-                  <span class="text-08rem">{{
-                    historyItem.lastReadAt.split('T')[0]
-                  }}</span>
+                  <QIcon icon="User" size="14px" />
+                  <span class="text-08rem">{{ historyItem.author }}</span>
+                </div>
+                <div class="flex gap-2 items-center">
+                  <QIcon icon="History" size="14px" />
+                  <div class="flex gap-2 items-center">
+                    <span class="text-08rem">上次阅读:</span>
+                    <span class="text-08rem">{{
+                      historyItem.lastReadAt.split('T')[0]
+                    }}</span>
+                  </div>
+                </div>
+                <div class="flex gap-2 items-center">
+                  <QFormButton
+                    type="button"
+                    @click="
+                      router.push(
+                        `/book-read/${historyItem.id}/${historyItem.lastChapterId}`,
+                      )
+                    "
+                  >
+                    继续阅读
+                  </QFormButton>
+                  <QFormButton
+                    v-if="!shelfIds.includes(historyItem.id)"
+                    type="button"
+                    @click="shelfStore.add(historyItem.id)"
+                  >
+                    加入书架
+                  </QFormButton>
                 </div>
               </div>
-              <div class="flex gap-2 items-center">
-                <QFormButton
-                  type="button"
-                  @click="
-                    router.push(
-                      `/book-read/${historyItem.id}/${historyItem.lastChapterId}`,
-                    )
-                  "
-                >
-                  继续阅读
-                </QFormButton>
-                <QFormButton
-                  v-if="!shelfIds.includes(historyItem.id)"
-                  type="button"
-                  @click="shelfStore.add(historyItem.id)"
-                >
-                  加入书架
-                </QFormButton>
-              </div>
+            </article>
+          </template>
+          <template #action>
+            <div
+              class="flex items-center justify-center px-3 py-2 h-full delete-768"
+              @click="historyStore.delete(historyItem.id)"
+            >
+              删除
             </div>
-          </div>
-        </template>
-        <template #action>
-          <div
-            class="flex items-center justify-center px-3 py-2 h-full delete-768"
-            @click="historyStore.delete(historyItem.id)"
-          >
-            删除
-          </div>
-        </template>
-      </QSwiperAction>
-    </div>
-  </div>
+          </template>
+        </QSwiperAction>
+      </li>
+    </ul>
+  </section>
 </template>
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from 'vue';

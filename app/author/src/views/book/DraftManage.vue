@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col gap-2 w-full">
+  <section class="flex flex-col gap-2 w-full">
     <QTab
       :list="tabs.map((item) => item.name)"
       @select="(index) => (selectedIndex = index)"
     />
     <component :is="tabs[selectedIndex]?.component" />
-  </div>
+  </section>
 </template>
 <script lang="ts" setup>
 import { defineAsyncComponent, ref } from 'vue';

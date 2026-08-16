@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="content-container">
-      <div class="bg-card flex flex-col gap-2 p-2">
+      <section class="bg-card flex flex-col gap-2 p-2">
         <h4 class="text-center">修改密码</h4>
         <QFormText
           v-model="formParam.email"
@@ -34,7 +34,7 @@
         <QFormButton type="button" class="button-primary" @click="handelSubmit">
           <span class="text-08rem">重置密码</span>
         </QFormButton>
-      </div>
+      </section>
     </div>
   </main>
 </template>

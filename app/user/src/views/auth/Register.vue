@@ -1,6 +1,6 @@
 <template>
-  <div class="content-container">
-    <div class="bg-card flex flex-col gap-2 p-2">
+  <main class="content-container">
+    <section class="bg-card flex flex-col gap-2 p-2">
       <h3 class="text-center">新用户注册</h3>
       <QFormText
         v-model="form.username"
@@ -57,8 +57,8 @@
       <QFormButton type="button" class="button-primary" @click="register">
         注册
       </QFormButton>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue';

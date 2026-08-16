@@ -17,7 +17,7 @@ const router = useRouter();
 </script>
 
 <template>
-  <div
+  <article
     class="flex gap-2 items-center mouse-cursor"
     @click="() => router.push(`/book-detail/${book.id}`)"
   >
@@ -29,5 +29,5 @@ const router = useRouter();
         {{ book.description }}
       </p>
     </div>
-  </div>
+  </article>
 </template>

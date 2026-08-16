@@ -3,7 +3,7 @@
     class="personal-center-container flex container-row-768-column mx-auto justify-between"
   >
     <div class="flex flex-col gap-2">
-      <div
+      <section
         class="left-top bg-card shadow-common flex flex-col items-center gap-6 p-6"
       >
         <QAvatar
@@ -55,8 +55,8 @@
             </div>
           </QFormButton>
         </div>
-      </div>
-      <div
+      </section>
+      <section
         class="left-top bg-card shadow-black flex flex-col items-center gap-6 p-6"
       >
         <div class="flex gap-4 w-full items-center">
@@ -90,18 +90,18 @@
             :text="item"
           />
         </p>
-      </div>
+      </section>
     </div>
     <div class="right flex flex-col gap-6">
-      <div
+      <section
         class="right-top bg-card shadow-black flex flex-col items-center gap-6 p-6 radius-xl"
       >
         <div class="flex gap-4 w-full items-center">
           <QIcon icon="Heart" size="24px" class="text-primary" />
           <h3>Currently Reading</h3>
         </div>
-        <div class="w-full flex gap-2 items-center flex-wrap">
-          <div
+        <ul class="w-full flex gap-2 items-center flex-wrap">
+          <li
             v-for="historyItem in currentRead"
             :key="historyItem.id"
             class="bg-body mouse-cursor"
@@ -116,10 +116,10 @@
               :height="height"
               :width="width"
             />
-          </div>
-        </div>
-      </div>
-      <div
+          </li>
+        </ul>
+      </section>
+      <section
         class="right-top bg-card shadow-common flex flex-col items-center gap-6 p-6 radius-xl"
       >
         <div class="w-full">
@@ -135,7 +135,7 @@
             <h2>24/50 books</h2>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>

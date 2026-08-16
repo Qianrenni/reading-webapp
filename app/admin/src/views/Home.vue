@@ -3,7 +3,9 @@
     <aside v-show="!isMobile">
       <SiderBar />
     </aside>
-    <RouterView class="flex-1" />
+    <main class="flex-1">
+      <RouterView />
+    </main>
   </div>
 </template>
 <script lang="ts" setup>

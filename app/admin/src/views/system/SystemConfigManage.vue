@@ -1,5 +1,5 @@
 <template>
-  <div
+  <section
     class="flex flex-col gap-2 p-2 bg-card scroll-container"
     :style="{
       height: `calc(100vh - 4rem)`,
@@ -56,7 +56,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">

@@ -15,7 +15,7 @@
         style="height: 100vh; width: 100%"
         type="skeleton"
       />
-      <div
+      <article
         v-show="!loading"
         class="book-read-content"
         :style="{
@@ -52,56 +52,61 @@
             </span>
           </span>
         </p>
-      </div>
-      <div class="book-read-sidebar bg-card hidden-768 flex flex-col gap-2">
-        <div
-          class="flex flex-col items-center bg-hover-secondary"
-          @click="
-            currentContentIndex > 0
-              ? run(computeCatalog[currentContentIndex - 1]?.id ?? 0)
-              : void 0
-          "
-        >
-          <QIcon icon="Up" size="24px" />
-          <span class="text-08rem">上一章</span>
-        </div>
-        <div
-          class="flex flex-col items-center bg-hover-secondary"
-          @click="
-            currentContentIndex < computeCatalog.length - 1
-              ? run(computeCatalog[currentContentIndex + 1]?.id ?? 0)
-              : void 0
-          "
-        >
-          <QIcon icon="Down" size="24px" />
-          <span class="text-08rem">下一章</span>
-        </div>
-        <div
-          class="flex flex-col items-center bg-hover-secondary"
-          @click="showCatalog = true"
-        >
-          <QIcon icon="Catalog" size="24px" />
-          <span class="text-08rem">目录</span>
-        </div>
-        <div
-          class="flex flex-col items-center bg-hover-secondary"
-          @click="showReadSettings = true"
-        >
-          <QIcon icon="Setting" size="24px" />
-          <span class="text-08rem">阅读设置</span>
-        </div>
-        <div
-          class="flex flex-col items-center bg-hover-secondary"
-          @click="router.push(`/book-detail/${book.id}`)"
-        >
-          <QIcon icon="Book" size="24px" />
-          <span class="text-08rem">书籍详情</span>
-        </div>
-        <div class="flex flex-col items-center" @click="fullScreen">
-          <QIcon icon="FullScreen" size="24px" />
-          <span class="text-08rem">全屏</span>
-        </div>
-      </div>
+      </article>
+      <nav
+        class="book-read-sidebar bg-card hidden-768 flex flex-col gap-2"
+        aria-label="阅读工具栏"
+      >
+        <ul class="flex flex-col gap-2">
+          <li
+            class="flex flex-col items-center bg-hover-secondary"
+            @click="
+              currentContentIndex > 0
+                ? run(computeCatalog[currentContentIndex - 1]?.id ?? 0)
+                : void 0
+            "
+          >
+            <QIcon icon="Up" size="24px" />
+            <span class="text-08rem">上一章</span>
+          </li>
+          <li
+            class="flex flex-col items-center bg-hover-secondary"
+            @click="
+              currentContentIndex < computeCatalog.length - 1
+                ? run(computeCatalog[currentContentIndex + 1]?.id ?? 0)
+                : void 0
+            "
+          >
+            <QIcon icon="Down" size="24px" />
+            <span class="text-08rem">下一章</span>
+          </li>
+          <li
+            class="flex flex-col items-center bg-hover-secondary"
+            @click="showCatalog = true"
+          >
+            <QIcon icon="Catalog" size="24px" />
+            <span class="text-08rem">目录</span>
+          </li>
+          <li
+            class="flex flex-col items-center bg-hover-secondary"
+            @click="showReadSettings = true"
+          >
+            <QIcon icon="Setting" size="24px" />
+            <span class="text-08rem">阅读设置</span>
+          </li>
+          <li
+            class="flex flex-col items-center bg-hover-secondary"
+            @click="router.push(`/book-detail/${book.id}`)"
+          >
+            <QIcon icon="Book" size="24px" />
+            <span class="text-08rem">书籍详情</span>
+          </li>
+          <li class="flex flex-col items-center" @click="fullScreen">
+            <QIcon icon="FullScreen" size="24px" />
+            <span class="text-08rem">全屏</span>
+          </li>
+        </ul>
+      </nav>
       <QDrawer
         v-model:visible="showCatalog"
         direction="left"
@@ -128,9 +133,10 @@
               />
             </span>
           </p>
-          <div
+          <nav
             class="book-read-catalog scroll-container"
             v-bind="containerProps"
+            aria-label="章节目录"
           >
             <div v-bind="wrapperProps">
               <p
@@ -152,7 +158,7 @@
                 {{ item.data.title }}
               </p>
             </div>
-          </div>
+          </nav>
         </div>
       </QDrawer>
       <QDrawer
@@ -163,55 +169,58 @@
         @close="shwoBottomSettings = false"
         :overlay="false"
       >
-        <div
+        <nav
           class="flex justify-between flex-wrap p-2"
+          aria-label="阅读工具栏"
           @click="shwoBottomSettings = false"
         >
-          <div
-            class="flex flex-col items-center"
-            @click="
-              currentContentIndex > 0
-                ? run(computeCatalog[currentContentIndex - 1]?.id ?? 0)
-                : void 0
-            "
-          >
-            <QIcon icon="Up" size="24px" />
-            <span class="text-08rem">上一章</span>
-          </div>
-          <div
-            class="flex flex-col items-center"
-            @click="
-              currentContentIndex < computeCatalog.length - 1
-                ? run(computeCatalog[currentContentIndex + 1]?.id ?? 0)
-                : void 0
-            "
-          >
-            <QIcon icon="Down" size="24px" />
-            <span class="text-08rem">下一章</span>
-          </div>
-          <div class="flex flex-col items-center" @click="showCatalog = true">
-            <QIcon icon="Catalog" size="24px" />
-            <span class="text-08rem">目录</span>
-          </div>
-          <div
-            class="flex flex-col items-center"
-            @click="showReadSettings = true"
-          >
-            <QIcon icon="Setting" size="24px" />
-            <span class="text-08rem">阅读设置</span>
-          </div>
-          <div
-            class="flex flex-col items-center"
-            @click="router.push(`/book-detail/${book.id}`)"
-          >
-            <QIcon icon="Book" size="24px" />
-            <span class="text-08rem">书籍详情</span>
-          </div>
-          <div class="flex flex-col items-center" @click="fullScreen">
-            <QIcon icon="FullScreen" size="24px" />
-            <span class="text-08rem">全屏</span>
-          </div>
-        </div>
+          <ul class="flex justify-between flex-wrap">
+            <li
+              class="flex flex-col items-center"
+              @click="
+                currentContentIndex > 0
+                  ? run(computeCatalog[currentContentIndex - 1]?.id ?? 0)
+                  : void 0
+              "
+            >
+              <QIcon icon="Up" size="24px" />
+              <span class="text-08rem">上一章</span>
+            </li>
+            <li
+              class="flex flex-col items-center"
+              @click="
+                currentContentIndex < computeCatalog.length - 1
+                  ? run(computeCatalog[currentContentIndex + 1]?.id ?? 0)
+                  : void 0
+              "
+            >
+              <QIcon icon="Down" size="24px" />
+              <span class="text-08rem">下一章</span>
+            </li>
+            <li class="flex flex-col items-center" @click="showCatalog = true">
+              <QIcon icon="Catalog" size="24px" />
+              <span class="text-08rem">目录</span>
+            </li>
+            <li
+              class="flex flex-col items-center"
+              @click="showReadSettings = true"
+            >
+              <QIcon icon="Setting" size="24px" />
+              <span class="text-08rem">阅读设置</span>
+            </li>
+            <li
+              class="flex flex-col items-center"
+              @click="router.push(`/book-detail/${book.id}`)"
+            >
+              <QIcon icon="Book" size="24px" />
+              <span class="text-08rem">书籍详情</span>
+            </li>
+            <li class="flex flex-col items-center" @click="fullScreen">
+              <QIcon icon="FullScreen" size="24px" />
+              <span class="text-08rem">全屏</span>
+            </li>
+          </ul>
+        </nav>
       </QDrawer>
       <QDrawer
         v-model:visible="showReadSettings"
@@ -235,12 +244,12 @@
             {{ currentLineText }}
           </p>
           <!-- 评论列表 -->
-          <div
+          <ul
             v-if="lineComments.length > 0"
             class="flex flex-col gap-2 scroll-container"
             style="max-height: 50vh"
           >
-            <div
+            <li
               v-for="comment in lineComments"
               :key="comment.id"
               class="flex gap-2 p-2 bg-hover-secondary radius-sm"
@@ -268,8 +277,8 @@
               >
                 删除
               </QFormButton>
-            </div>
-          </div>
+            </li>
+          </ul>
           <span v-else class="text-muted text-08rem"
             >暂无评论，快来发表第一条吧～</span
           >

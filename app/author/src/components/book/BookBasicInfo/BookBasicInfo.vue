@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 p-2 bg-card shadow-common">
+  <article class="flex flex-col gap-2 p-2 bg-card shadow-common">
     <div class="flex gap-2 items-center">
       <div>
         <QLazyImage :src="book.cover" :height="height" :width="width" />
@@ -83,7 +83,7 @@
         />
       </p>
     </div>
-  </div>
+  </article>
 </template>
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from 'vue';

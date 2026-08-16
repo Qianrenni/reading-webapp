@@ -5,7 +5,9 @@ import { HeaderNavigation } from '@guga-reading/ui';
 
 <template>
   <HeaderNavigation />
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style scoped></style>

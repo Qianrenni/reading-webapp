@@ -5,7 +5,9 @@ import { HeaderNavigation } from '@guga-reading/ui';
 <template>
   <div class="flex flex-col gap-2 flex-1">
     <header-navigation avatar-url="/admin/figure.webp" />
-    <router-view class="flex-1" />
+    <main class="flex-1">
+      <router-view />
+    </main>
   </div>
 </template>
 <style lang="css" scoped></style>

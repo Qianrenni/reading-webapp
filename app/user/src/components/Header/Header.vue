@@ -15,8 +15,8 @@ const run = toggleFullScreen();
 <template>
   <header class="bg-card flex gap-2 p-2 header-container">
     <div class="flex gap-2 items-center">
-      <router-link to="/" class="link-primary hidden-768">
-        <h3>咕嘎阅读</h3>
+      <router-link to="/" class="link-primary hidden-768" aria-label="返回首页">
+        <h1 class="brand-title">咕嘎阅读</h1>
       </router-link>
       <a
         href="http://49.235.107.221:8000/static/guga.apk"
@@ -38,32 +38,48 @@ const run = toggleFullScreen();
           @search="() => debounceSearchBook()"
         />
       </div>
-      <div class="flex gap-2 items-center flex-1 justify-end">
-        <router-link to="/" class="link-primary flex gap-2 items-center">
-          <QIcon icon="Book" size="16" />
-          <h4 class="hidden-768">书城</h4>
-        </router-link>
-        <router-link
-          to="/book-shelf"
-          class="link-primary flex gap-2 items-center"
-        >
-          <QIcon icon="Catalog" size="16" />
-          <h4 class="hidden-768">书架</h4>
-        </router-link>
-        <router-link to="/history" class="link-primary flex gap-2 items-center">
-          <QIcon icon="History" size="16" />
-          <h4 class="hidden-768">历史记录</h4>
-        </router-link>
-        <router-link
-          to="/personal-center"
-          class="link-primary flex gap-2 items-center"
-        >
-          <QIcon icon="User" size="16" />
-          <h4 class="hidden-768">个人中心</h4>
-        </router-link>
+      <nav
+        class="flex gap-2 items-center flex-1 justify-end"
+        aria-label="主导航"
+      >
+        <ul class="flex gap-2 items-center">
+          <li>
+            <router-link to="/" class="link-primary flex gap-2 items-center">
+              <QIcon icon="Book" size="16" />
+              <h4 class="hidden-768">书城</h4>
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              to="/book-shelf"
+              class="link-primary flex gap-2 items-center"
+            >
+              <QIcon icon="Catalog" size="16" />
+              <h4 class="hidden-768">书架</h4>
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              to="/history"
+              class="link-primary flex gap-2 items-center"
+            >
+              <QIcon icon="History" size="16" />
+              <h4 class="hidden-768">历史记录</h4>
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              to="/personal-center"
+              class="link-primary flex gap-2 items-center"
+            >
+              <QIcon icon="User" size="16" />
+              <h4 class="hidden-768">个人中心</h4>
+            </router-link>
+          </li>
+        </ul>
         <QIcon icon="FullScreen" size="16" @click="run" title="全屏模式" />
         <QThemeToggle size="18" title="切换日夜模式" />
-      </div>
+      </nav>
     </div>
   </header>
 </template>
@@ -74,5 +90,12 @@ const run = toggleFullScreen();
   align-items: center;
   width: 100%;
   border-bottom: 1px solid var(--primary-color);
+}
+
+/* 站名 h1：保留原 h3 的 UA 视觉（字号/字重/边距），语义化升级标签不改变外观 */
+.brand-title {
+  font-size: 1.17em;
+  font-weight: bold;
+  margin: 1em 0;
 }
 </style>

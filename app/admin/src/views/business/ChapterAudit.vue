@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 w-full h-full">
+  <section class="flex flex-col gap-2 w-full h-full">
     <div class="show-768" v-if="isUpdate">
       <QFormSelect v-model="select" :options="options" />
     </div>
@@ -64,7 +64,7 @@
         ><span>驳回</span></QFormButton
       >
     </div>
-  </div>
+  </section>
 </template>
 <script lang="ts" setup>
 import router from '@/route';

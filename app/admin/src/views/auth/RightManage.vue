@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2">
+  <section class="flex flex-col gap-2">
     <!-- 工具条 -->
     <div class="flex gap-2 items-center justify-between">
       <h4>角色管理</h4>
@@ -14,8 +14,8 @@
       style="align-items: flex-start"
     >
       <!-- 角色列表 -->
-      <div class="bg-card">
-        <div
+      <ul class="bg-card">
+        <li
           v-for="role in roles"
           :key="role.id"
           class="role-item bg-hover-secondary"
@@ -33,8 +33,8 @@
           </div>
           <QFormButton @click.stop="handleEditRole(role)">编辑</QFormButton>
           <QFormButton @click.stop="handleDeleteRole(role)">删除</QFormButton>
-        </div>
-      </div>
+        </li>
+      </ul>
 
       <!-- 详情面板 -->
       <div v-if="selectedRole" class="bg-card flex flex-col gap-2 p-2 flex-1">
@@ -151,7 +151,7 @@
         </div>
       </div>
     </QDialog>
-  </div>
+  </section>
 </template>
 
 <script lang="ts" setup>

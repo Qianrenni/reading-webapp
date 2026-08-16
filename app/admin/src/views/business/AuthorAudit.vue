@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2">
+  <section class="flex flex-col gap-2">
     <div class="flex gap-2 items-center justify-between">
       <h3>作者申请审核</h3>
       <div class="flex gap-2 items-center">
@@ -98,7 +98,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts" setup>

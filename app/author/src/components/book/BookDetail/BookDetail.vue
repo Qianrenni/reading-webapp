@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 w-full">
+  <section class="flex flex-col gap-2 w-full">
     <BackButton>
       <template #default>
         <span>返回书籍列表</span>
@@ -10,7 +10,7 @@
       @select="(index) => (tabIndex = index)"
     />
     <component :is="tabs[tabIndex]?.component" :book-id="bookId || 0" />
-  </div>
+  </section>
 </template>
 <script lang="ts" setup>
 import { ref, computed, defineAsyncComponent } from 'vue';

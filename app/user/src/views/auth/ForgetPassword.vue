@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="content-container">
-      <div class="bg-card flex flex-col gap-2 p-2">
+      <section class="bg-card flex flex-col gap-2 p-2">
         <h4 class="text-center">忘记密码</h4>
         <div class="flex gap-2 items-center">
           <QFormText
@@ -43,7 +43,7 @@
         <QFormButton type="button" class="button-primary" @click="handelSubmit">
           <span class="text-08rem">重置密码</span>
         </QFormButton>
-      </div>
+      </section>
     </div>
   </main>
 </template>

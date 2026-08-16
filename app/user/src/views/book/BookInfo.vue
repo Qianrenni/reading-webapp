@@ -1,7 +1,7 @@
 <template>
   <div class="flex container-row-768-column all mx-auto">
     <div class="flex flex-col gap-2 flex-1 left">
-      <div class="flex gap-2 p-2 bg-card shadow-common w-full">
+      <article class="flex gap-2 p-2 bg-card shadow-common w-full">
         <QLazyImage :src="book.cover" :width="width" :height="height" />
         <div class="text-secondary flex flex-col gap-2">
           <h3>{{ book.name }}</h3>
@@ -36,7 +36,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </article>
       <div class="w-full shadow-black bg-card">
         <QTab
           :list="['书籍简介', '目录', '书评']"
@@ -57,10 +57,11 @@
             {{ line }}
           </p>
         </div>
-        <div
+        <nav
           v-if="tabIndex === 1"
           v-bind="containerProps"
           class="scroll-container catalog"
+          aria-label="章节目录"
         >
           <div v-bind="wrapperProps">
             <p
@@ -75,7 +76,7 @@
               {{ item.data.title }}
             </p>
           </div>
-        </div>
+        </nav>
         <!-- 书评 -->
         <div v-if="tabIndex === 2" class="flex flex-col gap-2 p-2">
           <div class="flex items-center justify-between flex-wrap gap-2">
@@ -89,8 +90,8 @@
               <span>{{ myReview ? '编辑我的书评' : '写书评' }}</span>
             </QFormButton>
           </div>
-          <div v-if="reviews.length > 0" class="flex flex-col gap-2">
-            <div
+          <ul v-if="reviews.length > 0" class="flex flex-col gap-2">
+            <li
               v-for="comment in reviews"
               :key="comment.id"
               class="flex gap-2 p-2 bg-hover-secondary radius-sm"
@@ -118,8 +119,8 @@
               >
                 <span>删除</span>
               </QFormButton>
-            </div>
-          </div>
+            </li>
+          </ul>
           <span v-else class="text-muted text-085rem px-2"
             >暂无书评，快来抢沙发吧～</span
           >
@@ -182,8 +183,8 @@
     <div class="right flex flex-col gap-2">
       <div class="bg-card flex flex-col gap-2 right shadow-common">
         <h4 class="text-left w-full px-2">相关推荐</h4>
-        <div class="grid recommend right px-2 scroll-container">
-          <div
+        <ul class="grid recommend right px-2 scroll-container">
+          <li
             v-for="item in relatedBooks"
             :key="item.id"
             class="flex gap-2 items-center"
@@ -201,8 +202,8 @@
                 {{ item.description }}
               </p>
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

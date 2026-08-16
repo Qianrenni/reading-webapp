@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 p-2 bg-card shadow-common">
+  <article class="flex flex-col gap-2 p-2 bg-card shadow-common">
     <div class="flex gap-2 items-center">
       <QLazyImage :src="book.cover" :height="80" :width="64" />
       <div class="flex flex-col gap-2 flex-1">
@@ -51,7 +51,7 @@
         <span class="text-08rem text-muted">查看</span>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 <script lang="ts" setup>
 import type { Book } from '@guga-reading/types';

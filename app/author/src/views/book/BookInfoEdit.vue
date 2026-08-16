@@ -1,13 +1,13 @@
 <template>
   <div class="flex flex-col gap-2 w-full">
     <BackButton>返回</BackButton>
-    <div class="flex flex-col gap-2 p-2 shadow-common bg-card">
+    <section class="flex flex-col gap-2 p-2 shadow-common bg-card">
       <h3 class="text-center">编辑书籍详情</h3>
       <BookMeta ref="bookMeta" v-bind="props" />
       <QFormButton type="submit" class="button-primary" @click="submit">
         <span>提交</span>
       </QFormButton>
-    </div>
+    </section>
   </div>
 </template>
 <script lang="ts" setup>

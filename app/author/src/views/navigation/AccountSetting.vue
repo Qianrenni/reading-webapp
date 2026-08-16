@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-2 w-full">
-    <div class="flex flex-col gap-2 p-2 bg-card shadow-common">
+    <section class="flex flex-col gap-2 p-2 bg-card shadow-common">
       <h4>账号信息</h4>
       <div class="grid grid-cols-2 text-muted text-085rem">
         <div>
@@ -12,7 +12,7 @@
           <p>{{ authStore.getUser?.email || '--' }}</p>
         </div>
       </div>
-    </div>
+    </section>
     <div class="flex justify-end">
       <QFormButton
         type="button"

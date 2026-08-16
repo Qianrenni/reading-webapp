@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 p-2 shadow-common">
+  <section class="flex flex-col gap-2 p-2 shadow-common">
     <div class="flex justify-between">
       <QFormButton type="button" class="button-delete p-2 radius-md">
         <span>批量删除</span>
@@ -69,7 +69,7 @@
         </div>
       </template>
     </QFormTable>
-  </div>
+  </section>
 </template>
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';

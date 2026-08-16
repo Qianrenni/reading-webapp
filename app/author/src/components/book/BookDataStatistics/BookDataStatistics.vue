@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-container scroll-container bg-card shadow-common">
+  <section class="chart-container scroll-container bg-card shadow-common">
     <div class="flex flex-col gap-2">
       <QFormSelect
         placeholder="选择年份"
@@ -20,7 +20,7 @@
     <div class="flex flex-col gap-2" style="height: 580px">
       <HeatMapChart :option="hourOptions" class="w-full h-full" />
     </div>
-  </div>
+  </section>
 </template>
 <script lang="ts" setup>
 import { computed, onBeforeMount, ref } from 'vue';

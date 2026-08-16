@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 p-2 bg-card shadow-common">
+  <section class="flex flex-col gap-2 p-2 bg-card shadow-common">
     <div v-show="loading" style="height: calc(100vh - 8rem)">
       <QLoading type="skeleton" />
     </div>
@@ -96,7 +96,7 @@
         </div>
       </template>
     </QFormTable>
-  </div>
+  </section>
 </template>
 <script lang="ts" setup>
 defineOptions({ name: 'BookChapterDraftManage' });

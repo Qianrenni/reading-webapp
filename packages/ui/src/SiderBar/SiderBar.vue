@@ -1,20 +1,30 @@
 <template>
-  <div class="bg-card content-height py-6 scroll-container">
-    <div
-      v-for="item in menuStore.menuItems"
-      :key="item.name"
-      class="bg-hover-secondary siderbar-item flex flex-col items-center justify-center gap-1"
-      :class="[
-        {
-          'active-common': menuStore.selectedItem === item.name,
-        },
-      ]"
-      @click="handleClick(item)"
-    >
-      <QIcon :icon="item.icon ?? 'Copy'" :size="30" />
-      <span class="siderbar-label">{{ item.name }}</span>
-    </div>
-  </div>
+  <nav class="bg-card content-height py-6 scroll-container" aria-label="主导航">
+    <ul class="flex flex-col">
+      <li
+        v-for="item in menuStore.menuItems"
+        :key="item.name"
+        class="bg-hover-secondary siderbar-item flex flex-col items-center justify-center gap-1"
+        :class="[
+          {
+            'active-common': menuStore.selectedItem === item.name,
+          },
+        ]"
+      >
+        <button
+          type="button"
+          class="siderbar-btn"
+          :aria-current="
+            menuStore.selectedItem === item.name ? 'page' : undefined
+          "
+          @click="handleClick(item)"
+        >
+          <QIcon :icon="item.icon ?? 'Copy'" :size="30" />
+          <span class="siderbar-label">{{ item.name }}</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
 </template>
 <script lang="ts" setup>
 import { QIcon } from 'qyani-components';
@@ -39,5 +49,21 @@ const handleClick = (item: MenuItem) => {
   line-height: 1.2;
   text-align: center;
   white-space: normal;
+}
+
+/* 语义化按钮：去除 button UA 默认样式，视觉与原可点击 div 一致 */
+.siderbar-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2">
+  <section class="flex flex-col gap-2">
     <div class="flex gap-2 items-center container-row-768-column">
       <div
         v-for="book in books"
@@ -74,7 +74,7 @@
         >驳回</QFormButton
       >
     </div>
-  </div>
+  </section>
 </template>
 <script lang="ts" setup>
 import router from '@/route';
