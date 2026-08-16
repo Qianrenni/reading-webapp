@@ -174,7 +174,7 @@
           aria-label="阅读工具栏"
           @click="shwoBottomSettings = false"
         >
-          <ul class="flex justify-between flex-wrap">
+          <ul class="flex justify-between flex-wrap flex-1">
             <li
               class="flex flex-col items-center"
               @click="
