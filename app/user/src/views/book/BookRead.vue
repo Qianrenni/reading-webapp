@@ -29,13 +29,22 @@
       >
         <p v-for="(line, index) in content" class="text-read-indent">
           {{ line }}
-          <span class="comment-icon-wrap" @click.stop="openLineComment(index)">
-            <QIcon
-              icon="ChatDotRound"
-              :size="useReadingSetting.readSettings.fontSize"
-            />
-            <span v-if="lineCommentCount(index) > 0" class="comment-icon-badge">
-              {{ lineCommentCount(index) }}
+          <span
+            class="comment-icon-badge"
+            :style="{
+              fontSize: `${useReadingSetting.readSettings.fontSize * 0.6}px`,
+              fontFamily: useReadingSetting.readSettings.fontFamily,
+              color: useReadingSetting.readSettings.color,
+            }"
+            @click.stop="openLineComment(index)"
+          >
+            <template v-if="lineCommentCount(index) > 0">
+              {{ commentBadgeText(lineCommentCount(index)) }}
+            </template>
+            <span v-else class="comment-icon-dots" aria-hidden="true">
+              <i class="comment-dot" />
+              <i class="comment-dot" />
+              <i class="comment-dot" />
             </span>
           </span>
         </p>
@@ -360,6 +369,9 @@ const lineComments = computed<BookChapterComment[]>(
 // 某行的评论数（用于行尾徽标）
 const lineCommentCount = (line: number) =>
   chapterComments.value[line]?.length ?? 0;
+// 行尾评论徽标文本：有评论显示数量（超过 99 显示 99+），无评论时由模板渲染省略圆点
+const commentBadgeText = (count: number) =>
+  count > 99 ? '99+' : String(count);
 // 打开某行评论抽屉
 const openLineComment = (index: number) => {
   currentCommentIndex.value = index;
@@ -622,26 +634,27 @@ onBeforeUnmount(() => {
   transform: translateY(-50%);
 }
 
-.comment-icon-wrap {
-  display: inline-flex;
-  vertical-align: -webkit-baseline-middle;
-  position: relative;
+.comment-icon-badge {
+  vertical-align: middle;
+  padding: 0 0.4em;
+  border-radius: 1em;
+  border: 1px solid var(--q-color-primary);
+  line-height: 1.4;
   cursor: pointer;
+  user-select: none;
 }
 
-.comment-icon-badge {
-  position: absolute;
-  top: -0.4rem;
-  right: -0.6rem;
-  min-width: 1rem;
-  height: 1rem;
-  padding: 0 0.25rem;
-  border-radius: 0.5rem;
-  background: var(--primary-color, #dca000);
-  color: #fff;
-  font-size: 0.7rem;
-  line-height: 1rem;
-  text-align: center;
+.comment-icon-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.comment-dot {
+  width: 0.24em;
+  height: 0.24em;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 .comment-text {
