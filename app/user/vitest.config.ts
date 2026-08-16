@@ -16,6 +16,11 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  // 浏览器 project 依赖预构建：若不加，Vite 会在测试中途重新优化 vue 并 reload，导致
+  // 同一环境出现两份 Vue runtime（renderSlot 读到的 currentRenderingInstance 为 null）
+  optimizeDeps: {
+    include: ['vue'],
+  },
   test: {
     coverage: {
       provider: 'v8',
