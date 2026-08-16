@@ -3,7 +3,7 @@
     <div
       v-for="item in menuStore.menuItems"
       :key="item.name"
-      class="bg-hover-secondary siderbar-item flex items-center gap-2"
+      class="bg-hover-secondary siderbar-item flex flex-col items-center justify-center gap-1"
       :class="[
         {
           'active-common': menuStore.selectedItem === item.name,
@@ -11,8 +11,8 @@
       ]"
       @click="handleClick(item)"
     >
-      <QIcon :icon="item.icon ?? 'Copy'" :size="24" />
-      <span>{{ item.name }}</span>
+      <QIcon :icon="item.icon ?? 'Copy'" :size="30" />
+      <span class="siderbar-label">{{ item.name }}</span>
     </div>
   </div>
 </template>
@@ -32,4 +32,12 @@ const handleClick = (item: MenuItem) => {
   router.replace({ path: item.path });
 };
 </script>
-<style scoped></style>
+<style scoped>
+/* 标签：小于等于 3 字单行，超过 3 字自动换行（侧边栏保持窄） */
+.siderbar-label {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  text-align: center;
+  white-space: normal;
+}
+</style>

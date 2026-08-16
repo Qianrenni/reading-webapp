@@ -70,9 +70,10 @@ body {
 
 .siderbar-item {
   cursor: pointer;
-  min-width: 10rem;
-  padding: 0.5rem 0.8rem;
-  margin: 0.2rem 0.4rem;
+  width: 2.5rem;
+  box-sizing: border-box;
+  padding: 0.5rem 0.25rem;
+  margin: 0.25rem;
 }
 
 .hover-color-primary:hover {
