@@ -86,6 +86,7 @@
               'Thriller',
               'Romance',
             ]"
+            :key="item"
             :text="item"
           />
         </p>
@@ -101,17 +102,17 @@
         </div>
         <div class="w-full flex gap-2 items-center flex-wrap">
           <div
-            v-for="histortItem in currentRead"
-            :key="histortItem.id"
+            v-for="historyItem in currentRead"
+            :key="historyItem.id"
             class="bg-body mouse-cursor"
             @click="
               router.push(
-                `/book-read/${histortItem.id}/${histortItem.lastChapterId}`,
+                `/book-read/${historyItem.id}/${historyItem.lastChapterId}`,
               )
             "
           >
             <QLazyImage
-              :src="histortItem.cover"
+              :src="historyItem.cover"
               :height="height"
               :width="width"
             />

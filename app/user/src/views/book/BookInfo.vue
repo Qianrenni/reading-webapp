@@ -19,8 +19,7 @@
             v-if="book.tags"
             class="flex flex-wrap gap-2 p-2 text-muted text-085rem"
           >
-            <QTag v-for="tag in book.tags.split(/[, ]/)" :key="tag" :text="tag">
-            </QTag>
+            <QTag v-for="tag in tagList" :key="tag" :text="tag"> </QTag>
           </p>
           <div class="flex flex-wrap text-08rem">
             <div class="flex gap-2 p-2">
@@ -51,7 +50,8 @@
           style="max-height: 300px"
         >
           <p
-            v-for="line in book.description.split(/\s+/)"
+            v-for="(line, index) in book.description.split(/\s+/)"
+            :key="index"
             class="mx-4 text-indent-1rem"
           >
             {{ line }}
@@ -249,6 +249,10 @@ const book = ref<Book>({
   createdAt: '',
   totalChapter: 0,
 } as Book);
+/** 标签列表：按中英文逗号/空白拆分并过滤空串 */
+const tagList = computed(() =>
+  book.value.tags.split(/[,，\s]+/).filter(Boolean),
+);
 const catalog = ref<Catalog[]>([] as Catalog[]);
 const { list, containerProps, wrapperProps } = useVirtualList(catalog, {
   itemHeight: 24,

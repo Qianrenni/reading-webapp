@@ -5,8 +5,8 @@
     </div>
     <div class="grid gap-4 p-2 w-full reading-history-container">
       <QSwiperAction
-        v-for="histortItem in historyStore.getReadingHistory"
-        :key="histortItem.id"
+        v-for="historyItem in historyStore.getReadingHistory"
+        :key="historyItem.id"
         :disabled="!isLessThan768"
         :threshold="30"
       >
@@ -15,29 +15,29 @@
             <div
               v-show="showClose && !isLessThan768"
               class="inner-close"
-              @click="historyStore.delete(histortItem.id)"
+              @click="historyStore.delete(historyItem.id)"
             >
               <q-icon icon="Close" size="16px" />
             </div>
             <QLazyImage
-              :src="histortItem.cover"
+              :src="historyItem.cover"
               :height="height"
               :width="width"
             />
             <div class="flex-1 flex flex-col gap-2">
               <h5>
-                {{ histortItem.name }}
+                {{ historyItem.name }}
               </h5>
               <div class="flex gap-2 items-center">
                 <QIcon icon="User" size="14px" />
-                <span class="text-08rem">{{ histortItem.author }}</span>
+                <span class="text-08rem">{{ historyItem.author }}</span>
               </div>
               <div class="flex gap-2 items-center">
                 <QIcon icon="History" size="14px" />
                 <div class="flex gap-2 items-center">
                   <span class="text-08rem">上次阅读:</span>
                   <span class="text-08rem">{{
-                    histortItem.lastReadAt.split('T')[0]
+                    historyItem.lastReadAt.split('T')[0]
                   }}</span>
                 </div>
               </div>
@@ -46,16 +46,16 @@
                   type="button"
                   @click="
                     router.push(
-                      `/book-read/${histortItem.id}/${histortItem.lastChapterId}`,
+                      `/book-read/${historyItem.id}/${historyItem.lastChapterId}`,
                     )
                   "
                 >
                   继续阅读
                 </QFormButton>
                 <QFormButton
-                  v-if="!shelfIds.includes(histortItem.id)"
+                  v-if="!shelfIds.includes(historyItem.id)"
                   type="button"
-                  @click="shelfStore.add(histortItem.id)"
+                  @click="shelfStore.add(historyItem.id)"
                 >
                   加入书架
                 </QFormButton>
@@ -66,7 +66,7 @@
         <template #action>
           <div
             class="flex items-center justify-center px-3 py-2 h-full delete-768"
-            @click="historyStore.delete(histortItem.id)"
+            @click="historyStore.delete(historyItem.id)"
           >
             删除
           </div>

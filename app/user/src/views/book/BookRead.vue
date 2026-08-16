@@ -27,7 +27,11 @@
         }"
         @click.stop="shwoBottomSettings = true"
       >
-        <p v-for="(line, index) in content" class="text-read-indent">
+        <p
+          v-for="(line, index) in content"
+          :key="index"
+          class="text-read-indent"
+        >
           {{ line }}
           <span
             class="comment-icon-badge"

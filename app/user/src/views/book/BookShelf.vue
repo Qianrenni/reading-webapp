@@ -5,8 +5,8 @@
     </div>
     <div class="grid gap-4 p-2 w-full shelf-container">
       <QSwiperAction
-        v-for="histortItem in shelfStore.getBookShelf"
-        :key="histortItem.id"
+        v-for="historyItem in shelfStore.getBookShelf"
+        :key="historyItem.id"
         :disabled="!isLessThan768"
         :threshold="30"
       >
@@ -14,27 +14,27 @@
           <div
             class="inner-close"
             v-show="showClose && !isLessThan768"
-            @click="shelfStore.delete(histortItem.id)"
+            @click="shelfStore.delete(historyItem.id)"
           >
             <q-icon icon="Close" size="16px" />
           </div>
           <QLazyImage
-            :src="histortItem.cover"
+            :src="historyItem.cover"
             :height="height"
             :width="width"
           />
           <div class="flex-1 flex flex-col gap-2">
-            <h5 class="text-one-line">{{ histortItem.name }}</h5>
+            <h5 class="text-one-line">{{ historyItem.name }}</h5>
             <div class="flex gap-2 items-center">
               <QIcon icon="User" size="14px"></QIcon>
-              <span class="text-08rem">{{ histortItem.author }}</span>
+              <span class="text-08rem">{{ historyItem.author }}</span>
             </div>
-            <div class="flex gap-2 items-center" v-if="histortItem.lastReadAt">
+            <div class="flex gap-2 items-center" v-if="historyItem.lastReadAt">
               <QIcon icon="History" size="14px"></QIcon>
               <p>
                 <span class="text-08rem">上次阅读:</span>
                 <span class="text-08rem">{{
-                  histortItem.lastReadAt?.split('T')[0]
+                  historyItem.lastReadAt?.split('T')[0]
                 }}</span>
               </p>
             </div>
@@ -44,7 +44,7 @@
                 @click="
                   () =>
                     router.push(
-                      `/book-read/${histortItem.id}/${histortItem.lastChapterId}`,
+                      `/book-read/${historyItem.id}/${historyItem.lastChapterId}`,
                     )
                 "
               >
@@ -56,7 +56,7 @@
         <template #action>
           <div
             class="px-3 py-2 flex items-center justify-center h-full delete-768"
-            @click="shelfStore.delete(histortItem.id)"
+            @click="shelfStore.delete(historyItem.id)"
           >
             删除
           </div>

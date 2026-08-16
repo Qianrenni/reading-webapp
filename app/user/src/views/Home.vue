@@ -83,7 +83,8 @@ onActivated(() => {
       />
       <BookItemSkeleton
         v-show="bookStore.$state.loading"
-        v-for="_ in 25"
+        v-for="(_, index) in 25"
+        :key="index"
         :width="width"
         :height="height"
       />
