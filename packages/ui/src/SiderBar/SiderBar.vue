@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-card content-height py-6">
+  <div class="bg-card content-height py-6 scroll-container">
     <div
       v-for="item in menuStore.menuItems"
       :key="item.name"

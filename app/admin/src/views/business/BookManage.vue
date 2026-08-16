@@ -23,7 +23,7 @@
       :pagination="false"
       :columns="tableColumns"
       :data="books"
-      style="height: calc(100vh - 10rem)"
+      style="height: calc(100vh - 11.5rem)"
     >
       <template #cover="{ row }">
         <QLazyImage
@@ -45,7 +45,7 @@
       <template #status="{ row }">
         <span
           :class="row.status === 'PUBLISHED' ? 'text-success' : 'text-warning'"
-          class="text-one-line"
+          class="text-one-line p-2 radius-md"
         >
           {{ statusText(row.status as StatusEnum) }}
         </span>
@@ -53,7 +53,7 @@
       <template #isActive="{ row }">
         <span
           :class="row.isActive ? 'text-success' : 'text-danger'"
-          class="text-one-line"
+          class="text-one-line p-2 radius-md"
         >
           {{ row.isActive ? '已激活' : '已封禁' }}
         </span>

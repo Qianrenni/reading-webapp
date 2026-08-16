@@ -49,3 +49,14 @@ body.dark-mode {
   background: linear-gradient(90deg, #06b6d4, #3b82f6);
   transition: width 0.5s ease;
 }
+
+/* 覆盖 qyani style.css 的 .tag（默认浅黄背景+白字对比度过低）：
+   用管理端主色 --tag-primary-color（蓝）作背景，白字可读 */
+.tag {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.5rem;
+  font-weight: 300;
+  background-color: var(--tag-primary-color);
+  color: white;
+}
