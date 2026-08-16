@@ -1,15 +1,22 @@
 :root {
   --content-height: calc(100vh - 50px);
   --banner-width: 1200px;
-  --shadow-inverse: rgba(0, 0, 0, 0.9);
-  /* 标签底色：qyani 默认浅黄 #fff5cc 配白字不可读，改用深黄保证对比度 */
-  --tag-primary-color: #dca000;
+  /* 精确覆盖 qyani 语义 token：qyani 默认标签浅黄 #fff5cc 配白字不可读，改用深黄保证对比度 */
+  --q-color-tag: #dca000;
+  --q-color-shadow-inverse: rgba(0, 0, 0, 0.9);
+
+  /* 兼容别名：跟随 qyani 语义 token，端内旧样式（--tag-primary-color 等）继续可用 */
+  --tag-primary-color: var(--q-color-tag);
+  --shadow-inverse: var(--q-color-shadow-inverse);
 }
 
 body.dark-mode {
-  --shadow-inverse: rgba(255, 255, 255, 0.9);
   /* 暗色模式下同样覆盖 qyani dark.css 的浅黄默认值，保证标签白字可读 */
-  --tag-primary-color: #dca000;
+  --q-color-tag: #dca000;
+  --q-color-shadow-inverse: rgba(255, 255, 255, 0.9);
+
+  --tag-primary-color: var(--q-color-tag);
+  --shadow-inverse: var(--q-color-shadow-inverse);
 }
 
 .container-banner {

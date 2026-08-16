@@ -1,19 +1,40 @@
 /* author 端私有全局样式：主色与作者端独有规则（公共部分见 @guga-reading/ui/style.css） */
 :root {
-  --primary-color: #ea580c;
-  --primary-hover: #dc5005;
-  --primary-light: #f97316;
-  --link-hover: #dc5005;
-  --tag-primary-color: #ed8a60;
+  /* 精确覆盖 qyani 语义 token：qyani 组件/工具类直接引用 --q-color-*，仅覆盖旧别名（--primary-*）不生效 */
+  --q-color-primary: #ea580c;
+  --q-color-primary-hover: #dc5005;
+  --q-color-primary-active: #dc5005;
+  --q-color-primary-light: #f97316;
+  --q-color-primary-lighter: #ffedd5;
+  --q-color-link: #dc5005;
+  --q-color-link-hover: #dc5005;
+  --q-color-tag: #ed8a60;
+
+  /* 兼容别名：跟随 qyani 语义 token，端内旧样式（--primary-color 等）继续可用 */
+  --primary-color: var(--q-color-primary);
+  --primary-hover: var(--q-color-primary-hover);
+  --primary-light: var(--q-color-primary-light);
+  --link-hover: var(--q-color-link-hover);
+  --tag-primary-color: var(--q-color-tag);
 }
 
 body.dark-mode {
-  --primary-color: #ea580c;
-  --primary-hover: #dc5005;
-  --primary-light: #f97316;
+  /* 暗色模式覆盖 qyani dark.css 的浅黄默认值，保持端内主色不变 */
+  --q-color-primary: #ea580c;
+  --q-color-primary-hover: #dc5005;
+  --q-color-primary-active: #dc5005;
+  --q-color-primary-light: #f97316;
+  --q-color-primary-lighter: #ffedd5;
+  --q-color-link: #dc5005;
+  --q-color-link-hover: #dc5005;
+  --q-color-tag: #ed8a60;
   --shadow-element: rgba(255, 255, 255, 0.3);
-  /* 暗色模式下覆盖 qyani dark.css 的浅黄默认值，保证标签白字可读 */
-  --tag-primary-color: #ed8a60;
+
+  --primary-color: var(--q-color-primary);
+  --primary-hover: var(--q-color-primary-hover);
+  --primary-light: var(--q-color-primary-light);
+  --link-hover: var(--q-color-link-hover);
+  --tag-primary-color: var(--q-color-tag);
 }
 
 .text-success {
