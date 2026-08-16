@@ -1,21 +1,25 @@
-# GUGA Reading - 在线阅读平台
+# GUGA Reading - 在线阅读平台（前端）
 
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 [![Vue](https://img.shields.io/badge/vue-3.5+-brightgreen.svg)](https://vuejs.org/)
-[![Ktor](https://img.shields.io/badge/ktor-3.5+-blueviolet.svg)](https://ktor.io/)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.1+-orange.svg)](https://kotlinlang.org/)
-[![FastAPI](https://img.shields.io/badge/fastapi-0.119+-teal.svg)](https://fastapi.tiangolo.com/)
+[![TypeScript](https://img.shields.io/badge/typescript-5.9+-blue.svg)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/vite-7+-646cff.svg)](https://vitejs.dev/)
+[![pnpm](https://img.shields.io/badge/pnpm-10+-f69220.svg)](https://pnpm.io/)
+[![Vitest](https://img.shields.io/badge/vitest-4+-6b9f3a.svg)](https://vitest.dev/)
 
-一个基于 **Ktor / FastAPI + Vue 3** 的多角色在线阅读平台，同时提供 Ktor (Kotlin) 和 FastAPI (Python) 两种后端实现，支持用户、作者和管理员三种角色的完整功能。
+一个面向读者、作者、管理员三种角色的在线阅读平台。本仓库为 **Web 前端**：一个由三个 **Vue 3 + TypeScript** 应用（`app/*`）与一组共享 workspace 包（`packages/*`）组成的 pnpm monorepo。
 
-> **注意**: 当前主后端为 Ktor (Kotlin) 实现的 `ktorBackend`；旧版 FastAPI (Python) 后端及其配套前端（用户端、管理端、作者端）均已迁移至 Git 分支 `release_python_backend`。
+> **注意**: 后端位于**独立仓库**（Ktor / Kotlin 实现）。旧版 FastAPI (Python) 后端及其配套前端已迁移至 Git 分支 `release_python_backend`，不再于本仓库维护。
 
 中文 | [英文版](./README.md)
 
 ## 📖 项目概述
 
-GUGA Reading 是一个现代化的在线阅读系统,提供小说/书籍的在线阅读、创作和管理功能。系统采用前后端分离架构,支持跨平台访问。
+GUGA Reading 是一个现代化的在线阅读系统，提供小说/书籍的在线阅读、创作和管理功能。系统采用前后端分离架构，包含三个角色专属的 Web 客户端：
+
+- **用户端** — 书籍浏览、搜索与阅读
+- **作者端** — 书籍/章节创作与管理
+- **管理端** — 平台运营、审核与数据统计
 
 ### 🌐 在线预览
 
@@ -27,121 +31,86 @@ GUGA Reading 是一个现代化的在线阅读系统,提供小说/书籍的在�
 
 ### ✨ 核心特性
 
-- **🎭 多角色支持**: 用户、作者、管理员三种角色,权限分离
-- **🤖 个性化推荐**: 基于 TF-IDF 算法的个性化书籍推荐
-- **📱 实时阅读进度**: 支持断点续读,多设备同步
+- **🎭 多角色支持**: 用户、作者、管理员三种角色，权限与界面分离
+- **📱 跨设备阅读进度**: 自动同步、断点续读
 - **💬 丰富的互动功能**: 收藏、评论、点赞等社交功能
-- **📝 完善的内容管理**: 从创作到发布的全流程管理
-- **⚡ 高并发设计**: 支持单机上百用户同时访问,首屏加载 < 1s
+- **📝 完善的内容流程**: 从创作、草稿到审核、发布的完整闭环
+- **📚 内容发现**: 分类/标签筛选、全文搜索、个性化推荐
+- **⚡ 高并发设计**: 首屏加载 < 1s，支持单机上百用户同时访问
+- **🧩 pnpm Monorepo**: 三端共享类型、API 封装、UI 组件与构建配置
 
 ## 🏗️ 系统架构
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                     GUGA Reading                        │
-├─────────────────────────────────────────────────────────┤
-│  Frontend (Vue 3 + TypeScript)                          │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
-│  │   User      │  │   Author    │  │   Admin     │    │
-│  │   Client    │  │   Client    │  │   Panel     │    │
-│  └─────────────┘  └─────────────┘  └─────────────┘    │
-├─────────────────────────────────────────────────────────┤
-│  Backend (Ktor + Exposed)                               │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  API Gateway / Authentication / Rate Limiting   │   │
-│  └─────────────────────────────────────────────────┘   │
-│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────────┐  │
-│  │  Book   │ │  User   │ │  Shelf  │ │  Statistics  │  │
-│  │ Service │ │ Service │ │ Service │ │   Service    │  │
-│  └─────────┘ └─────────┘ └─────────┘ └─────────────┘  │
-├─────────────────────────────────────────────────────────┤
-│  Data Layer                                             │
-│  ┌─────────────┐  ┌─────────────┐  ┌───────────────┐  │
-│  │   MySQL     │  │   Redis     │  │  File Storage │  │
-│  │  (Database) │  │   (Cache)   │  │  (OBS/Local)  │  │
-│  └─────────────┘  └─────────────┘  └───────────────┘  │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                  GUGA Reading（前端）                          │
+│  pnpm monorepo                                               │
+│  ┌───────────┐ ┌───────────┐ ┌───────────┐                  │
+│  │ app/user  │ │ app/author│ │ app/admin │   Vue 3 + TS     │
+│  └─────┬─────┘ └─────┬─────┘ └─────┬─────┘                  │
+│        └─────────────┼─────────────┘                         │
+│   packages: types · shares · ui · config · eslint            │
+└───────────┬──────────────────────────────────────────────────┘
+            │ HTTP（Axios，/api）
+┌───────────▼──────────────────────────────────────────────────┐
+│  后端 — Ktor（Kotlin）[独立仓库]                              │
+│  认证 / 权限 / 书籍 / 书架 / 统计 / Outbox                    │
+└───────────┬──────────────────────────────────────────────────┘
+      ┌─────┴─────┐      ┌─────┴─────┐      ┌───────────────┐
+      │   MySQL   │      │   Redis   │      │  File Store   │
+      │  metadata │      │  cache    │      │ content/static│
+      └───────────┘      └───────────┘      └───────────────┘
 ```
 
 ### 技术架构图说明
 
-- **前端层**: 三个独立的 Vue 3 应用,分别服务于不同角色
-- **后端层**: Ktor (Kotlin) 提供 RESTful API,包含多个服务模块
-- **数据层**: MySQL 持久化存储,Redis 缓存加速,对象存储管理文件
-- **旧版说明**: 基于 FastAPI (Python) 的旧版后端及其配套前端（用户端、管理端、作者端）已迁移至 `release_python_backend` 分支
+- **前端层**: `app/` 下三个独立的 Vue 3 应用，分别服务于不同角色；共享逻辑统一放在 `packages/`。
+- **后端层**: Ktor (Kotlin) REST API 位于独立仓库，本仓库通过 `@guga-reading/shares` 的 API 层与之通信。
+- **数据层**: MySQL 存储元数据，Redis 缓存加速，文件存储保存章节正文与静态资源。
 
-## 📁 项目结构
+## 📁 仓库结构
 
 ```
 guga_reading/
-├── ktorBackend/                      # **当前主后端** (Ktor + Kotlin)
-│   ├── src/main/kotlin/com/qianrenni/
-│   │   ├── controller/               # API 路由控制器
-│   │   ├── services/                 # 业务逻辑服务层
-│   │   ├── models/                   # 数据模型 (domain + tables)
-│   │   ├── plugins/                  # 插件配置 (认证、限流、CORS 等)
-│   │   ├── database/                 # 数据库与 Redis 客户端
-│   │   ├── schemas/                  # 响应模型
-│   │   ├── enums/                    # 枚举定义
-│   │   ├── utils/                    # 工具函数
-│   │   └── workers/                  # 定时任务
-│   ├── build.gradle.kts              # Gradle 构建配置
-│   └── Dockerfile                    # Docker 部署
-│
-├── backend/                          # **旧版后端 (FastAPI/Python)** - 已停止维护
-│                                      # 移至 `release_python_backend` 分支
-│   ├── app/
-│
-├── author/                           # 作者端应用 (Vue 3) [旧版]
-│                                      # 移至 `release_python_backend` 分支
-│   ├── src/
-│   │   ├── components/               # Vue 组件
-│   │   ├── views/                    # 页面视图
-│   │   ├── store/                    # Pinia 状态管理
-│   │   ├── config/                   # 配置文件
-│   │   └── route.ts                  # 路由配置
-│   ├── public/                       # 公共资源
-│   ├── package.json
-│   └── vite.config.ts
-│
-├── user/                             # 用户端应用 (Vue 3) [旧版]
-│                                      # 移至 `release_python_backend` 分支
-│   ├── src/
-│   │   ├── components/               # Vue 组件
-│   │   ├── views/                    # 页面视图
-│   │   ├── store/                    # Pinia 状态管理
-│   │   └── config/                   # 配置文件
-│   ├── public/                       # 公共资源
-│   └── package.json
-│
-├── admin/                            # 管理后台 (Vue 3) [旧版]
-│                                      # 移至 `release_python_backend` 分支
-│   ├── src/
-│   │   └── views/                    # 页面视图
-│   ├── public/                       # 公共资源
-│   └── package.json
-│
-├── packages/                         # 共享包 (Monorepo)
-│   ├── eslint/                       # ESLint 配置
-│   ├── shares/                       # 共享工具和常量
-│   └── types/                        # TypeScript 类型定义
-│
-├── .husky/                           # Git Hooks 配置
-├── .github/                          # GitHub 工作流
-├── docker-compose.yml                # 根目录 Docker 编排
-├── nginx.conf                        # Nginx 配置
-├── package.json                      # 根目录 pnpm 配置
-├── pnpm-workspace.yaml               # pnpm 工作区配置
-└── README.md                         # 项目说明文档
+├── app/                             # 三个前端应用
+│   ├── user/                        # 用户端 (@guga-reading/user)
+│   ├── author/                      # 作者端 (@guga-reading/author)
+│   └── admin/                       # 管理端 (@guga-reading/admin)
+├── packages/                        # 共享 workspace 包
+│   ├── types/                       # 前后端共享 TS 类型 (@guga-reading/types)
+│   ├── shares/                      # API 封装 / store / 应用装配 (@guga-reading/shares)
+│   ├── ui/                          # 共享业务组件 + 全局样式 (@guga-reading/ui)
+│   ├── config/                      # Vite 预设 (@guga-reading/config)
+│   └── eslint/                      # ESLint 配置 (@qyani/eslint-config)
+├── .husky/                          # Git Hooks（pre-commit：Prettier + ESLint）
+├── .github/                         # CI 工作流
+├── docker-compose.yml               # mysql + redis + 后端 + nginx 前端
+├── Dockerfile
+├── nginx.conf                       # 托管三端 + 反代 /api
+├── package.json                     # 根目录 pnpm 配置
+├── pnpm-workspace.yaml              # workspace：packages/* + app/*
+└── AGENTS.md                        # 编码助手指南
 ```
 
-> 💡 **提示**: 本项目当前主后端为 `ktorBackend` (Ktor + Kotlin)。旧版 Python (FastAPI) 后端及其配套前端（用户端、管理端、作者端）已迁移至 `release_python_backend` 分支。本项目采用 pnpm workspace 管理前端应用。
+> 各应用的 `node_modules` 为独立安装（非 workspace 符号链接），修改 `packages/*` 后需重新构建才会生效（见下文 `pnpm types`）。
+
+## 📦 共享包
+
+| 包                | 名称                   | 作用                                                                                                                                     |
+| ----------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/types`  | `@guga-reading/types`  | 前后端共享 TypeScript 类型——字段命名的唯一来源                                                                                           |
+| `packages/shares` | `@guga-reading/shares` | `useApiXxx` API 封装、`request` 拦截器、共享 store（`useAuthStore`/`useMenuStore`）、应用装配工厂 `setupGugaApp`                         |
+| `packages/ui`     | `@guga-reading/ui`     | author/admin 共享业务组件（`EditableTitle`/`ContentEditor`/`HeaderNavigation`/`SiderBar`/`LoginView`，**仅具名导出**）+ 全局 `style.css` |
+| `packages/config` | `@guga-reading/config` | 统一 Vite 预设 `createGugaViteConfig`（alias、拆包、插件）                                                                               |
+| `packages/eslint` | `@qyani/eslint-config` | 共享 ESLint 配置                                                                                                                         |
+
+> **修改共享包后必须运行 `pnpm types`**（构建顺序：types → shares → ui），三端才会拿到更新。
 
 ## 🎯 功能模块
 
 ### 👤 用户功能
 
-- **🔐 账户管理**: 注册/登录(手机号、邮箱)、个人资料、密码管理
+- **🔐 账户管理**: 注册/登录（手机号、邮箱）、个人资料、密码管理
 - **📚 内容浏览**: 分类浏览、标签筛选、全文搜索、书籍详情
 - **📖 阅读体验**: 章节阅读、翻页/滑动、字体/背景调节、夜间模式
 - **💬 互动功能**: 书籍收藏、追更、章节评论、点赞
@@ -165,389 +134,131 @@ guga_reading/
 
 ## 🛠️ 技术栈
 
-### 后端技术（当前主后端）
+### 前端（本仓库）
 
-| 技术         | 版本                  | 说明             |
-| ------------ | --------------------- | ---------------- |
-| **框架**     | Ktor 3.5.0            | 异步 Web 框架    |
-| **语言**     | Kotlin 2.1+           | JVM 编程语言     |
-| **数据库**   | MySQL                 | 主数据存储       |
-| **缓存**     | Redis 6.4.0           | 缓存、限流、会话 |
-| **ORM**      | Exposed               | Kotlin ORM 框架  |
-| **认证**     | Ktor Auth + JWT       | JWT 身份认证     |
-| **限流**     | flaxoos-rate-limiting | Redis 令牌桶限流 |
-| **构建工具** | Gradle + Kotlin DSL   | 项目构建         |
-| **部署**     | Docker                | 容器化部署       |
+| 技术          | 版本                                     | 说明                      |
+| ------------- | ---------------------------------------- | ------------------------- |
+| **框架**      | Vue 3.5                                  | 渐进式框架                |
+| **语言**      | TypeScript 5.9                           | 类型安全                  |
+| **构建工具**  | Vite 7                                   | 快速开发服务器与打包      |
+| **状态管理**  | Pinia 3                                  | Vue 3 官方推荐            |
+| **路由**      | Vue Router 4.6                           | SPA 路由                  |
+| **UI 组件库** | qyani-components 1.6.3 + @qianrenni/core | 本地组件库                |
+| **HTTP**      | Axios 1.13                               | HTTP 客户端               |
+| **图表**      | ECharts 6                                | 数据可视化（作者/管理端） |
+| **工具库**    | @vueuse/core 14                          | 组合式工具                |
+| **测试**      | Vitest 4 + Playwright                    | 单元 + 浏览器组件测试     |
+| **Monorepo**  | pnpm workspace                           | packages/_ + app/_        |
 
-### 后端技术（旧版 - 已迁移至 `release_python_backend` 分支）
+### 后端（独立仓库）
 
-| 技术         | 版本               | 说明          |
-| ------------ | ------------------ | ------------- |
-| **框架**     | FastAPI 0.119.0    | 异步 Web 框架 |
-| **语言**     | Python 3.8+        | 编程语言      |
-| **ORM**      | SQLAlchemy 2.0.44  | 异步 ORM      |
-| **推荐算法** | TF-IDF + NumPy     | 个性化推荐    |
-| **任务调度** | APScheduler 3.11.2 | 定时任务      |
-| **部署**     | Gunicorn + Uvicorn | 容器化部署    |
+| 技术                      | 说明                    |
+| ------------------------- | ----------------------- |
+| **Ktor 3.5 + Kotlin 2.1** | 异步 Web 框架（JVM）    |
+| **Exposed**               | Kotlin ORM              |
+| **MySQL / Redis**         | 元数据存储 / 缓存与限流 |
+| **Ktor Auth + JWT**       | 身份认证与权限校验      |
+| **Docker**                | 容器化部署              |
 
-### 前端技术
+> API 文档（Swagger）：本地运行后端后访问 `http://localhost:8000/swagger`。
 
-| 技术         | 版本                   | 说明           |
-| ------------ | ---------------------- | -------------- |
-| **框架**     | Vue 3.5.24             | 渐进式框架     |
-| **语言**     | TypeScript 5.9.3       | 类型安全       |
-| **状态管理** | Pinia 3.0.4            | Vue 3 官方推荐 |
-| **路由**     | Vue Router 4.6.4       | SPA 路由       |
-| **UI 组件**  | qyani-components 1.5.3 | 自定义组件库   |
-| **构建工具** | Vite 7.2.5             | 快速开发服务器 |
-| **图表**     | ECharts 6.0.0          | 数据可视化     |
-| **HTTP**     | Axios 1.13.6           | HTTP 客户端    |
+### 遗留（分支 `release_python_backend`）
 
-### 移动端技术(Android)
-
-| 技术         | 版本                        | 说明                  |
-| ------------ | --------------------------- | --------------------- |
-| **语言**     | Kotlin                      | 现代 Android 开发语言 |
-| **UI 框架**  | Jetpack Compose             | 声明式 UI 框架        |
-| **网络**     | Ktor Client                 | 轻量级 HTTP 客户端    |
-| **序列化**   | kotlinx.serialization       | JSON 序列化           |
-| **图片加载** | Coil 2.6.0                  | 图片加载库            |
-| **导航**     | Navigation Compose          | 页面导航              |
-| **存储**     | DataStore + Security Crypto | 本地安全存储          |
-| **异步**     | Kotlin Coroutines           | 协程支持              |
+旧版 FastAPI (Python) 后端及其配套 Vue 前端已迁出本仓库，不再维护。
 
 ## 🚀 快速开始
 
 ### 环境要求
 
-- **后端 (Ktor)**: JDK 21+, Gradle 8.0+
-- **前端**: Node.js >= 16.0.0, pnpm >= 8.0.0
-- **数据库**: MySQL 5.7+
-- **缓存**: Redis 5.0+
-- **移动端**: Android Studio Hedgehog+, JDK 11+
-- **旧版 Python 后端**: Python 3.8+（位于 `release_python_backend` 分支）
+- **Node.js** ≥ 20.19（Vite 7 要求）
+- **pnpm** ≥ 9（本仓库使用 `pnpm@10.28.1`）
+- **Docker**（可选，用于 `docker-compose.yml` 全栈部署）
 
-### 后端部署（当前主后端 - Ktor）
-
-#### 方式一：本地运行
-
-1. **配置环境变量**
+### 安装依赖
 
 ```bash
-cd ktorBackend
-# 复制并编辑配置文件
-cp .env.example .env
-# 编辑 .env 文件,配置数据库、Redis、邮箱等信息
-```
-
-2. **初始化数据库**
-
-```bash
-# 执行 SQL 初始化脚本
-mysql -u root -p < ktorBackend/database.sql
-```
-
-3. **运行服务**
-
-```bash
-cd ktorBackend
-./gradlew run
-```
-
-#### 方式二：Docker 部署
-
-```bash
-cd ktorBackend
-docker build -t guga_backend .
-docker run -p 8000:8000 guga_backend
-```
-
-访问 API 文档（Swagger UI）：http://localhost:8000/swagger
-
-> **提示**: 旧版 FastAPI (Python) 后端已迁移至 `release_python_backend` 分支。
-
-### 前端部署
-
-#### Monorepo 统一管理
-
-本项目采用 pnpm workspace 管理多个前端应用。
-
-**安装所有依赖**
-
-```bash
-# 在根目录执行
+# 在仓库根目录执行
 pnpm install
 ```
 
-**常用命令**
+### 常用命令
 
 ```bash
-# 启动作者端开发服务器
-pnpm dev:author
+# ★ 修改 packages/ 后必须重跑（构建顺序：types → shares → ui）
+pnpm types
 
-# 启动用户端开发服务器
+# 启动对应端开发服务器
 pnpm dev:user
-
-# 启动管理端开发服务器
+pnpm dev:author
 pnpm dev:admin
 
-# 构建所有前端应用
+# 构建全部三个前端
 pnpm build:all
 
-# 代码格式化
+# 全量测试（node 逻辑测试 + browser 组件渲染测试，递归全部包）
+pnpm test
+
+# 全量类型检查：构建共享包 + 各包源码 + 测试
+pnpm type:check
+pnpm type:check:test        # 仅测试文件
+
+# 全量格式化
 pnpm prettier
 ```
 
-#### 单独运行某个应用
-
-**作者端应用**
+### 单独运行某个应用
 
 ```bash
-cd author
-pnpm install
-pnpm dev
-# 访问 http://localhost:80
+pnpm --filter @guga-reading/user run dev
+# 或
+cd app/user && pnpm install && pnpm dev
 ```
 
-**用户端应用**
-
-```bash
-cd user
-pnpm install
-pnpm dev
-```
-
-**管理端应用**
-
-```bash
-cd admin
-pnpm install
-pnpm dev
-```
-
-### Android 移动端部署
-
-1. **克隆项目**
-
-```bash
-git clone <repository-url>
-cd reading
-```
-
-2. **配置签名(可选,用于发布版本)**
-
-在 `local.properties` 文件中添加：
-
-```properties
-storeFile=/path/to/your/keystore.jks
-storePassword=your_store_password
-keyAlias=your_key_alias
-keyPassword=your_key_password
-```
-
-3. **使用 Android Studio 打开项目**
-
-- 打开 Android Studio
-- 选择 "Open an existing project"
-- 选择 `reading` 目录
-- 等待 Gradle 同步完成
-
-4. **运行应用**
-
-- 连接 Android 设备或启动模拟器
-- 点击 Run 按钮或按 `Shift + F10`
-- 应用将自动安装并启动
-
-5. **命令行构建(可选)**
-
-```bash
-# 调试版本
-./gradlew assembleDebug
-
-# 发布版本
-./gradlew assembleRelease
-
-# 安装到设备
-./gradlew installDebug
-```
-
-APK 文件位置：
-
-- 调试版：`app/build/outputs/apk/debug/app-debug.apk`
-- 发布版：`app/build/outputs/apk/release/app-release.apk`
-
-## 📊 性能优化
-
-### 后端优化策略
-
-- **💾 缓存策略**
-  - Redis 缓存热门书籍、章节内容、推荐结果
-  - 用户阅读进度实时缓存
-  - 分布式限流保护核心接口
-
-- **🗄️ 数据库优化**
-  - 高频查询字段索引优化
-  - 读写分离设计
-  - 分页查询避免大量数据加载
-
-- **⚡ 并发处理**
-  - 异步 IO 提升吞吐量
-  - 分布式锁保证数据一致性
-  - 线程池管理资源
-
-### 前端优化策略
-
-- **🚀 加载优化**: 路由懒加载、组件异步加载
-- **🎨 渲染优化**: 虚拟列表、防抖节流
-- **💿 缓存优化**: 本地存储、请求缓存
-- **📱 响应式设计**: 移动端/桌面端自适应
-
-### Android 移动端优化
-
-- **🖼️ 图片优化**: Coil 自动缓存和压缩
-- **📡 网络优化**: Ktor 连接池、请求合并
-- **💾 本地缓存**: DataStore 持久化用户偏好
-- **🔋 电量优化**: 协程结构化并发,避免内存泄漏
-
-## 🔒 安全设计
-
-- **🔐 认证授权**: JWT Token + 权限校验
-- **🛡️ 数据校验**: 防止 SQL 注入、XSS 攻击
-- **⏱️ 限流保护**: Redis 令牌桶算法限流
-- **📁 文件安全**: 上传文件类型/内容校验
-- **📝 日志审计**: 关键操作记录追踪
-
-## 📈 高可用设计
-
-- **⚖️ 负载均衡**: Nginx 反向代理 + 健康检查
-- **🔄 服务冗余**: MySQL 主从复制、Redis 哨兵模式
-- **🚑 故障恢复**: 自动重启、异常监控
-- **💾 数据备份**: 定时备份、灾难恢复
-
-## 📝 API 文档
-
-后端服务启动后,访问以下地址查看 API 文档：
-
-- **Swagger UI**: http://localhost:8000/swagger
-
-API 文档提供了完整的接口说明、请求参数、响应示例和在线测试功能。
+> user/author/admin 的 `node_modules` 为独立安装，`packages/*` 的改动需先 `pnpm types`（若新增依赖还需 `pnpm install`）才会生效。
 
 ## 🧪 测试
 
-### 后端测试
+前端使用 **Vitest** 对每个 `packages/*` 与 `app/*` 包做全量测试，每个包内配置双环境 projects（`test.projects` + `extends`）：
+
+- **node**: 纯逻辑 / composable / store / API 测试（依赖 DOM 的文件用 `// @vitest-environment jsdom` 文件头切换）
+- **browser**: 组件渲染测试（`*.render.test.ts`），Playwright + chromium + `vitest-browser-vue`
 
 ```bash
-cd ktorBackend
-./gradlew test
-```
-
-> **旧版后端测试**: FastAPI (Python) 后端的测试已随旧版后迁移至 `release_python_backend` 分支。如需运行：
->
-> ```bash
-> cd backend
-> pytest
-> ```
-
-### 前端测试
-
-前端使用 **Vitest** 做全量测试，覆盖所有 `packages/*` 与 `app/*`（纯逻辑 + Vue 组件渲染）。
-
-```bash
-# 运行全部包测试（node 逻辑测试 + browser 组件渲染测试）
+# 全部包测试
 pnpm test
 
 # 单包测试
 pnpm --filter @guga-reading/shares run test
-pnpm --filter @guga-reading/user run test
 
 # 覆盖率
 pnpm test:coverage
 ```
 
-- **双环境 projects**：`node`（纯逻辑/composable/store 测试，DOM 依赖用 `// @vitest-environment jsdom` 注解）+ `browser`（`*.render.test.ts` 组件渲染测试，Playwright + chromium + `vitest-browser-vue`）。
-- 测试文件与被测文件同目录；组件内纯逻辑解耦为 `composable.ts`（目录 + `index.ts` 导出）以便测试。
-- 浏览器测试需先安装：`npx playwright install chromium`。
+> 浏览器测试前先运行 `npx playwright install chromium`。测试文件与被测文件同目录；组件内不可测的纯逻辑解耦为同目录 `composable.ts`（目录 + `index.ts` 导出）以便测试。
 
-### Android 测试
+## 🐳 部署
+
+### 全栈（docker-compose）
+
+`docker-compose.yml` 启动四个服务：
+
+- `mysql`（8.0）— 元数据存储
+- `redis`（7）— 缓存 / 限流
+- `guga_backend` — 后端镜像 `guga_backend_ktor:latest`（由独立后端仓库构建）
+- `guga_frontend` — Nginx 托管三个构建产物
+
+`nginx.conf` 将 `/` 映射到用户端、`/author/` 到作者端、`/admin/` 到管理端，并将 `/api` 反代到后端。
+
+### 仅前端构建与手动部署
 
 ```bash
-# 运行单元测试
-./gradlew test
-
-# 运行仪器化测试
-./gradlew connectedAndroidTest
-
-# 生成测试报告
-./gradlew jacocoTestReport
-```
-
-## 📦 部署架构
-
-```
-                    ┌─────────────┐
-                    │   Nginx     │
-                    │ Load Balancer│
-                    └──────┬──────┘
-                           │
-          ┌────────────────┼────────────────┐
-          │                │                │
-    ┌─────▼─────┐   ┌─────▼─────┐   ┌─────▼─────┐
-    │   Ktor    │   │   Ktor    │   │   Ktor    │
-    │ Instance 1│   │ Instance 2│   │ Instance 3│
-    └─────┬─────┘   └─────┬─────┘   └─────┬─────┘
-          │                │                │
-          └────────────────┼────────────────┘
-                           │
-         ┌─────────────────┼─────────────────┐
-         │                 │                 │
-   ┌─────▼─────┐    ┌──────▼─────┐   ┌──────▼─────┐
-   │   MySQL   │    │   Redis    │   │ File Store │
-   │  Primary  │    │   Master   │   │   (OBS)    │
-   └─────┬─────┘    └──────┬─────┘   └────────────┘
-         │                 │
-   ┌─────▼─────┐    ┌──────▼─────┐
-   │   MySQL   │    │   Redis    │
-   │   Slave   │    │   Slave    │
-   └───────────┘    └────────────┘
-```
-
-### 移动端架构
-
-```
-┌──────────────────────────────────────┐
-│        Android App (Kotlin)          │
-├──────────────────────────────────────┤
-│  UI Layer (Jetpack Compose)          │
-│  ┌──────────┐ ┌──────────┐          │
-│  │  Views   │ │Components│          │
-│  └──────────┘ └──────────┘          │
-├──────────────────────────────────────┤
-│  ViewModel Layer                     │
-│  ┌──────────────────────────┐       │
-│  │   State Management       │       │
-│  └──────────────────────────┘       │
-├──────────────────────────────────────┤
-│  Data Layer                          │
-│  ┌──────────┐ ┌──────────┐          │
-│  │  Ktor    │ │DataStore │          │
-│  │ Client   │ │ (Local)  │          │
-│  └──────────┘ └──────────┘          │
-├──────────────────────────────────────┤
-│         Network (HTTPS)              │
-└──────────────┬───────────────────────┘
-               │
-               ▼
-    ┌─────────────────────┐
-    │   Backend API       │
-    │   (Ktor)            │
-    └─────────────────────┘
+pnpm build:all
+# scp app/{user,author,admin}/dist 到服务器（见 script.local）
 ```
 
 ## 🤝 贡献指南
 
 欢迎提交 Issue 和 Pull Request！
-
-### 贡献流程
 
 1. Fork 本仓库
 2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
@@ -555,12 +266,7 @@ pnpm test:coverage
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 开启 Pull Request
 
-### 代码规范
-
-- 遵循项目现有的代码风格
-- 添加必要的注释和文档
-- 确保测试通过
-- 保持提交信息清晰明了
+代码规范详见 `AGENTS.md`：禁 `any`、优先 `interface`、严格相等 `===`、公共函数显式返回类型、JSDoc 注释；提交时 `pnpm lint-staged` 自动执行。
 
 ## 📄 许可证
 
@@ -568,9 +274,9 @@ ISC License
 
 ## 👥 联系方式
 
-- **作者**:qianrenni
-- **邮箱**:2112183503@qq.com
+- **作者**: qianrenni
+- **邮箱**: 2112183503@qq.com
 
 ---
 
-**注意**:本项目仅供学习交流使用,请勿用于商业用途。
+**注意**: 本项目仅供学习交流使用，请勿用于商业用途。

@@ -1,21 +1,25 @@
-# GUGA Reading - Online Reading Platform
+# GUGA Reading - Online Reading Platform (Frontend)
 
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 [![Vue](https://img.shields.io/badge/vue-3.5+-brightgreen.svg)](https://vuejs.org/)
-[![Ktor](https://img.shields.io/badge/ktor-3.5+-blueviolet.svg)](https://ktor.io/)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.1+-orange.svg)](https://kotlinlang.org/)
-[![FastAPI](https://img.shields.io/badge/fastapi-0.119+-teal.svg)](https://fastapi.tiangolo.com/)
+[![TypeScript](https://img.shields.io/badge/typescript-5.9+-blue.svg)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/vite-7+-646cff.svg)](https://vitejs.dev/)
+[![pnpm](https://img.shields.io/badge/pnpm-10+-f69220.svg)](https://pnpm.io/)
+[![Vitest](https://img.shields.io/badge/vitest-4+-6b9f3a.svg)](https://vitest.dev/)
 
-An online reading platform with multiple roles based on **Ktor / FastAPI + Vue 3**, featuring two backend implementations — Ktor (Kotlin) and FastAPI (Python) — supporting full functionality for users, authors, and administrators.
+An online reading platform with multiple roles — reader, author, administrator. This repository is the **web frontend**: a pnpm monorepo of three **Vue 3 + TypeScript** applications (`app/*`) sharing a set of workspace packages (`packages/*`).
 
-> **Note**: The primary backend is now `ktorBackend` (Kotlin/Ktor). The legacy FastAPI (Python) backend and its frontend applications (user, author, admin) have been moved to the `release_python_backend` branch.
+> **Note**: The backend is a **separate repository** built with Ktor (Kotlin). The legacy FastAPI (Python) backend and its old frontends were moved to the `release_python_backend` branch and are no longer maintained here.
 
 English | [中文版](./README.zh-CN.md)
 
 ## 📖 Project Overview
 
-GUGA Reading is a modern online reading system that provides reading, creation, and management features for novels/books. The system adopts a frontend-backend separation architecture and supports cross-platform access.
+GUGA Reading is a modern online reading system providing reading, creation, and management features for novels/books. It adopts a frontend-backend separation architecture with three role-specific web clients:
+
+- **User client** — browse, search, and read books
+- **Author client** — create and manage books/chapters
+- **Admin panel** — platform administration, review, and statistics
 
 ### 🌐 Live Previews
 
@@ -27,518 +31,234 @@ GUGA Reading is a modern online reading system that provides reading, creation, 
 
 ### ✨ Key Features
 
-- **🎭 Multi‑role Support**: Separate permissions for users, authors, and administrators
-- **🤖 Personalized Recommendations**: TF‑IDF based book recommendation engine
-- **📱 Real‑time Reading Progress**: Resume reading across multiple devices
+- **🎭 Multi-role Support**: Separate UIs and permissions for users, authors, and administrators
+- **📱 Cross-device Reading Progress**: Auto-sync and resume reading across multiple devices
 - **💬 Rich Interactions**: Favorites, comments, likes, and other social features
-- **📝 Complete Content Management**: Full workflow from creation to publication
-- **⚡ High‑concurrency Design**: Supports hundreds of concurrent users on a single machine, first‑screen loading < 1s
+- **📝 Complete Content Workflow**: From creation and drafts to review and publication
+- **📚 Content Discovery**: Category/tag filtering, full-text search, personalized recommendations
+- **⚡ High-concurrency Design**: First-screen load < 1s, supporting hundreds of concurrent users
+- **🧩 pnpm Monorepo**: Three apps share types, API wrappers, UI components, and build config
 
 ## 🏗️ System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                     GUGA Reading                        │
-├─────────────────────────────────────────────────────────┤
-│  Frontend (Vue 3 + TypeScript)                          │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
-│  │   User      │  │   Author    │  │   Admin     │    │
-│  │   Client    │  │   Client    │  │   Panel     │    │
-│  └─────────────┘  └─────────────┘  └─────────────┘    │
-├─────────────────────────────────────────────────────────┤
-│  Backend (Ktor + Exposed)                               │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  API Gateway / Authentication / Rate Limiting   │   │
-│  └─────────────────────────────────────────────────┘   │
-│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────────┐  │
-│  │  Book   │ │  User   │ │  Shelf  │ │  Statistics  │  │
-│  │ Service │ │ Service │ │ Service │ │   Service    │  │
-│  └─────────┘ └─────────┘ └─────────┘ └─────────────┘  │
-├─────────────────────────────────────────────────────────┤
-│  Data Layer                                             │
-│  ┌─────────────┐  ┌─────────────┐  ┌───────────────┐  │
-│  │   MySQL     │  │   Redis     │  │  File Storage │  │
-│  │  (Database) │  │   (Cache)   │  │  (OBS/Local)  │  │
-│  └─────────────┘  └─────────────┘  └───────────────┘  │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                  GUGA Reading (Frontend)                      │
+│  pnpm monorepo                                               │
+│  ┌───────────┐ ┌───────────┐ ┌───────────┐                  │
+│  │ app/user  │ │ app/author│ │ app/admin │   Vue 3 + TS     │
+│  └─────┬─────┘ └─────┬─────┘ └─────┬─────┘                  │
+│        └─────────────┼─────────────┘                         │
+│   packages: types · shares · ui · config · eslint            │
+└───────────┬──────────────────────────────────────────────────┘
+            │ HTTP (Axios, /api)
+┌───────────▼──────────────────────────────────────────────────┐
+│  Backend — Ktor (Kotlin)  [separate repository]              │
+│  Auth / Permissions / Book / Shelf / Statistics / Outbox     │
+└───────────┬──────────────────────────────────────────────────┘
+      ┌─────┴─────┐      ┌─────┴─────┐      ┌───────────────┐
+      │   MySQL   │      │   Redis   │      │  File Store   │
+      │  metadata │      │  cache    │      │ content/static│
+      └───────────┘      └───────────┘      └───────────────┘
 ```
 
-### Architecture Diagram Notes
+### Architecture Notes
 
-- **Frontend Layer**: Three independent Vue 3 applications, each serving a different role
-- **Backend Layer**: Ktor (Kotlin) providing RESTful APIs, including multiple service modules
-- **Data Layer**: MySQL for persistent storage, Redis for caching acceleration, object storage for file management
-- **Legacy Note**: The legacy FastAPI (Python) backend and its frontend apps have been moved to the `release_python_backend` branch
+- **Frontend layer**: Three independent Vue 3 apps under `app/`, each serving a different role; shared logic lives in `packages/`.
+- **Backend layer**: Ktor (Kotlin) REST API in a separate repository; this repo talks to it through the `@guga-reading/shares` API layer.
+- **Data layer**: MySQL stores metadata, Redis caches hot data, and file storage keeps chapter content and static assets.
 
-## 📁 Project Structure
+## 📁 Repository Structure
 
 ```
 guga_reading/
-├── ktorBackend/                      # **Current primary backend** (Ktor + Kotlin)
-│   ├── src/main/kotlin/com/qianrenni/
-│   │   ├── controller/               # API route controllers
-│   │   ├── services/                 # Business logic service layer
-│   │   ├── models/                   # Data models (domain + tables)
-│   │   ├── plugins/                  # Plugin configuration (auth, rate limiting, CORS, etc.)
-│   │   ├── database/                 # Database and Redis clients
-│   │   ├── schemas/                  # Response models
-│   │   ├── enums/                    # Enum definitions
-│   │   ├── utils/                    # Utility functions
-│   │   └── workers/                  # Scheduled tasks
-│   ├── build.gradle.kts              # Gradle build configuration
-│   └── Dockerfile                    # Docker deployment
-│
-├── backend/                          # **Legacy backend (FastAPI/Python)** - no longer maintained
-│                                      # Moved to `release_python_backend` branch
-│   ├── app/
-│
-├── author/                           # Author client app (Vue 3) [Legacy]
-│                                      # Moved to `release_python_backend` branch
-│   ├── src/
-│   │   ├── components/               # Vue components
-│   │   ├── views/                    # Page views
-│   │   ├── store/                    # Pinia state management
-│   │   ├── config/                   # Configuration files
-│   │   └── route.ts                  # Routing configuration
-│   ├── public/                       # Public assets
-│   ├── package.json
-│   └── vite.config.ts
-│
-├── user/                             # User client app (Vue 3) [Legacy]
-│                                      # Moved to `release_python_backend` branch
-│   ├── src/
-│   │   ├── components/               # Vue components
-│   │   ├── views/                    # Page views
-│   │   ├── store/                    # Pinia state management
-│   │   └── config/                   # Configuration files
-│   ├── public/                       # Public assets
-│   └── package.json
-│
-├── admin/                            # Admin panel (Vue 3) [Legacy]
-│                                      # Moved to `release_python_backend` branch
-│   ├── src/
-│   │   └── views/                    # Page views
-│   ├── public/                       # Public assets
-│   └── package.json
-│
-├── packages/                         # Shared packages (Monorepo)
-│   ├── eslint/                       # ESLint configuration
-│   ├── shares/                       # Shared tools and constants
-│   └── types/                        # TypeScript type definitions
-│
-├── .husky/                           # Git Hooks configuration
-├── .github/                          # GitHub workflows
-├── docker-compose.yml                # Root Docker orchestration
-├── nginx.conf                        # Nginx configuration
-├── package.json                      # Root pnpm configuration
-├── pnpm-workspace.yaml               # pnpm workspace configuration
-└── README.md                         # Project documentation
+├── app/                             # Three frontend applications
+│   ├── user/                        # User client (@guga-reading/user)
+│   ├── author/                      # Author client (@guga-reading/author)
+│   └── admin/                       # Admin panel (@guga-reading/admin)
+├── packages/                        # Shared workspace packages
+│   ├── types/                       # Shared TS types (@guga-reading/types)
+│   ├── shares/                      # API wrappers / stores / app assembly (@guga-reading/shares)
+│   ├── ui/                          # Shared business components + global styles (@guga-reading/ui)
+│   ├── config/                      # Vite preset (@guga-reading/config)
+│   └── eslint/                      # ESLint config (@qyani/eslint-config)
+├── .husky/                          # Git hooks (Prettier + ESLint pre-commit)
+├── .github/                         # CI workflows
+├── docker-compose.yml               # mysql + redis + backend + nginx frontend
+├── Dockerfile
+├── nginx.conf                       # Serves the three apps and proxies /api
+├── package.json                     # Root pnpm config
+├── pnpm-workspace.yaml              # Workspace: packages/* + app/*
+└── AGENTS.md                        # Coding assistant guide
 ```
 
-> 💡 **Note**: The primary backend is now `ktorBackend` (Ktor + Kotlin). The legacy Python (FastAPI) backend and its frontend apps (user, author, admin) have been moved to the `release_python_backend` branch. This project uses pnpm workspace to manage frontend applications.
+> Each app's `node_modules` is installed independently (not workspace symlinks), so changes to `packages/*` take effect only after rebuilding them (see `pnpm types` below).
+
+## 📦 Shared Packages
+
+| Package           | Name                   | Purpose                                                                                                                                                          |
+| ----------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/types`  | `@guga-reading/types`  | Frontend/backend shared TypeScript types — the single source of truth for field naming                                                                           |
+| `packages/shares` | `@guga-reading/shares` | `useApiXxx` API wrappers, `request` interceptor, shared stores (`useAuthStore`/`useMenuStore`), app assembly factory `setupGugaApp`                              |
+| `packages/ui`     | `@guga-reading/ui`     | author/admin shared business components (`EditableTitle`/`ContentEditor`/`HeaderNavigation`/`SiderBar`/`LoginView`, **named exports only**) + global `style.css` |
+| `packages/config` | `@guga-reading/config` | Unified Vite preset `createGugaViteConfig` (alias, chunking, plugins)                                                                                            |
+| `packages/eslint` | `@qyani/eslint-config` | Shared ESLint configuration                                                                                                                                      |
+
+> **After modifying any shared package, run `pnpm types`** (rebuild order: types → shares → ui) so the three apps pick up the changes.
 
 ## 🎯 Feature Modules
 
 ### 👤 User Features
 
-- **🔐 Account Management**: Register/login (phone/email), profile management, password management
-- **📚 Content Browsing**: Category browsing, tag filtering, full-text search, book details
-- **📖 Reading Experience**: Chapter reading, page turning/swiping, font/background adjustment, night mode
-- **💬 Interaction Features**: Bookmarking, follow updates, chapter comments, likes
-- **⏱️ Reading Progress**: Auto-sync, resume reading
-- **🎯 Personalized Recommendations**: Homepage recommendations, shelf recommendations, “you may like”
+- **🔐 Account**: Register/login (phone/email), profile, password management
+- **📚 Content Discovery**: Category browsing, tag filtering, full-text search, book details
+- **📖 Reading Experience**: Chapter reading, paging/swiping, font/background adjustment, night mode
+- **💬 Interactions**: Favorites, follow updates, chapter comments, likes
+- **⏱️ Reading Progress**: Auto-sync and resume reading across devices
+- **🎯 Personalized Recommendations**: Homepage, shelf, and "you may like"
 
 ### ✍️ Author Features
 
-- **✅ Author Verification**: Online application, approval management
-- **📝 Work Management**: Create books, edit information, manage chapters
-- **✏️ Content Creation**: Rich text editor, draft system, version management
+- **✅ Author Verification**: Online application and approval management
+- **📝 Work Management**: Create books, edit info, manage chapters
+- **✏️ Content Creation**: Rich-text editor, drafts, version management
 - **📊 Statistics**: Views, favorites, comments, revenue analysis
 - **📤 Upload Support**: EPUB, TXT, and other formats
 
 ### 🔧 Admin Features
 
 - **👥 User Management**: User list, muting, banning, author verification approval
-- **📚 Content Management**: Book/chapter approval, takedown, comment management, report handling
-- **📈 Data Statistics**: Platform data, active users, reading volume statistics
-- **⚙️ System Management**: Configuration management, log viewing, category/tag management
+- **📚 Content Management**: Book/chapter review, takedown, comment moderation, report handling
+- **📈 Data Statistics**: Platform data, active users, reading volume
+- **⚙️ System Management**: Config, logs, category/tag management
 
 ## 🛠️ Tech Stack
 
-### Backend Technologies (Current Primary)
+### Frontend (this repository)
 
-| Technology        | Version               | Description                      |
-| ----------------- | --------------------- | -------------------------------- |
-| **Framework**     | Ktor 3.5.0            | Asynchronous web framework       |
-| **Language**      | Kotlin 2.1+           | JVM programming language         |
-| **Database**      | MySQL                 | Primary data storage             |
-| **Cache**         | Redis 6.4.0           | Caching, rate limiting, sessions |
-| **ORM**           | Exposed               | Kotlin ORM framework             |
-| **Auth**          | Ktor Auth + JWT       | JWT authentication               |
-| **Rate Limiting** | flaxoos-rate-limiting | Redis token bucket algorithm     |
-| **Build Tool**    | Gradle + Kotlin DSL   | Project build                    |
-| **Deployment**    | Docker                | Containerized deployment         |
+| Technology           | Version                                  | Description                       |
+| -------------------- | ---------------------------------------- | --------------------------------- |
+| **Framework**        | Vue 3.5                                  | Progressive framework             |
+| **Language**         | TypeScript 5.9                           | Type safety                       |
+| **Build tool**       | Vite 7                                   | Fast dev server & bundler         |
+| **State management** | Pinia 3                                  | Vue 3 official store              |
+| **Routing**          | Vue Router 4.6                           | SPA routing                       |
+| **UI library**       | qyani-components 1.6.3 + @qianrenni/core | Local component library           |
+| **HTTP**             | Axios 1.13                               | HTTP client                       |
+| **Charts**           | ECharts 6                                | Data visualization (author/admin) |
+| **Utilities**        | @vueuse/core 14                          | Composition utilities             |
+| **Testing**          | Vitest 4 + Playwright                    | Unit + browser component tests    |
+| **Monorepo**         | pnpm workspace                           | packages/_ + app/_                |
 
-### Backend Technologies (Legacy - moved to `release_python_backend` branch)
+### Backend (separate repository)
 
-| Technology          | Version            | Description                  |
-| ------------------- | ------------------ | ---------------------------- |
-| **Framework**       | FastAPI 0.119.0    | Asynchronous web framework   |
-| **Language**        | Python 3.8+        | Programming language         |
-| **ORM**             | SQLAlchemy 2.0.44  | Asynchronous ORM             |
-| **Recommendation**  | TF-IDF + NumPy     | Personalized recommendations |
-| **Task Scheduling** | APScheduler 3.11.2 | Scheduled tasks              |
-| **Deployment**      | Gunicorn + Uvicorn | Containerized deployment     |
+| Technology                | Description                              |
+| ------------------------- | ---------------------------------------- |
+| **Ktor 3.5 + Kotlin 2.1** | Async web framework (JVM)                |
+| **Exposed**               | Kotlin ORM                               |
+| **MySQL / Redis**         | Metadata storage / cache & rate limiting |
+| **Ktor Auth + JWT**       | Authentication & permission checks       |
+| **Docker**                | Containerized deployment                 |
 
-### Frontend Technologies
+> API docs (Swagger): `http://localhost:8000/swagger` (when the backend is running locally).
 
-| Technology           | Version                | Description                   |
-| -------------------- | ---------------------- | ----------------------------- |
-| **Framework**        | Vue 3.5.24             | Progressive framework         |
-| **Language**         | TypeScript 5.9.3       | Type safety                   |
-| **State Management** | Pinia 3.0.4            | Vue 3 official recommendation |
-| **Routing**          | Vue Router 4.6.4       | SPA routing                   |
-| **UI Components**    | qyani-components 1.5.3 | Custom component library      |
-| **Build Tool**       | Vite 7.2.5             | Fast development server       |
-| **Charts**           | ECharts 6.0.0          | Data visualization            |
-| **HTTP**             | Axios 1.13.6           | HTTP client                   |
+### Legacy (branch `release_python_backend`)
 
-### Mobile (Android) Technologies
-
-| Technology        | Version                     | Description                         |
-| ----------------- | --------------------------- | ----------------------------------- |
-| **Language**      | Kotlin                      | Modern Android development language |
-| **UI Framework**  | Jetpack Compose             | Declarative UI framework            |
-| **Networking**    | Ktor Client                 | Lightweight HTTP client             |
-| **Serialization** | kotlinx.serialization       | JSON serialization                  |
-| **Image Loading** | Coil 2.6.0                  | Image loading library               |
-| **Navigation**    | Navigation Compose          | Page navigation                     |
-| **Storage**       | DataStore + Security Crypto | Secure local storage                |
-| **Asynchrony**    | Kotlin Coroutines           | Coroutine support                   |
+The old FastAPI (Python) backend and its accompanying Vue frontends were moved out of this repository; they are no longer maintained.
 
 ## 🚀 Quick Start
 
 ### Requirements
 
-- **Backend (Ktor)**: JDK 21+, Gradle 8.0+
-- **Frontend**: Node.js >= 16.0.0, pnpm >= 8.0.0
-- **Database**: MySQL 5.7+
-- **Cache**: Redis 5.0+
-- **Mobile**: Android Studio Hedgehog+, JDK 11+
-- **Legacy Python Backend**: Python 3.8+ (on `release_python_backend` branch)
+- **Node.js** ≥ 20.19 (required by Vite 7)
+- **pnpm** ≥ 9 (the workspace uses `pnpm@10.28.1`)
+- **Docker** (optional, for full-stack deployment via `docker-compose.yml`)
 
-### Backend Setup (Current Primary - Ktor)
-
-#### Option 1: Local Run
-
-1. **Configure environment variables**
+### Install dependencies
 
 ```bash
-cd ktorBackend
-# Copy and edit the configuration file
-cp .env.example .env
-# Edit .env to set database, Redis, email, etc.
-```
-
-2. **Initialize database**
-
-```bash
-# Run SQL initialization script
-mysql -u root -p < ktorBackend/database.sql
-```
-
-3. **Run the service**
-
-```bash
-cd ktorBackend
-./gradlew run
-```
-
-#### Option 2: Docker Deployment
-
-```bash
-cd ktorBackend
-docker build -t guga_backend .
-docker run -p 8000:8000 guga_backend
-```
-
-Access API docs (Swagger UI): http://localhost:8000/swagger
-
-> **Note**: The legacy FastAPI (Python) backend has been moved to the `release_python_backend` branch.
-
-### Frontend Setup
-
-#### Monorepo Management
-
-This project uses pnpm workspace to manage multiple frontend applications.
-
-**Install all dependencies**
-
-```bash
-# Run in the root directory
+# Run in the repository root
 pnpm install
 ```
 
-**Common commands**
+### Common commands
 
 ```bash
-# Start author client dev server
-pnpm dev:author
+# ★ Rebuild shared packages after modifying packages/ (order: types → shares → ui)
+pnpm types
 
-# Start user client dev server
+# Start a dev server for one app
 pnpm dev:user
-
-# Start admin panel dev server
+pnpm dev:author
 pnpm dev:admin
 
-# Build all frontend apps
+# Build all three apps
 pnpm build:all
 
-# Code formatting
+# Run all tests (node logic + browser rendering, recursive over all packages)
+pnpm test
+
+# Full type check: build shared packages + sources + tests
+pnpm type:check
+pnpm type:check:test        # tests only
+
+# Format all code
 pnpm prettier
 ```
 
-#### Run a single application
-
-**Author client**
+### Run a single app
 
 ```bash
-cd author
-pnpm install
-pnpm dev
-# Access http://localhost:80
+pnpm --filter @guga-reading/user run dev
+# or
+cd app/user && pnpm install && pnpm dev
 ```
 
-**User client**
-
-```bash
-cd user
-pnpm install
-pnpm dev
-```
-
-**Admin panel**
-
-```bash
-cd admin
-pnpm install
-pnpm dev
-```
-
-### Android Mobile Setup
-
-1. **Clone the project**
-
-```bash
-git clone <repository-url>
-cd reading
-```
-
-2. **Configure signing (optional, for release builds)**
-
-Add the following to the `local.properties` file:
-
-```properties
-storeFile=/path/to/your/keystore.jks
-storePassword=your_store_password
-keyAlias=your_key_alias
-keyPassword=your_key_password
-```
-
-3. **Open the project with Android Studio**
-
-- Launch Android Studio
-- Select "Open an existing project"
-- Choose the `reading` directory
-- Wait for Gradle sync to finish
-
-4. **Run the app**
-
-- Connect an Android device or start an emulator
-- Click the Run button or press `Shift + F10`
-- The app will be installed and launched automatically
-
-5. **Command line builds (optional)**
-
-```bash
-# Debug build
-./gradlew assembleDebug
-
-# Release build
-./gradlew assembleRelease
-
-# Install to device
-./gradlew installDebug
-```
-
-APK locations:
-
-- Debug: `app/build/outputs/apk/debug/app-debug.apk`
-- Release: `app/build/outputs/apk/release/app-release.apk`
-
-## 📊 Performance Optimization
-
-### Backend Optimization Strategies
-
-- **💾 Caching**
-  - Redis caches popular books, chapter content, recommendation results
-  - Real-time caching of user reading progress
-  - Distributed rate limiting protects core APIs
-
-- **🗄️ Database Optimization**
-  - Index optimization for high‑frequency query fields
-  - Read/write separation design
-  - Paginated queries to avoid large data loads
-
-- **⚡ Concurrency Handling**
-  - Asynchronous I/O improves throughput
-  - Distributed locks ensure data consistency
-  - Thread pool manages resources
-
-### Frontend Optimization Strategies
-
-- **🚀 Loading Optimization**: Lazy loading routes, asynchronous components
-- **🎨 Rendering Optimization**: Virtual lists, debouncing/throttling
-- **💿 Cache Optimization**: Local storage, request caching
-- **📱 Responsive Design**: Mobile/desktop adaptation
-
-### Android Mobile Optimization
-
-- **🖼️ Image Optimization**: Coil automatic caching and compression
-- **📡 Network Optimization**: Ktor connection pooling, request coalescing
-- **💾 Local Caching**: DataStore for persistent user preferences
-- **🔋 Battery Optimization**: Structured concurrency with coroutines to avoid memory leaks
-
-## 🔒 Security Design
-
-- **🔐 Authentication & Authorization**: JWT tokens + permission checks
-- **🛡️ Data Validation**: Protection against SQL injection, XSS attacks
-- **⏱️ Rate Limiting**: Redis token bucket algorithm
-- **📁 File Security**: Upload file type/content validation
-- **📝 Audit Logging**: Tracking of critical operations
-
-## 📈 High Availability Design
-
-- **⚖️ Load Balancing**: Nginx reverse proxy + health checks
-- **🔄 Service Redundancy**: MySQL primary‑replica replication, Redis sentinel mode
-- **🚑 Failure Recovery**: Auto‑restart, exception monitoring
-- **💾 Data Backup**: Scheduled backups, disaster recovery
-
-## 📝 API Documentation
-
-After starting the backend service, visit the following address to view API docs:
-
-- **Swagger UI**: http://localhost:8000/swagger
-
-The API documentation provides complete endpoint descriptions, request parameters, response examples, and online testing.
+> The user/author/admin apps install their own `node_modules` independently — changes in `packages/*` only propagate after `pnpm types` (and `pnpm install` if new dependencies were added).
 
 ## 🧪 Testing
 
-### Backend Testing
+Frontend testing uses **Vitest** across every `packages/*` and `app/*` package, with two environments per package (`test.projects` + `extends`):
+
+- **node**: logic / composable / store / API tests (DOM-dependent files opt in with a `// @vitest-environment jsdom` header)
+- **browser**: component rendering tests (`*.render.test.ts`) via Playwright + chromium + `vitest-browser-vue`
 
 ```bash
-cd ktorBackend
-./gradlew test
+# All packages
+pnpm test
+
+# Single package
+pnpm --filter @guga-reading/shares run test
+
+# Coverage
+pnpm test:coverage
 ```
 
-> **Legacy backend testing**: Tests for the FastAPI (Python) backend have been moved to the `release_python_backend` branch. To run them:
->
-> ```bash
-> cd backend
-> pytest
-> ```
+> Run `npx playwright install chromium` before the browser tests. Test files sit next to the code under test; pure logic inside components is extracted into same-directory `composable.ts` files so it can be tested.
 
-### Frontend Testing
+## 🐳 Deployment
+
+### Full stack (docker-compose)
+
+`docker-compose.yml` starts four services:
+
+- `mysql` (8.0) — metadata storage
+- `redis` (7) — cache / rate limiting
+- `guga_backend` — backend image `guga_backend_ktor:latest` (built from the separate backend repository)
+- `guga_frontend` — Nginx hosting the three built apps
+
+`nginx.conf` maps `/` → user app, `/author/` → author app, `/admin/` → admin app, and proxies `/api` to the backend.
+
+### Frontend-only build & manual deploy
 
 ```bash
-# Code linting and formatting (root directory)
-pnpm prettier
-
-# Single app linting
-cd author
-pnpm run lint
-```
-
-### Android Testing
-
-```bash
-# Run unit tests
-./gradlew test
-
-# Run instrumented tests
-./gradlew connectedAndroidTest
-
-# Generate test report
-./gradlew jacocoTestReport
-```
-
-## 📦 Deployment Architecture
-
-```
-                    ┌─────────────┐
-                    │   Nginx     │
-                    │ Load Balancer│
-                    └──────┬──────┘
-                           │
-          ┌────────────────┼────────────────┐
-          │                │                │
-    ┌─────▼─────┐   ┌─────▼─────┐   ┌─────▼─────┐
-    │   Ktor    │   │   Ktor    │   │   Ktor    │
-    │ Instance 1│   │ Instance 2│   │ Instance 3│
-    └─────┬─────┘   └─────┬─────┘   └─────┬─────┘
-          │                │                │
-          └────────────────┼────────────────┘
-                           │
-         ┌─────────────────┼─────────────────┐
-         │                 │                 │
-   ┌─────▼─────┐    ┌──────▼─────┐   ┌──────▼─────┐
-   │   MySQL   │    │   Redis    │   │ File Store │
-   │  Primary  │    │   Master   │   │   (OBS)    │
-   └─────┬─────┘    └──────┬─────┘   └────────────┘
-         │                 │
-   ┌─────▼─────┐    ┌──────▼─────┐
-   │   MySQL   │    │   Redis    │
-   │   Slave   │    │   Slave    │
-   └───────────┘    └────────────┘
-```
-
-### Mobile Architecture
-
-```
-┌──────────────────────────────────────┐
-│        Android App (Kotlin)          │
-├──────────────────────────────────────┤
-│  UI Layer (Jetpack Compose)          │
-│  ┌──────────┐ ┌──────────┐          │
-│  │  Views   │ │Components│          │
-│  └──────────┘ └──────────┘          │
-├──────────────────────────────────────┤
-│  ViewModel Layer                     │
-│  ┌──────────────────────────┐       │
-│  │   State Management       │       │
-│  └──────────────────────────┘       │
-├──────────────────────────────────────┤
-│  Data Layer                          │
-│  ┌──────────┐ ┌──────────┐          │
-│  │  Ktor    │ │DataStore │          │
-│  │ Client   │ │ (Local)  │          │
-│  └──────────┘ └──────────┘          │
-├──────────────────────────────────────┤
-│         Network (HTTPS)              │
-└──────────────┬───────────────────────┘
-               │
-               ▼
-    ┌─────────────────────┐
-    │   Backend API       │
-    │   (Ktor)            │
-    └─────────────────────┘
+pnpm build:all
+# scp app/{user,author,admin}/dist to the server (see script.local)
 ```
 
 ## 🤝 Contributing
 
 Issues and Pull Requests are welcome!
-
-### Contribution Process
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
@@ -546,12 +266,7 @@ Issues and Pull Requests are welcome!
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-### Code Standards
-
-- Follow the existing code style of the project
-- Add necessary comments and documentation
-- Ensure tests pass
-- Keep commit messages clear and concise
+Code standards (see `AGENTS.md` for details): no `any`, prefer `interface`, strict equality `===`, explicit return types on public functions, JSDoc comments; `pnpm lint-staged` runs automatically on commit.
 
 ## 📄 License
 
