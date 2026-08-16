@@ -92,10 +92,9 @@ const run = toggleFullScreen();
   border-bottom: 1px solid var(--primary-color);
 }
 
-/* 站名 h1：保留原 h3 的 UA 视觉（字号/字重/边距），语义化升级标签不改变外观 */
+/* 站名 h1：保留原 h3 的 UA 视觉（字号/字重），语义化升级标签不改变外观 */
 .brand-title {
   font-size: 1.17em;
   font-weight: bold;
-  margin: 1em 0;
 }
 </style>
