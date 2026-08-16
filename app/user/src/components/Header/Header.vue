@@ -40,14 +40,14 @@ const run = toggleFullScreen();
       </div>
       <div class="flex gap-2 items-center flex-1 justify-end">
         <router-link to="/" class="link-primary flex gap-2 items-center">
-          <QIcon icon="House" size="16" />
+          <QIcon icon="Book" size="16" />
           <h4 class="hidden-768">书城</h4>
         </router-link>
         <router-link
           to="/book-shelf"
           class="link-primary flex gap-2 items-center"
         >
-          <QIcon icon="Copy" size="16" />
+          <QIcon icon="Catalog" size="16" />
           <h4 class="hidden-768">书架</h4>
         </router-link>
         <router-link to="/history" class="link-primary flex gap-2 items-center">
