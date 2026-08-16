@@ -38,6 +38,9 @@ pnpm install
 pnpm types                # ★ 修改 packages 后必须重跑，重新构建 types + shares
 pnpm dev:user|dev:author|dev:admin   # 启动对应端开发服务器
 pnpm build:all            # 构建全部三个前端
+pnpm test                 # 全量测试（node 逻辑 + browser 渲染，递归全部包）
+pnpm type:check           # 全量类型检查：构建共享包 + 各包源码 + 测试（tsconfig.test.json）
+pnpm type:check:test      # 仅测试文件类型检查（各包 tsconfig.test.json）
 pnpm prettier             # 全量格式化
 ```
 

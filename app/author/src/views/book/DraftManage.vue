@@ -18,13 +18,13 @@ const tabs = [
   {
     name: '书籍章节变动',
     component: defineAsyncComponent(
-      () => import('@/components/book/BookChapterDraftManage.vue'),
+      () => import('@/components/book/BookChapterDraftManage'),
     ),
   },
   {
     name: '书籍变动',
     component: defineAsyncComponent(
-      () => import('@/components/book/BookDraftManage.vue'),
+      () => import('@/components/book/BookDraftManage'),
     ),
   },
 ];

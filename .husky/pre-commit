@@ -1,4 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+set -e
+
+# 提交前门禁：格式/规范 → 类型检查 → 全量测试（任一失败即中止提交）
 pnpm lint-staged
+pnpm type:check
+pnpm test

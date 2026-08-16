@@ -16,7 +16,7 @@
 import { ref, computed, defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import { QTab } from 'qyani-components';
-import BackButton from '@/components/common/BackButton.vue';
+import { BackButton } from '@/components/common/BackButton';
 import { parseBookId } from './composable';
 defineOptions({
   name: 'BookDetail',
@@ -31,13 +31,13 @@ const tabs = [
   {
     name: '章节管理',
     component: defineAsyncComponent(
-      () => import('@/components/book/BookChapterManage.vue'),
+      () => import('@/components/book/BookChapterManage'),
     ),
   },
   {
     name: '基本信息',
     component: defineAsyncComponent(
-      () => import('@/components/book/BookBasicInfo.vue'),
+      () => import('@/components/book/BookBasicInfo'),
     ),
   },
   {

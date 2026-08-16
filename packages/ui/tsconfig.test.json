@@ -1,0 +1,15 @@
+{
+  // 内联测试专用 tsconfig：继承主配置复用路径别名与严格检查，
+  // 仅以测试文件为程序根；独立于构建（主配置 emitDeclarationOnly/declaration 仅用于发布声明）
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false,
+    "declarationDir": null,
+    "emitDeclarationOnly": false,
+    "moduleResolution": "bundler",
+    "types": ["vitest/globals"]
+  },
+  "include": ["src/**/*.test.ts"],
+  "exclude": ["node_modules", "dist"]
+}

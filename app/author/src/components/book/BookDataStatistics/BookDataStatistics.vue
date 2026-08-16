@@ -27,7 +27,7 @@ import { computed, onBeforeMount, ref } from 'vue';
 import type { ChapterReadStatistic } from '@guga-reading/types';
 import { useApiStatistic } from '@guga-reading/shares';
 import { type ECOption } from '@/components/chart/composable';
-import HeatMapChart from '@/components/chart/HeatMapChart.vue';
+import { HeatMapChart } from '@/components/chart/HeatMapChart';
 import { QFormSelect } from 'qyani-components';
 import { getHeatMapOptions, buildHeatMapData } from './composable';
 defineOptions({

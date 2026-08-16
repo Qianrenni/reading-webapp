@@ -11,11 +11,11 @@
   </div>
 </template>
 <script lang="ts" setup>
-import BackButton from '@/components/common/BackButton.vue';
+import { BackButton } from '@/components/common/BackButton';
 import { useMessage } from 'qyani-components';
 import { transformImage, useApiAuthor } from '@guga-reading/shares';
 import { useAuthStore } from '@/store';
-import BookMeta from '@/components/book/BookMeta.vue';
+import { BookMeta } from '@/components/book/BookMeta';
 import { QFormButton } from 'qyani-components';
 import { useTemplateRef } from 'vue';
 import { router } from '@/route';

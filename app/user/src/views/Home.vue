@@ -8,7 +8,7 @@ import {
   useTemplateRef,
   watch,
 } from 'vue';
-import BookItem from '@/components/BookItem.vue';
+import { BookItem } from '@/components/BookItem';
 import { QScrollContainer, QSkeleton } from 'qyani-components';
 
 defineOptions({

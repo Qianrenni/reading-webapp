@@ -29,7 +29,7 @@
 import { ref } from 'vue';
 import { onBeforeMount } from 'vue';
 import { useApiAuthor } from '@guga-reading/shares';
-import BookItem from '@/components/book/BookItem.vue';
+import { BookItem } from '@/components/book/BookItem';
 import type { Book } from '@guga-reading/types';
 import { QIcon, QFormButton, QLoading } from 'qyani-components';
 import { router } from '@/route';

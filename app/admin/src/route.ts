@@ -35,12 +35,12 @@ const routes = [
           {
             path: 'book',
             name: 'DraftManageBook',
-            component: () => import('@/components/book/draft/Book.vue'),
+            component: () => import('@/components/book/draft/Book'),
           },
           {
             path: 'chapter',
             name: 'DraftManageChapter',
-            component: () => import('@/components/book/draft/Chapter.vue'),
+            component: () => import('@/components/book/draft/Chapter'),
           },
         ],
       },

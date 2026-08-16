@@ -22,7 +22,7 @@
 </template>
 <script setup lang="ts">
 import { useBookSearchStore } from '@/store/useBookSearchStore';
-import BookItem from '@/components/BookItem.vue';
+import { BookItem } from '@/components/BookItem';
 import { QScrollContainer, QLoading } from 'qyani-components';
 defineOptions({
   name: 'BookSearch',

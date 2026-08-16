@@ -18,6 +18,9 @@
     "test": "pnpm -r run test",
     "test:watch": "pnpm -r run test:watch",
     "test:coverage": "pnpm -r run test:coverage",
+    "test:all": "pnpm -r run test",
+    "type:check": "pnpm types && pnpm -r run typecheck && pnpm -r run typecheck:test",
+    "type:check:test": "pnpm -r run typecheck:test",
     "prettier": "npx prettier --write \"*/**/*.{js,ts,vue,css,md}\"",
     "prepare": "husky install"
   },

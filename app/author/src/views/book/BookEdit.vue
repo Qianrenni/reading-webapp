@@ -35,7 +35,7 @@ import {
 } from 'vue';
 import { router } from '@/route';
 import { ContentEditor } from '@guga-reading/ui';
-import BackButton from '@/components/common/BackButton.vue';
+import { BackButton } from '@/components/common/BackButton';
 import {
   QIcon,
   QFormSelect,

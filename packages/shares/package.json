@@ -6,6 +6,8 @@
   "types": "./dist/types/index.d.ts",
   "scripts": {
     "build": "vue-tsc --build --declaration --emitDeclarationOnly",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "typecheck:test": "vue-tsc --noEmit -p tsconfig.test.json",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"

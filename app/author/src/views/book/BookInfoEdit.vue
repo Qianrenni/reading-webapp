@@ -11,8 +11,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-import BackButton from '@/components/common/BackButton.vue';
-import BookMeta from '@/components/book/BookMeta.vue';
+import { BackButton } from '@/components/common/BackButton';
+import { BookMeta } from '@/components/book/BookMeta';
 import { QFormButton, useMessage } from 'qyani-components';
 import { letIfNotNull } from '@qianrenni/core';
 import { onBeforeMount, reactive, useTemplateRef } from 'vue';

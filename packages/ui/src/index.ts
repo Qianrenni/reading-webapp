@@ -1,5 +1,5 @@
-export { default as EditableTitle } from './EditableTitle.vue';
+export { EditableTitle } from './EditableTitle/index';
 export { ContentEditor } from './ContentEditor/index';
-export { default as HeaderNavigation } from './HeaderNavigation.vue';
-export { default as SiderBar } from './SiderBar.vue';
+export { HeaderNavigation } from './HeaderNavigation/index';
+export { SiderBar } from './SiderBar/index';
 export { LoginView } from './LoginView/index';
