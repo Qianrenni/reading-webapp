@@ -519,10 +519,10 @@ const heartBeat = {
   },
   start: function () {
     this.stop();
-    this.timer = window.setInterval(heartBeat.task, heartBeat.interval);
+    this.timer = setInterval(heartBeat.task, heartBeat.interval);
   },
   stop: function () {
-    window.clearInterval(this.timer);
+    clearInterval(this.timer);
     this.timer = -1;
   },
 };

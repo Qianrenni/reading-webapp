@@ -2,58 +2,49 @@
   <main class="content-container">
     <section class="flex flex-col gap-2 p-2 bg-card">
       <h3 class="text-center">用户登录</h3>
-      <div class="text-08rem mouse-cursor flex justify-center">
-        <span v-show="mode !== 'password'" @click="mode = 'password'">
-          密码登录
-        </span>
-        <span v-show="mode !== 'qr'" @click="mode = 'qr'"> 扫码登录 </span>
+      <QFormText
+        prefixIcon="User"
+        v-model="form.username"
+        type="email"
+        placeholder="请输入用户名"
+        name="username"
+      />
+      <QFormText
+        prefixIcon="Lock"
+        v-model="form.password"
+        type="password"
+        placeholder="请输入密码"
+        name="password"
+      />
+      <div class="flex gap-2 p-2" style="padding: 0">
+        <QFormText
+          v-model="form.captcha"
+          type="text"
+          placeholder="请输入验证码"
+          name="captcha"
+        />
+        <QLazyImage
+          class="mouse-cursor"
+          :width="80"
+          :height="30"
+          :src="image"
+          @click="refreshCaptcha"
+        />
       </div>
-      <template v-if="mode === 'password'">
-        <QFormText
-          prefixIcon="User"
-          v-model="form.username"
-          type="email"
-          placeholder="请输入用户名"
-          name="username"
+      <div class="flex items-center justify-between text-08rem">
+        <QFormCheckboxGroup
+          v-model="form.remember"
+          :options="[{ label: '记住我', value: 'remember' }]"
+          style="padding: 0"
         />
-        <QFormText
-          prefixIcon="Lock"
-          v-model="form.password"
-          type="password"
-          placeholder="请输入密码"
-          name="password"
-        />
-        <div class="flex gap-2 p-2" style="padding: 0">
-          <QFormText
-            v-model="form.captcha"
-            type="text"
-            placeholder="请输入验证码"
-            name="captcha"
-          />
-          <QLazyImage
-            class="mouse-cursor"
-            :width="80"
-            :height="30"
-            :src="image"
-            @click="refreshCaptcha"
-          />
-        </div>
-        <div class="flex items-center justify-between text-08rem">
-          <QFormCheckboxGroup
-            v-model="form.remember"
-            :options="[{ label: '记住我', value: 'remember' }]"
-            style="padding: 0"
-          />
-          <RouterLink to="/forget-password" class="link-primary">
-            忘记密码?
-          </RouterLink>
-        </div>
-        <QFormButton type="button" class="button-primary" @click="run">
-          <QLoading v-if="loading" type="breathing" />
-          <span v-else>登录</span>
-        </QFormButton>
-      </template>
-      <LoginQr v-else />
+        <RouterLink to="/forget-password" class="link-primary">
+          忘记密码?
+        </RouterLink>
+      </div>
+      <QFormButton type="button" class="button-primary" @click="run">
+        <QLoading v-if="loading" type="breathing" />
+        <span v-else>登录</span>
+      </QFormButton>
       <div class="flex items-center justify-center">
         <RouterLink to="/register" class="link-primary text-08rem">
           没有账号?立即注册
@@ -74,7 +65,6 @@ import {
   QLazyImage,
   QLoading,
 } from 'qyani-components';
-import { LoginQr } from '@/components/LoginQr';
 import { useAuthStore } from '@/store';
 import router from '@/route';
 import axios from 'axios';
@@ -85,8 +75,6 @@ const authStore = useAuthStore();
 if (authStore.isLogin) {
   router.push('/');
 }
-/** 登录方式:密码登录 / 扫码登录 */
-const mode = ref<'password' | 'qr'>('password');
 const image = ref<string>('');
 const form = ref({
   username: '',
