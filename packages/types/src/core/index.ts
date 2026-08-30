@@ -7,3 +7,4 @@ export * from './system';
 export * from './authorApplication';
 export * from './right';
 export * from './comment';
+export * from './qrLogin';

@@ -16,15 +16,17 @@
     "@guga-reading/config": "workspace:*",
     "@guga-reading/shares": "workspace:*",
     "@guga-reading/types": "workspace:*",
+    "@qianrenni/core": "^1.0.0",
     "@vueuse/core": "^14.3.0",
     "pinia": "^3.0.4",
+    "qrcode": "^1.5.4",
     "qyani-components": "^1.6.3",
-    "@qianrenni/core": "^1.0.0",
     "vue": "^3.5.18",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "@types/qrcode": "^1.5.6",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "^0.8.1",
