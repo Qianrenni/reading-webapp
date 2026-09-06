@@ -17,10 +17,10 @@
     "@guga-reading/shares": "workspace:*",
     "@guga-reading/types": "workspace:*",
     "@guga-reading/ui": "workspace:*",
+    "@qianrenni/core": "^1.0.0",
     "echarts": "^6.0.0",
     "pinia": "^3.0.4",
-    "qyani-components": "^1.6.3",
-    "@qianrenni/core": "^1.0.0",
+    "qyani-components": "^1.6.6",
     "vue": "^3.5.18",
     "vue-router": "^4.6.4"
   },

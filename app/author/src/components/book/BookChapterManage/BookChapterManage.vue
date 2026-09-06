@@ -95,7 +95,7 @@ defineOptions({
 const props = defineProps<{
   bookId: number;
 }>();
-const catalogList = ref<BookChapter[]>([]);
+const catalogList = ref<(BookChapter & { index?: number })[]>([]);
 const loading = ref(false);
 const columns = [
   {

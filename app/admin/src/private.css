@@ -7,50 +7,13 @@ body {
 #app {
   display: flex;
 }
-:root {
-  /* 精确覆盖 qyani 语义 token：qyani 组件/工具类直接引用 --q-color-*，仅覆盖旧别名（--primary-*）不生效 */
-  --q-color-primary: #1d4ed8;
-  --q-color-primary-hover: #15399a;
-  --q-color-primary-active: #15399a;
-  --q-color-primary-light: #4e7dff;
-  --q-color-primary-lighter: #e6edff;
-  --q-color-link: #0240ed;
-  --q-color-link-hover: #0240ed;
-  --q-color-tag: #1d4ed8;
-
-  /* 兼容别名：跟随 qyani 语义 token，端内旧样式（--primary-color 等）继续可用 */
-  --primary-color: var(--q-color-primary);
-  --primary-hover: var(--q-color-primary-hover);
-  --primary-light: var(--q-color-primary-light);
-  --link-hover: var(--q-color-link-hover);
-  --tag-primary-color: var(--q-color-tag);
-}
-
-body.dark-mode {
-  /* 暗色模式覆盖 qyani dark.css 的浅黄默认值，保持端内主色不变 */
-  --q-color-primary: #1d4ed8;
-  --q-color-primary-hover: #15399a;
-  --q-color-primary-active: #15399a;
-  --q-color-primary-light: #4e7dff;
-  --q-color-primary-lighter: #e6edff;
-  --q-color-link: #0240ed;
-  --q-color-link-hover: #0240ed;
-  --q-color-tag: #1d4ed8;
-  --shadow-element: rgba(255, 255, 255, 0.3);
-
-  --primary-color: var(--q-color-primary);
-  --primary-hover: var(--q-color-primary-hover);
-  --primary-light: var(--q-color-primary-light);
-  --link-hover: var(--q-color-link-hover);
-  --tag-primary-color: var(--q-color-tag);
-}
 
 .bg-hover-secondary:hover {
   border-radius: 0.5rem;
 }
 
 .active-common {
-  background-color: var(--primary-color);
+  background-color: var(--q-primary-color);
   color: white;
   border-radius: 0.5rem;
 }
@@ -59,7 +22,7 @@ body.dark-mode {
   width: 100%;
   height: 8px;
   border-radius: 4px;
-  background-color: var(--secondary-background-color);
+  background-color: var(--q-secondary-background-color);
   overflow: hidden;
 }
 
@@ -77,6 +40,6 @@ body.dark-mode {
   padding: 0.2rem 0.4rem;
   border-radius: 0.5rem;
   font-weight: 300;
-  background-color: var(--tag-primary-color);
+  background-color: var(--q-tag-primary-color);
   color: white;
 }

@@ -1,46 +1,3 @@
-/* author 端私有全局样式：主色与作者端独有规则（公共部分见 @guga-reading/ui/style.css） */
-:root {
-  /* 精确覆盖 qyani 语义 token：qyani 组件/工具类直接引用 --q-color-*，仅覆盖旧别名（--primary-*）不生效 */
-  --q-color-primary: #ea580c;
-  --q-color-primary-hover: #dc5005;
-  --q-color-primary-active: #dc5005;
-  --q-color-primary-light: #f97316;
-  --q-color-primary-lighter: #ffedd5;
-  --q-color-link: #dc5005;
-  --q-color-link-hover: #dc5005;
-  --q-color-tag: #ed8a60;
-
-  /* 兼容别名：跟随 qyani 语义 token，端内旧样式（--primary-color 等）继续可用 */
-  --primary-color: var(--q-color-primary);
-  --primary-hover: var(--q-color-primary-hover);
-  --primary-light: var(--q-color-primary-light);
-  --link-hover: var(--q-color-link-hover);
-  --tag-primary-color: var(--q-color-tag);
-}
-
-body.dark-mode {
-  /* 暗色模式覆盖 qyani dark.css 的浅黄默认值，保持端内主色不变 */
-  --q-color-primary: #ea580c;
-  --q-color-primary-hover: #dc5005;
-  --q-color-primary-active: #dc5005;
-  --q-color-primary-light: #f97316;
-  --q-color-primary-lighter: #ffedd5;
-  --q-color-link: #dc5005;
-  --q-color-link-hover: #dc5005;
-  --q-color-tag: #ed8a60;
-  --shadow-element: rgba(255, 255, 255, 0.3);
-
-  --primary-color: var(--q-color-primary);
-  --primary-hover: var(--q-color-primary-hover);
-  --primary-light: var(--q-color-primary-light);
-  --link-hover: var(--q-color-link-hover);
-  --tag-primary-color: var(--q-color-tag);
-}
-
-.text-success {
-  background-color: unset;
-}
-
 .hover-bottom-primary {
   position: relative;
   cursor: pointer;
@@ -54,12 +11,12 @@ body.dark-mode {
   left: 0;
   width: 0;
   height: 0.15rem;
-  background-color: var(--primary-color);
+  background-color: var(--q-primary-color);
   transition: width 0.3s ease-in-out;
 }
 
 .hover-bottom-primary:hover {
-  color: var(--primary-color);
+  color: var(--q-primary-color);
 }
 
 .hover-bottom-primary:hover::after {
@@ -69,7 +26,7 @@ body.dark-mode {
 .active-common {
   padding: 0.25rem;
   border-radius: 0.5rem;
-  background-color: var(--primary-color);
+  background-color: var(--q-primary-color);
   color: white;
   transition:
     color 0.3s ease-in-out,
@@ -104,7 +61,7 @@ body.dark-mode {
   padding: 0.2rem 0.4rem;
   border-radius: 0.5rem;
   font-weight: 300;
-  background-color: var(--tag-primary-color);
+  background-color: var(--q-tag-primary-color);
   color: white;
 }
 
