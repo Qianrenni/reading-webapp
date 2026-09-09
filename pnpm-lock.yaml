@@ -265,19 +265,19 @@ importers:
       axios:
         specifier: ^1.13.6
         version: 1.15.2
+    devDependencies:
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.33(typescript@5.9.3))
       qyani-components:
-        specifier: ^1.6.3
-        version: 1.6.3
+        specifier: ^1.6.6
+        version: 1.6.6
       vue:
         specifier: ^3.5.18
         version: 3.5.33(typescript@5.9.3)
       vue-router:
         specifier: ^4.6.4
         version: 4.6.4(vue@3.5.33(typescript@5.9.3))
-    devDependencies:
       vue-tsc:
         specifier: ^3.0.1
         version: 3.2.7(typescript@5.9.3)
@@ -296,19 +296,10 @@ importers:
       '@guga-reading/types':
         specifier: workspace:*
         version: link:../types
+    devDependencies:
       '@qianrenni/core':
         specifier: ^1.0.0
         version: 1.0.0
-      qyani-components:
-        specifier: ^1.6.3
-        version: 1.6.3
-      vue:
-        specifier: ^3.5.18
-        version: 3.5.33(typescript@5.9.3)
-      vue-router:
-        specifier: ^4.6.4
-        version: 4.6.4(vue@3.5.33(typescript@5.9.3))
-    devDependencies:
       '@vue/test-utils':
         specifier: ^2.4.11
         version: 2.4.11(@vue/compiler-dom@3.5.33)(@vue/server-renderer@3.5.33(vue@3.5.33(typescript@5.9.3)))(vue@3.5.33(typescript@5.9.3))
@@ -318,6 +309,15 @@ importers:
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.33(typescript@5.9.3))
+      qyani-components:
+        specifier: ^1.6.6
+        version: 1.6.6
+      vue:
+        specifier: ^3.5.18
+        version: 3.5.33(typescript@5.9.3)
+      vue-router:
+        specifier: ^4.6.4
+        version: 4.6.4(vue@3.5.33(typescript@5.9.3))
       vue-tsc:
         specifier: ^3.0.5
         version: 3.2.7(typescript@5.9.3)
@@ -1882,9 +1882,6 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
-
-  qyani-components@1.6.3:
-    resolution: {integrity: sha512-p2nqVUsbIfrWJYX7J99939egQvNfTmVeh86nUmdi2sq30ywI5bBSA5I2IgKV33kRk5qiDk5kMMCysEvPwDbo2Q==}
 
   qyani-components@1.6.6:
     resolution: {integrity: sha512-d6CL9Ld2Y1F/lwXAmixgLDy4YMSO/o1+sVz2aCQfqLMdxt0phgaWp7zDyFXy/Pz5AkKlvYrIS9KKauLJdEvvew==}
@@ -3788,10 +3785,6 @@ snapshots:
       yargs: 15.4.1
 
   queue-microtask@1.2.3: {}
-
-  qyani-components@1.6.3:
-    dependencies:
-      '@qianrenni/core': 1.0.0
 
   qyani-components@1.6.6:
     dependencies:
