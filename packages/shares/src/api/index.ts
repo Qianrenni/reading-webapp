@@ -1,6 +1,7 @@
 export * from './books';
 export * from './captcha';
 export * from './auth';
+export * from './qrLogin';
 export * from './user';
 export * from './author';
 export * from './statistic';
